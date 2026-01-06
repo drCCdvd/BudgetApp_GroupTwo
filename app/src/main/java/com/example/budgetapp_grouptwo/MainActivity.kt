@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BudgetApp_GroupTwoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
+                    ListOfExpenses(listOfExpenses, modifier)
                 }
             }
         }
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ListOfExpenses(list: List<Expense>){
+fun ListOfExpenses(list: List<Expense>, modifier: Modifier){
     var listLength = list.size;
 
     for(i in 0..listLength-1){
