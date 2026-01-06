@@ -4,9 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,7 +13,6 @@ import com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme
 import com.example.budgetapp_grouptwo.viewmodel.GoalViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 
 import com.example.budgetapp_grouptwo.model.Goal
 import com.example.budgetapp_grouptwo.ui.home.HomeScreen
