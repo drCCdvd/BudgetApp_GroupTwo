@@ -10,7 +10,7 @@ abstract class Cash (
     private var amount = amount;
     private var dateAdded = dateAdded;
 
-    fun readOutLoud() {
+    open fun readOutLoud() {
         println("amount ${amount} added at ${dateAdded}");
     }
 

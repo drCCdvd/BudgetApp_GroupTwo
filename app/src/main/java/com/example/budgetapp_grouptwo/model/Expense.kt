@@ -9,10 +9,10 @@ class Expense (
     ): Cash(amount, date){
     var amount = amount;
     var type = type;
-    var date = date;
+    var dateAdded = date;
 
     override fun readOutLoud(){
-        println("amount: ${amount}")
+        println("amount: ${amount}, Expense type is ${type.toString()}, date added: ${dateAdded}")
     }
 
 }
