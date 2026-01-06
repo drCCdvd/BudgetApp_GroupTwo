@@ -9,7 +9,12 @@ class GoalViewModel : ViewModel() {
     private val _goals = mutableStateListOf<Goal>()
     val goals: List<Goal> = _goals
 
-    fun addGoal(goal: Goal) {
-        _goals.add(goal)
+    fun addGoal(name: String, amount: Double) {
+        _goals.add(
+            Goal(
+                name = name,
+                targetAmount = amount
+            )
+        )
     }
 }
