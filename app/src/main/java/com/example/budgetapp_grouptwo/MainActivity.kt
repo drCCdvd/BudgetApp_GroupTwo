@@ -47,11 +47,16 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
-                    composable("CreateGoal") {
-                        CreateGoalScreen { name, amount ->
-                            goalViewModel.addGoal(name, amount)
-                            navController.popBackStack()
-                        }
+                    composable("createGoal") {
+                        CreateGoalScreen(
+                            onSaveGoal = { name, amount ->
+                                goalViewModel.addGoal(name, amount)
+                                navController.popBackStack()
+                            },
+                            onBackClick = {
+                                navController.popBackStack()
+                            }
+                        )
                     }
                 }
             }

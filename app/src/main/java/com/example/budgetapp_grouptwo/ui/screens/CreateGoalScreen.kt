@@ -11,7 +11,8 @@ import com.example.budgetapp_grouptwo.ui.utils.CurrencyVisualTransformation
 
 @Composable
 fun CreateGoalScreen(
-    onSaveGoal: (String, Double) -> Unit
+    onSaveGoal: (String, Double) -> Unit,
+    onBackClick: () -> Unit
 ) {
     var name by remember { mutableStateOf("") }
     var amount by remember { mutableStateOf("") }
@@ -61,6 +62,11 @@ fun CreateGoalScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Tilføj")
+        }
+        TextButton(
+            onClick = onBackClick
+        ) {
+            Text("Tilbage")
         }
     }
 }
