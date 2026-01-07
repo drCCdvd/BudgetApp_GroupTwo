@@ -24,15 +24,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.budgetapp_grouptwo.model.Goal
+import androidx.compose.material3.OutlinedTextField
 
 @Composable
 
 fun GoalItem(
     goal: Goal,
+    onAddMoney: (String, Double) -> Unit,
     onRemove: (String) -> Unit
 ) {
     var showConfirm by remember { mutableStateOf(false) }
+    var showAddDialog by remember { mutableStateOf(false) }
+    var inputAmount by remember { mutableStateOf("") }
+    val progress =
+        (goal.savedAmount / goal.targetAmount)
+            .toFloat()
+            .coerceIn(0f, 1f)
 
+    val percent = (progress * 100).toInt()
+    val isCompleted = progress >= 1f
     Card(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
@@ -42,8 +52,36 @@ fun GoalItem(
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(goal.name, style = MaterialTheme.typography.titleMedium)
+
                 Spacer(Modifier.height(4.dp))
-                Text("Beløb: ${goal.targetAmount} kr.")
+                Text("${percent}% i mål")
+
+                Spacer(Modifier.height(6.dp))
+                androidx.compose.material3.LinearProgressIndicator(
+                    progress = progress,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(8.dp)
+                )
+
+                Spacer(Modifier.height(6.dp))
+                Text("${goal.savedAmount.toInt()} / ${goal.targetAmount.toInt()} kr.")
+
+                Spacer(Modifier.height(8.dp))
+                if (isCompleted) {
+                    Text(
+                        text = "100% i mål!",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                } else {
+                    TextButton(
+                        onClick = {
+                            showAddDialog = true
+                        }
+                    ) {
+                        Text("Tilføj beløb")
+                    }
+                }
             }
 
             IconButton(onClick = { showConfirm = true}) {
@@ -54,6 +92,48 @@ fun GoalItem(
             }
         }
     }
+    if (showAddDialog) {
+        AlertDialog(
+            onDismissRequest = {
+                showAddDialog = false
+                inputAmount = ""
+            },
+            title = { Text("Tilføj beløb") },
+            text = {
+                OutlinedTextField(
+                    value = inputAmount,
+                    onValueChange = { inputAmount = it.filter { c -> c.isDigit() } },
+                    label = { Text("Beløb (kr.)") },
+                    singleLine = true
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        val amount = inputAmount.toDoubleOrNull()
+                        if (amount != null && amount > 0) {
+                            onAddMoney(goal.id, amount)
+                        }
+                        showAddDialog = false
+                        inputAmount = ""
+                    }
+                ) {
+                    Text("Tilføj")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showAddDialog = false
+                        inputAmount = ""
+                    }
+                ) {
+                    Text("Annuller")
+                }
+            }
+        )
+    }
+
     if (showConfirm) {
         AlertDialog(
             onDismissRequest = { showConfirm = false },

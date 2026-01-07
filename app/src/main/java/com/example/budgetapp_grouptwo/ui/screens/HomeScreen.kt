@@ -14,6 +14,7 @@ import com.example.budgetapp_grouptwo.model.Goal
 fun HomeScreen(
     goals: List<Goal>,
     onCreateGoalClick: () -> Unit,
+    onAddMoney: (String, Double) -> Unit,
     onRemoveGoal: (String) -> Unit
 ) {
     Column(
@@ -41,9 +42,8 @@ fun HomeScreen(
                 items(items = goals, key = { it.id }) { goal ->
                     GoalItem(
                         goal = goal,
-                        onRemove = { id ->
-                            onRemoveGoal(id)
-                        }
+                        onAddMoney = onAddMoney,
+                        onRemove = onRemoveGoal
                     )
                 }
             }

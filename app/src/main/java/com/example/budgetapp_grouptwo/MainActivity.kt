@@ -40,7 +40,10 @@ class MainActivity : ComponentActivity() {
                         HomeScreen(
                             goals = goalViewModel.goals,
                             onCreateGoalClick = {
-                                navController.navigate("CreateGoal")
+                                navController.navigate("createGoal")
+                            },
+                            onAddMoney = { id, amount ->
+                                goalViewModel.addMoney(id, amount)
                             },
                             onRemoveGoal = { id ->
                                 goalViewModel.removeGoal(id)

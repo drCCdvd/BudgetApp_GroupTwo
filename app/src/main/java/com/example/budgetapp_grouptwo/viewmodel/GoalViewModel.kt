@@ -24,4 +24,19 @@ class GoalViewModel : ViewModel() {
         //for at state ændres korrekt
         _goals.removeAll {it.id == goalId}
     }
+    fun addMoney(goalId: String, amount: Double) {
+        val index = _goals.indexOfFirst { it.id == goalId }
+        if (index != -1) {
+            val goal = _goals[index]
+
+            val remaining = goal.targetAmount - goal.savedAmount
+            val safeAmount = minOf(amount, remaining)
+
+            if (safeAmount <= 0) return
+
+            _goals[index] = goal.copy(
+                savedAmount = goal.savedAmount + safeAmount
+            )
+        }
+    }
 }
