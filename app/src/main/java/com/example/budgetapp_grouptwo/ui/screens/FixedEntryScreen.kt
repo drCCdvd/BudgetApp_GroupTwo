@@ -19,7 +19,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.mybugdetapp.data.CashFlowStorage
-import com.example.mybugdetapp.data.RegularCashFlow
 
 
 @Composable
