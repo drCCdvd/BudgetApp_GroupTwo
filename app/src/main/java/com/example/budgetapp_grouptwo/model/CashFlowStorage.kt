@@ -1,4 +1,4 @@
-package com.example.mybugdetapp.data
+package com.example.bugetapp_grouptwo
 
 import android.content.Context
 

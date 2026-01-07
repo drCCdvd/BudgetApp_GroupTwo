@@ -16,36 +16,46 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.mybugdetapp.data.CashFlowStorage
-import com.example.mybugdetapp.data.RegularCashFlow
+import com.example.bugetapp_grouptwo.CashFlowStorage
+
+import com.example.bugetapp_grouptwo.RegularCashFlow
 
 
 @Composable
 fun FixedEntryScreen(onBack:()-> Unit) {
     val context = LocalContext.current
-
-    var amountText by remember { mutableStateOf("") }
+    // 1. Khai báo state
     var isIncome by remember { mutableStateOf(true) }
+    // Dùng state này để quản lý text nhập vào
+    var amountText by remember { mutableStateOf("") }
 
-    // Load giá trị đã lưu để show lên UI (optional nhưng hợp lý)
+    // 2. Chỉ load dữ liệu TỪ BỘ NHỚ một lần duy nhất khi màn hình mở lên
     LaunchedEffect(Unit) {
+        // Load từ SharedPreferences vào Object lưu trữ tạm
         val earnings = CashFlowStorage.loadRegularEarnings(context)
         val expenses = CashFlowStorage.loadRegularExpenses(context)
         RegularCashFlow.setRegularEarnings(earnings)
         RegularCashFlow.setRegularExpense(expenses)
 
-        // Nếu muốn auto show số gần nhất lên field theo loại đang chọn:
-        amountText = if (isIncome) earnings.toString() else expenses.toString()
+        // Khởi tạo giá trị ban đầu cho ô nhập liệu (mặc định là Income)
+        val initialValue = if (earnings > 0) earnings.toString() else ""
+        amountText = initialValue
     }
 
-    // Khi đổi Indtægt/Udgift -> đổi giá trị hiện có (từ RegularCashFlow)
+    // 3. Khi người dùng bấm chuyển đổi Indtægt/Udgift
+    // Chúng ta cần cập nhật ô nhập liệu theo loại mới
     LaunchedEffect(isIncome) {
-        val v = if (isIncome) RegularCashFlow.getRegularEarnings()
+        val currentValue = if (isIncome) RegularCashFlow.getRegularEarnings()
         else RegularCashFlow.getRegularExpenses()
-        amountText = if (v == 0.0) "" else v.toString()
+
+        // Chỉ hiện số nếu > 0, ngược lại để trống để người dùng dễ nhập
+        amountText = if (currentValue > 0.0) currentValue.toString() else ""
     }
+
 
     val bg = Color(0xFFF7F7FB)
     val fieldBg = Color(0xFFEFEFF3)

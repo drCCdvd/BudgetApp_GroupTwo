@@ -1,4 +1,4 @@
-package com.example.mybugdetapp.data
+package com.example.bugetapp_grouptwo
 
 object RegularCashFlow {
     private var regularEarnings: Double = 0.0
