@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BudgetApp_GroupTwo</string>
+    <string name="title_activity_budget_screen">BudgetScreen</string>
 </resources>
