@@ -17,7 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 import com.example.budgetapp_grouptwo.model.Goal
-import com.example.budgetapp_grouptwo.ui.screens.HomeScreen
+import com.example.budgetapp_grouptwo.ui.screens.HomeScreenWithQuickMenu
 import com.example.budgetapp_grouptwo.ui.screens.CreateGoalScreen
 
 class MainActivity : ComponentActivity() {
@@ -37,14 +37,15 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     composable("home") {
-                        HomeScreen(
+                        HomeScreenWithQuickMenu(
                             goals = goalViewModel.goals,
                             onCreateGoalClick = {
-                                navController.navigate("CreateGoal")
-                            },
+                                navController.navigate("createGoal") },
                             onRemoveGoal = { id ->
-                                goalViewModel.removeGoal(id)
-                            }
+                                goalViewModel.removeGoal(id) },
+
+                            onAddTransactionClick = { navController.navigate("createGoal") },
+                            onDepositToGoalClick = { navController.navigate("createGoal") }
                         )
                     }
                     composable("createGoal") {
