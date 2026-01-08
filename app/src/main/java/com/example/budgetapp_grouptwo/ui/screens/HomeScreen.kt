@@ -5,10 +5,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.budgetapp_grouptwo.model.Goal
+import com.example.budgetapp_grouptwo.ui.goal.GoalItem
 
 @Composable
 fun HomeScreen(

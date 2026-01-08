@@ -1,4 +1,4 @@
-package com.example.budgetapp_grouptwo.ui.screens
+package com.example.budgetapp_grouptwo.ui.goal
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +13,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -57,7 +58,7 @@ fun GoalItem(
                 Text("${percent}% i mål")
 
                 Spacer(Modifier.height(6.dp))
-                androidx.compose.material3.LinearProgressIndicator(
+                LinearProgressIndicator(
                     progress = progress,
                     modifier = Modifier
                         .fillMaxWidth()
