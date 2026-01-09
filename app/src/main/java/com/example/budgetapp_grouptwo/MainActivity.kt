@@ -17,8 +17,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 import com.example.budgetapp_grouptwo.model.Goal
-import com.example.budgetapp_grouptwo.ui.screens.HomeScreen
 import com.example.budgetapp_grouptwo.ui.screens.CreateGoalScreen
+import com.example.budgetapp_grouptwo.ui.screens.GoalsPage
+import com.example.budgetapp_grouptwo.ui.screens.HomePage
+import com.example.budgetapp_grouptwo.ui.screens.RecentPage
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +39,19 @@ class MainActivity : ComponentActivity() {
                     startDestination = "home"
                 ) {
 
+                    //Home Page
                     composable("home") {
-                        HomeScreen(
+                        HomePage(navController = navController)
+                    }
+                    // RECENT PAGE
+                    composable("recent") {
+                        RecentPage(navController = navController)
+                    }
+                    // Goal page
+                    composable("goals") {
+                        GoalsPage(
                             goals = goalViewModel.goals,
+                            navController = navController,
                             onCreateGoalClick = {
                                 navController.navigate("createGoal")
                             },
@@ -50,8 +63,11 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
+
+                    // CREATE GOAL Page
                     composable("createGoal") {
                         CreateGoalScreen(
+                            navController = navController,
                             onSaveGoal = { name, amount ->
                                 goalViewModel.addGoal(name, amount)
                                 navController.popBackStack()
@@ -61,6 +77,8 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
+
+
                 }
             }
         }
