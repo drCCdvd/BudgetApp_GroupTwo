@@ -21,25 +21,37 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHost
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.example.budgetapp_grouptwo.ViewModel.NewCashflowViewModel
 import com.example.budgetapp_grouptwo.model.Cash
 import com.example.budgetapp_grouptwo.model.CashFlow
 import com.example.budgetapp_grouptwo.model.Expense
 import com.example.budgetapp_grouptwo.model.ExpenseType
 import com.example.budgetapp_grouptwo.model.Income
+import com.example.budgetapp_grouptwo.ui.screens.InsertNewCashFlowContent
+import com.example.budgetapp_grouptwo.ui.screens.InsertNewCashflowScreen
 import com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme
 import java.time.LocalDate
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        var newCashflowViewModel = NewCashflowViewModel();
+
         enableEdgeToEdge()
         setContent {
             BudgetApp_GroupTwoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding -> // 1. Thêm innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) { // 2. Bọc Box để tránh bị che bởi thanh trạng thái
-                        FixedEntryScreen(
-                            onBack = { finish() }
-                        )
+
+//                        InsertNewCashFlowContent(
+//                            newCashflowViewModel
+//                        )
+
+
+//                        FixedEntryScreen(
+//                            onBack = { finish() }
+//                        )
                     }
                 }
 

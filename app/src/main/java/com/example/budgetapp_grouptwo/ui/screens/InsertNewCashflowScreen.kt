@@ -1,6 +1,7 @@
 package com.example.budgetapp_grouptwo.ui.screens
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -50,7 +51,9 @@ import java.util.Date
 import java.util.Locale
 import kotlin.math.ln
 
-class InsertNewCashflowScreen : AppCompatActivity() {
+
+//Todo, fjern Class component activity
+class InsertNewCashflowScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -74,16 +77,13 @@ class InsertNewCashflowScreen : AppCompatActivity() {
 @Preview(showSystemUi = true)
 @Composable
 fun contentPreview(){
-    var newCashFlowViewModel = NewCashflowViewModel()
 
-    InsertNewCashFlowContent(newCashFlowViewModel)
 }
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InsertNewCashFlowContent(newCashFlowViewModel: NewCashflowViewModel){
-
     var newCashflowViewModel = newCashFlowViewModel
     if(newCashFlowViewModel==null){
         throw error("No viewmodel")
@@ -105,7 +105,7 @@ fun InsertNewCashFlowContent(newCashFlowViewModel: NewCashflowViewModel){
 
 
     Column (
-        modifier = Modifier.padding(100.dp)
+        modifier = Modifier.padding(10.dp)
     ){
         //Name field
         TextField(
