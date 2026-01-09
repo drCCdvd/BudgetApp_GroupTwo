@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.navigation:navigation-testing-android:2.9.6@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/8.13/transforms/92bd182c300a7f0f1ac7c1aceb8c6ea2/transformed/navigation-testing/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/8.13/transforms/92bd182c300a7f0f1ac7c1aceb8c6ea2/transformed/navigation-testing/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/8.13/transforms/dddbeafc2a672345869fa0fe06282a0c/transformed/navigation-testing/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/8.13/transforms/dddbeafc2a672345869fa0fe06282a0c/transformed/navigation-testing/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
