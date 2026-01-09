@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.budgetapp_grouptwo.ui.screens.FixedEntryScreen
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHost
 import androidx.navigation.compose.NavHost
@@ -28,14 +30,19 @@ import com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme
 import java.time.LocalDate
 
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         enableEdgeToEdge()
         setContent {
             BudgetApp_GroupTwoTheme {
-                //Implement navigation here
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding -> // 1. Thêm innerPadding ->
+                    Box(modifier = Modifier.padding(innerPadding)) { // 2. Bọc Box để tránh bị che bởi thanh trạng thái
+                        FixedEntryScreen(
+                            onBack = { finish() }
+                        )
+                    }
+                }
+
             }
         }
     }
