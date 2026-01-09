@@ -53,8 +53,20 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             BudgetApp_GroupTwoTheme {
+                val goalViewModel: GoalViewModel = viewModel()
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding -> // 1. Thêm innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) { // 2. Bọc Box để tránh bị che bởi thanh trạng thái
+
+                        CreateGoalScreen(
+                            onSaveGoal = { name, amount ->
+                                goalViewModel.addGoal(name, amount)
+                                //navController.popBackStack()
+                            },
+                            onBackClick = {
+                                //navController.popBackStack()
+                            }
+                        )
 
 //                        InsertNewCashFlowContent(
 //                            newCashflowViewModel
