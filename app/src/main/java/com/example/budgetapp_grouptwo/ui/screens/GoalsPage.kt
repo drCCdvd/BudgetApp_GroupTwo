@@ -7,21 +7,27 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.budgetapp_grouptwo.model.Goal
 import com.example.budgetapp_grouptwo.ui.goal.GoalItem
 
 @Composable
-fun HomeScreen(
+fun GoalsPage(
     goals: List<Goal>,
     onCreateGoalClick: () -> Unit,
+    navController: NavController,
     onAddMoney: (String, Double) -> Unit,
     onRemoveGoal: (String) -> Unit
+
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(24.dp)
     ) {
+        // Navigation menu øverst
+        NavigationMenu(navController)
+
         Text(
             text = "Mine mål",
             style = MaterialTheme.typography.headlineMedium

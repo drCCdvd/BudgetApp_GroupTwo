@@ -40,8 +40,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 import com.example.budgetapp_grouptwo.model.Goal
-import com.example.budgetapp_grouptwo.ui.screens.HomeScreen
 import com.example.budgetapp_grouptwo.ui.screens.CreateGoalScreen
+import com.example.budgetapp_grouptwo.ui.screens.GoalsPage
+import com.example.budgetapp_grouptwo.ui.screens.HomePage
+import com.example.budgetapp_grouptwo.ui.screens.RecentPage
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,66 +56,57 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             BudgetApp_GroupTwoTheme {
+
                 val goalViewModel: GoalViewModel = viewModel()
 
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding -> // 1. Thêm innerPadding ->
-                    Box(modifier = Modifier.padding(innerPadding)) { // 2. Bọc Box để tránh bị che bởi thanh trạng thái
+                val navController = rememberNavController()
+                val goalViewModel: GoalViewModel = viewModel()
 
-                        CreateGoalScreen(
-                            onSaveGoal = { name, amount ->
-                                goalViewModel.addGoal(name, amount)
-                                //navController.popBackStack()
+                NavHost(
+                    navController = navController,
+                    startDestination = "home"
+                ) {
+
+                    //Home Page
+                    composable("home") {
+                        HomePage(navController = navController)
+                    }
+                    // RECENT PAGE
+                    composable("recent") {
+                        RecentPage(navController = navController)
+                    }
+                    // Goal page
+                    composable("goals") {
+                        GoalsPage(
+                            goals = goalViewModel.goals,
+                            navController = navController,
+                            onCreateGoalClick = {
+                                navController.navigate("createGoal")
                             },
-                            onBackClick = {
-                                //navController.popBackStack()
+                            onAddMoney = { id, amount ->
+                                goalViewModel.addMoney(id, amount)
+                            },
+                            onRemoveGoal = { id ->
+                                goalViewModel.removeGoal(id)
                             }
                         )
-
-//                        InsertNewCashFlowContent(
-//                            newCashflowViewModel
-//                        )
-
-
-//                        FixedEntryScreen(
-//                            onBack = { finish() }
-//                        )
-
-//                val navController = rememberNavController()
-//                val goalViewModel: GoalViewModel = viewModel()
-//
-//                NavHost(
-//                    navController = navController,
-//                    startDestination = "home"
-//                ) {
-//
-//                    composable("home") {
-//                        HomeScreen(
-//                            goals = goalViewModel.goals,
-//                            onCreateGoalClick = {
-//                                navController.navigate("createGoal")
-//                            },
-//                            onAddMoney = { id, amount ->
-//                                goalViewModel.addMoney(id, amount)
-//                            },
-//                            onRemoveGoal = { id ->
-//                                goalViewModel.removeGoal(id)
-//                            }
-//                        )
-//                    }
-//                    composable("createGoal") {
-//                        CreateGoalScreen(
-//                            onSaveGoal = { name, amount ->
-//                                goalViewModel.addGoal(name, amount)
-//                                navController.popBackStack()
-//                            },
-//                            onBackClick = {
-//                                navController.popBackStack()
-//                            }
-//                        )
-//                    }
-//                }
-
                     }
+
+                    // CREATE GOAL Page
+                    composable("createGoal") {
+                        CreateGoalScreen(
+                            navController = navController,
+                            onSaveGoal = { name, amount ->
+                                goalViewModel.addGoal(name, amount)
+                                navController.popBackStack()
+                            },
+                            onBackClick = {
+                                navController.popBackStack()
+                            }
+                        )
+                    }
+
+
                 }
             }
         }
