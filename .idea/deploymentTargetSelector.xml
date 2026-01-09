@@ -4,6 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
+<<<<<<< HEAD
         <DropdownSelection timestamp="2026-01-06T08:17:25.736460Z">
           <Target type="DEFAULT_BOOT">
             <handle>
@@ -21,6 +22,8 @@
       </SelectionState>
       <SelectionState runConfigName="contentPreview">
         <option name="selectionMode" value="DROPDOWN" />
+=======
+>>>>>>> origin/PiyaMål
       </SelectionState>
     </selectionStates>
   </component>
