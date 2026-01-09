@@ -29,10 +29,6 @@ import java.time.LocalDate
 
 class MainActivity : ComponentActivity() {
 
-
-    var cashFlow = CashFlow()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
