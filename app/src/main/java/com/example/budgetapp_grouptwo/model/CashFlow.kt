@@ -8,7 +8,7 @@ class CashFlow (
     //Todo RegularCashFlow object here
     ) {
     //regularCashFlow: RegularCashFlow = regularCashFlow
-    var cashFlows = mutableStateListOf<Cash>();
+    val cashFlows = mutableStateListOf<Cash>()
 
     fun addNewExpense(name: String, amount: Double, type: ExpenseType, date: LocalDate){
 

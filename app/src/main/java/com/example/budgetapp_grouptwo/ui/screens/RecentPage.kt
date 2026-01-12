@@ -15,15 +15,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.budgetapp_grouptwo.ui.RecentTransaktions.RecentItemCard
+import androidx.lifecycle.viewmodel.compose.viewModel as composeViewModel
 import com.example.budgetapp_grouptwo.viewmodel.RecentViewModel
-import com.example.budgetapp_grouptwo.ui.screens.NavigationMenu
-import com.example.budgetapp_grouptwo.ui.screens.RecentItemCard
 
 
 @Composable
 fun RecentPage(
     navController: NavController,
     viewModel: RecentViewModel = viewModel()
+
 ) {
     val items = viewModel.recentItems
     Column(
