@@ -1,4 +1,4 @@
-package com.example.budgetapp_grouptwo.viewmodel
+package com.example.budgetapp_grouptwo.ViewModel
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel

@@ -1,17 +1,24 @@
 package com.example.budgetapp_grouptwo.model
 
+import android.content.Context
 import androidx.compose.runtime.mutableStateListOf
+import com.example.bugetapp_grouptwo.CashFlowStorage
+import com.example.bugetapp_grouptwo.RegularCashFlow
 import java.time.LocalDate
 import kotlin.math.exp
 
-class CashFlow (
-    //Todo RegularCashFlow object here
-    ) {
-    //regularCashFlow: RegularCashFlow = regularCashFlow
+class CashFlow () {
+    var regularCashFlow = RegularCashFlow;
     var cashFlows = mutableStateListOf<Cash>();
+    var cashFlowStorage: CashFlowStorage = CashFlowStorage;
+
+    fun loadRegularCashFlow(context: Context) {
+        regularCashFlow.setRegularEarnings(cashFlowStorage.loadRegularEarnings(context))
+        regularCashFlow.setRegularExpense(cashFlowStorage.loadRegularExpenses(context))
+        //Implementer cashFlowStorage.loadCashflow();
+    }
 
     fun addNewExpense(name: String, amount: Double, type: ExpenseType, date: LocalDate){
-
         var nextId = cashFlows.size;
         var newExpense = Expense(nextId,name,amount, date, type)
         cashFlows.add(newExpense)
@@ -24,7 +31,9 @@ class CashFlow (
     }
 
     fun getDisposablex(startDate: LocalDate, endDate: LocalDate): Double{
-        return 0.0;
+        var disposable = 0.0;
+        disposable += regularCashFlow.getRegularEarnings()-regularCashFlow.getRegularExpenses()
+        return disposable;
     }
 
 }

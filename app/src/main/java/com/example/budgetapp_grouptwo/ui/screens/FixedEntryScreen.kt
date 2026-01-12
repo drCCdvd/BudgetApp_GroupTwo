@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.budgetapp_grouptwo.ui.Header
 import com.example.bugetapp_grouptwo.CashFlowStorage
 import com.example.bugetapp_grouptwo.RegularCashFlow
 
@@ -49,39 +50,11 @@ fun FixedEntryScreen(onBack: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(bg)
-            .padding(horizontal = 24.dp)
-            .padding(top = 10.dp),
+            .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        // ---- Header: back + title ----
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 6.dp, bottom = 18.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = onBack) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    modifier = Modifier.size(22.dp)
-                )
-            }
-
-            Spacer(Modifier.weight(1f))
-
-            Text(
-                text = "Faste",
-                fontWeight = FontWeight.SemiBold
-            )
-
-            Spacer(Modifier.weight(1f))
-            Spacer(Modifier.size(22.dp))
-        }
-
-        Spacer(Modifier.height(18.dp))
+        Header("Rediger faste", onBack=onBack);
 
         // ---- Line 2: Indtægt ----
         Text("Indtægt", color = textGrey, modifier = Modifier.width(260.dp))

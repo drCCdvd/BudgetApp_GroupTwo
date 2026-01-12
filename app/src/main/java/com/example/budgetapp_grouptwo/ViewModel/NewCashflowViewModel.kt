@@ -5,9 +5,9 @@ import com.example.budgetapp_grouptwo.model.CashFlow
 import com.example.budgetapp_grouptwo.model.ExpenseType
 import java.time.LocalDate
 
-class NewCashflowViewModel(): ViewModel() {
+class NewCashflowViewModel(cashFlow: CashFlow): ViewModel() {
     //Initialize cash flow object
-    var cashFlow = CashFlow();
+    var cashFlow = cashFlow;
 
     fun addExpense(name: String, amount: Double, date: LocalDate, type: ExpenseType){
         cashFlow.addNewExpense(name, amount, type, date);

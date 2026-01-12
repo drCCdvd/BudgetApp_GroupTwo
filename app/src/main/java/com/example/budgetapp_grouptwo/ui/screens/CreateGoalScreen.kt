@@ -1,11 +1,16 @@
 package com.example.budgetapp_grouptwo.ui.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.budgetapp_grouptwo.ui.Header
 import com.example.budgetapp_grouptwo.ui.utils.CurrencyVisualTransformation
 
 
@@ -14,7 +19,7 @@ import com.example.budgetapp_grouptwo.ui.utils.CurrencyVisualTransformation
 fun CreateGoalScreen(
     navController: NavController,
     onSaveGoal: (String, Double) -> Unit,
-    onBackClick: () -> Unit
+    onBack: () -> Unit
 ) {
     var name by remember { mutableStateOf("") }
     var amount by remember { mutableStateOf("") }
@@ -22,17 +27,11 @@ fun CreateGoalScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp)
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-
-        Text(
-            text = "Nyt mål",
-            style = MaterialTheme.typography.headlineMedium
-        )
-
-
-        Spacer(modifier = Modifier.height(24.dp))
+        Header("Opret nyt mål", onBack=onBack)
 
         OutlinedTextField(
             value = name,
@@ -67,11 +66,6 @@ fun CreateGoalScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Tilføj")
-        }
-        TextButton(
-            onClick = onBackClick
-        ) {
-            Text("Tilbage")
         }
     }
 }
