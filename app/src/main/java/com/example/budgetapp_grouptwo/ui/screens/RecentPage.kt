@@ -1,6 +1,5 @@
 package com.example.budgetapp_grouptwo.ui.screens
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.budgetapp_grouptwo.viewmodel.RecentViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-
+import com.example.budgetapp_grouptwo.ui.screens.NavigationMenu
+import com.example.budgetapp_grouptwo.ui.screens.RecentItemCard
 
 
 @Composable
@@ -27,21 +26,17 @@ fun RecentPage(
     viewModel: RecentViewModel = viewModel()
 ) {
     val items = viewModel.recentItems
-
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
         NavigationMenu(navController)
-
         Text(
             text = "Recent Activity",
             style = MaterialTheme.typography.headlineMedium
         )
-
         Spacer(modifier = Modifier.height(16.dp))
-
         LazyColumn (
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
@@ -49,12 +44,10 @@ fun RecentPage(
                 RecentItemCard(
                     item = item,
                     onRemoveClick = { viewModel.removeItem(item.id) }
-
                 )
             }
         }
     }
-
 }
 
 
