@@ -1,31 +1,43 @@
 package com.example.budgetapp_grouptwo.ui.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.Flag
-import androidx.compose.material.icons.filled.ReceiptLong
-import androidx.compose.material3.AssistChip
+import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import kotlin.math.cos
-import kotlin.math.sin
+import androidx.compose.ui.zIndex
 
 @Composable
 fun QuickActionFab(
@@ -34,98 +46,133 @@ fun QuickActionFab(
     onDismiss: () -> Unit,
     onAddTransaction: () -> Unit,
     onCreateGoal: () -> Unit,
-    onDepositToGoal: () -> Unit,
-    radius: Dp = 120.dp
+    onDepositToGoal: () -> Unit
+
 ) {
+    BackHandler(enabled = isOpen) {
+        onDismiss()
+    }
     val progress by animateFloatAsState(
         targetValue = if (isOpen) 1f else 0f,
         label = "quickMenuProgress"
     )
-
-    val radiusPx = with(LocalDensity.current) { radius.toPx() }
+    val rotation by animateFloatAsState(
+        targetValue = if (isOpen) 45f else 0f,
+        label = "fabRotation"
+    )
 
     Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.BottomEnd
+        modifier = Modifier.fillMaxSize()
     ) {
         //Overlay
         AnimatedVisibility(visible = isOpen) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
+                    .zIndex(1f)
                     .background(Color.Black.copy(alpha = 0.45f))
-                    .clickable { onDismiss() }
+                    .pointerInput(Unit) {
+                        detectTapGestures(onTap = { onDismiss() })
+                    }
             )
         }
         Box(
-            modifier = Modifier.padding(24.dp),
-            contentAlignment = Alignment.BottomEnd
+            modifier = Modifier
+                .fillMaxSize()
+                .zIndex(2f)
+                .padding(bottom = 120.dp),
+            contentAlignment = Alignment.BottomCenter
         ) {
-            RadialChip(
-                visible = isOpen,
+            RadialAction(
                 progress = progress,
-                angleDegrees = 225f,
-                radiusPx = radiusPx,
-                icon = Icons.Filled.ReceiptLong,
-                labelText = "Tilføj transaktion",
-                onClick = { onDismiss(); onAddTransaction() }
-            )
-            RadialChip(
-                visible = isOpen,
-                progress = progress,
-                angleDegrees = 270f,
-                radiusPx = radiusPx,
+                offsetX = 0.dp,
+                offsetY = (-160).dp,
                 icon = Icons.Filled.Flag,
-                labelText = "Opret mål",
+                containerColor = MaterialTheme.colorScheme.primary,
+                iconTint = MaterialTheme.colorScheme.onPrimary,
+                labelText = "Mål",
                 onClick = { onDismiss(); onCreateGoal() }
             )
-            RadialChip(
-                visible = isOpen,
+            RadialAction(
                 progress = progress,
-                angleDegrees = 315f,
-                radiusPx = radiusPx,
-                icon = Icons.Filled.ArrowUpward,
-                labelText = "Overfør til mål",
-                onClick = { onDismiss(); onDepositToGoal() }
+                offsetX = 0.dp,
+                offsetY = (-40).dp,
+                icon = Icons.Filled.SwapHoriz,
+                containerColor = MaterialTheme.colorScheme.secondary,
+                iconTint = MaterialTheme.colorScheme.onSecondary,
+                labelText = "Transaktion",
+                onClick = { onDismiss(); onAddTransaction() }
             )
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .zIndex(3f)
+                .padding(24.dp),
+            contentAlignment = Alignment.BottomEnd
+        ) {
             // +
             FloatingActionButton(
                 onClick = onToggle,
                 shape = CircleShape
             ) {
-                Icon(Icons.Filled.Add, contentDescription = "Åbn/luk menu")
+
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = if (isOpen) "Luk menu" else "Åbn menu",
+                    modifier = Modifier.rotate(rotation)
+                )
             }
         }
     }
 }
 @Composable
-private fun RadialChip(
-    visible: Boolean,
+private fun RadialAction(
     progress: Float,
-    angleDegrees: Float,
-    radiusPx: Float,
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    offsetX: Dp,
+    offsetY: Dp,
+    icon:ImageVector,
+    containerColor: Color,
+    iconTint: Color,
     labelText: String,
     onClick: () -> Unit
 ) {
-    if (!visible) return
+    if (progress <= 0f) return
 
-    val angleRad = Math.toRadians(angleDegrees.toDouble())
-    val x = (cos(angleRad) * radiusPx * progress).toFloat()
-    val y = (sin(angleRad) * radiusPx * progress).toFloat()
-
-    Box(
+    Column(
         modifier = Modifier
             .offset(
-                x = with(LocalDensity.current) { x.toDp() },
-                y = with(LocalDensity.current) { y.toDp() }
+                x = offsetX * progress,
+                y = offsetY * progress
             )
-                .scale(progress.coerceIn(0f, 1f))
-    ) {
-        AssistChip(
+            .scale(progress.coerceIn(0f, 1f)),
+        horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+        Surface(
             onClick = onClick,
-            label = { Text(labelText) },
-            leadingIcon = { Icon(icon, contentDescription = labelText) }
+            shape = CircleShape,
+            color = containerColor,
+            tonalElevation = 6.dp,
+            shadowElevation = 2.dp,
+            modifier = Modifier.size(80.dp)
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = labelText,
+                    tint = iconTint,
+                    modifier = Modifier.size(40.dp)
+                )
+            }
+        }
+        Text(
+            text = labelText,
+            style = MaterialTheme.typography.labelMedium,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .padding(top = 8.dp)
+                .widthIn(min = 72.dp)
         )
     }
 }

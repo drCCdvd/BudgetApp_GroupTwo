@@ -8,37 +8,40 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.example.budgetapp_grouptwo.model.Goal
 import com.example.budgetapp_grouptwo.ui.components.QuickActionFab
 
 @Composable
-fun HomeScreenWithQuickMenu(
-    goals: List<Goal>,
-    onCreateGoal: () -> Unit,
-    onRemoveGoal: (String) -> Unit,
-    onAddTransactionClick: () -> Unit,
-    onDepositToGoalClick: () -> Unit,
-    onBackClick: () -> Unit
-
+fun OverviewScreenWithQMenu(
+    onGoalsClick: () -> Unit,
+    onIncomeClick: () -> Unit,
+    onExpenseClick: () -> Unit
 ) {
     var isQuickMenuOpen by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
 
-        GoalScreen(
-            goals = goals,
-            onCreateGoal = onCreateGoal,
-            onRemoveGoal = onRemoveGoal,
-            onBackClick = onBackClick
-        )
+        //Selve hjemmeskærmen (overblik)
+        OverviewScreen()
 
+        //Plus knap og radial menu (kun her)
         QuickActionFab(
             isOpen = isQuickMenuOpen,
             onToggle = { isQuickMenuOpen = !isQuickMenuOpen },
             onDismiss = { isQuickMenuOpen = false },
-            onAddTransaction = { isQuickMenuOpen = false; onAddTransactionClick() },
-            onCreateGoal = { isQuickMenuOpen = false; onCreateGoal() },
-            onDepositToGoal = { isQuickMenuOpen = false; onDepositToGoalClick() }
+
+            //Mapping de tre valg
+            onCreateGoal = {
+                isQuickMenuOpen = false
+                onGoalsClick()
+            },
+            onAddTransaction = {
+                isQuickMenuOpen = false
+                onIncomeClick()
+            },
+            onDepositToGoal = {
+                isQuickMenuOpen = false
+                onExpenseClick()
+            }
         )
     }
 }
