@@ -4,19 +4,18 @@ import android.R
 import java.time.*
 
 abstract class Cash (
-        id: Int,
-        name: String,
-        amount: Double,
-        dateAdded: LocalDate
+        val id: Int,
+        val name: String,
+        val amount: Double,
+        val dateAdded: LocalDate
     ) {
-    var name = name;
-    var amount = amount;
-    var dateAdded = dateAdded;
 
+
+    /*
     open fun readOutLoud(): String {
-        return ("amount ${amount} added at ${dateAdded}");
+        return ("amount $amount added at $dateAdded");
     }
-
+*/
     /** Saves the cash type in data repository
      *
      */

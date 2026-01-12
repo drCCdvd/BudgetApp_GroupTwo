@@ -19,12 +19,16 @@ class CashFlow (
 
     fun addNewIncome(name: String, amount: Double, date: LocalDate){
         val nextId = cashFlows.size;
-        var newIncome = Income(nextId,name,amount, date)
+        var newIncome = Income(nextId,name,amount,date)
         cashFlows.add(newIncome)
     }
 
     fun getDisposablex(startDate: LocalDate, endDate: LocalDate): Double{
         return 0.0;
     }
+    fun removeItem(id: Int) {
+        cashFlows.removeAll { it.id == id }
+    }
+
 
 }

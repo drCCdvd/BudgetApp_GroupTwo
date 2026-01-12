@@ -7,11 +7,14 @@ class Income(
     name: String,
     amount: Double,
     date: LocalDate,
-    ): Cash(id,name,amount, date){
+    ): Cash(id,name,amount, date)
+/*
+{
 
     var addedDate = date;
 
     override fun readOutLoud(): String{
-        return "Income amount: ${amount}, date added: ${addedDate}";
+        return "Income amount: ${amount}, date added: $addedDate";
     }
-}
+    */
+

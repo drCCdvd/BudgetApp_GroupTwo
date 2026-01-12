@@ -8,13 +8,16 @@ class Expense (
     amount: Double,
     date: LocalDate,
     type: ExpenseType,
-    ): Cash(id,name, amount, date){
+    ): Cash(id,name, amount, date)
+
+/*
+{
 
 
-    var type = type;
 
     override fun readOutLoud(): String{
-        return "amount: ${amount}, Expense type is ${type.toString()}, date added: ${dateAdded}";
+        return "amount: ${amount}, date added: $dateAdded";
     }
 
 }
+ */
