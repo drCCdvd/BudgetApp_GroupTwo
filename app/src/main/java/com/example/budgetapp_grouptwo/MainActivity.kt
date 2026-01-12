@@ -57,7 +57,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             BudgetApp_GroupTwoTheme {
 
-                val goalViewModel: GoalViewModel = viewModel()
 
                 val navController = rememberNavController()
                 val goalViewModel: GoalViewModel = viewModel()
