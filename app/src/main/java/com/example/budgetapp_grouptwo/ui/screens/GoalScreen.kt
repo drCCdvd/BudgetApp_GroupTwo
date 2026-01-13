@@ -9,13 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.budgetapp_grouptwo.model.Goal
 import com.example.budgetapp_grouptwo.ui.components.BackTopBar
-
+import com.example.budgetapp_grouptwo.ui.goal.GoalItem
 
 
 @Composable
 fun GoalScreen(
     goals: List<Goal>,
     onCreateGoal: () -> Unit,
+    onAddMoney: (String, Double) -> Unit,
     onRemoveGoal: (String) -> Unit,
     onBackClick: () -> Unit
 ) {
@@ -51,7 +52,8 @@ fun GoalScreen(
                     ) { goal ->
                         GoalItem(
                             goal = goal,
-                            onRemove = { id: String ->
+                            onAddMoney = onAddMoney,
+                            onRemove = { id ->
                                 onRemoveGoal(id)
                             }
                         )
