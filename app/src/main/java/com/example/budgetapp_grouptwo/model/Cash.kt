@@ -7,7 +7,8 @@ abstract class Cash (
         val id: Int,
         val name: String,
         val amount: Double,
-        val dateAdded: LocalDate
+        val dateAdded: LocalDate,
+        val regularCashFlow: Boolean = false
     ) {
 
 

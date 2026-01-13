@@ -1,16 +1,14 @@
-package com.example.budgetapp_grouptwo.viewmodel
+package com.example.budgetapp_grouptwo.ViewModel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.budgetapp_grouptwo.model.Cash
 import com.example.budgetapp_grouptwo.model.CashFlow
 import com.example.budgetapp_grouptwo.model.ExpenseType
 import java.time.LocalDate
 import androidx.compose.runtime.State
-
-
+import com.example.budgetapp_grouptwo.utils.FilterType
 
 
 class RecentViewModel : ViewModel() {
@@ -57,5 +55,20 @@ class RecentViewModel : ViewModel() {
             _errorMessage.value = "Kunne ikke fjerne posten"
         }
     }
+
+    private val _filter = mutableStateOf(FilterType.ALL)
+    val filter: State<FilterType> = _filter
+
+    fun setFilter(newFilter: FilterType) {
+        _filter.value = newFilter
+    }
+
+    val filteredItems: List<Cash>
+        get() = when (_filter.value) {
+            FilterType.ALL -> recentItems
+            FilterType.FIXED -> recentItems.filter { it.regularCashFlow }
+            FilterType.VARIABLE -> recentItems.filter { !it.regularCashFlow }
+        }
+
 }
 

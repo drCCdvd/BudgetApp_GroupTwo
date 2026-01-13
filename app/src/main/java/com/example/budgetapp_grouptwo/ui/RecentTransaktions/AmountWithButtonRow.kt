@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun AmountWithButtonRow(
@@ -29,13 +30,15 @@ fun AmountWithButtonRow(
         Text(
             text = "$prefix${safeAmount},-",   // <-- EP: bruger safeAmount
             style = MaterialTheme.typography.bodyLarge,
-            color = color
+            color = color,
+            fontSize = 14.sp
         )
 
-        Spacer(modifier = Modifier.width(30.dp))
+        Spacer(modifier = Modifier.width(5.dp))
 
         TextButton(onClick = onRemoveClick) {
-            Text("Fjern", color = Color.Gray)
+            Text("Fjern", color = Color.Gray,
+                fontSize = 14.sp)
         }
     }
 }

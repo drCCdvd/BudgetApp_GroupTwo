@@ -1,5 +1,6 @@
 package com.example.budgetapp_grouptwo.ui.RecentTransaktions
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -66,13 +68,13 @@ fun RecentItemCard(
                 Text(
                     text = safeDate,                                       // <-- EP
                     style = MaterialTheme.typography.bodySmall,
-                    fontSize = 12.sp
+                    fontSize = 10.sp
                 )
                 Text(
                     text = safeName,                                       // <-- EP
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 25.sp
+                    fontSize = 14.sp
                 )
             }
 

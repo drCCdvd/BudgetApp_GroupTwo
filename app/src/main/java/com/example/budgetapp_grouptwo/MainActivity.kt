@@ -34,7 +34,7 @@ import com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme
 import java.time.LocalDate
 import androidx.navigation.compose.rememberNavController
 import com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme
-import com.example.budgetapp_grouptwo.viewmodel.GoalViewModel
+import com.example.budgetapp_grouptwo.ViewModel.GoalViewModel
 
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable

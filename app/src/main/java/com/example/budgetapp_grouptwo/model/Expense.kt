@@ -1,5 +1,6 @@
 package com.example.budgetapp_grouptwo.model
 
+import com.example.bugetapp_grouptwo.RegularCashFlow
 import java.time.LocalDate
 
 class Expense (

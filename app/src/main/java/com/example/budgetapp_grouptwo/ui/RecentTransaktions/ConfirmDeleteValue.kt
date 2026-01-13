@@ -13,7 +13,7 @@ fun ConfirmDeleteDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Fjern post") },
+        title = { Text("Fjern Post") },
         text = { Text("Vil du slette \"$itemName\"?") },
         confirmButton = {
             TextButton(onClick = onConfirm) {
