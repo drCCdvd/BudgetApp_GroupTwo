@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateListOf
 import com.example.bugetapp_grouptwo.CashFlowStorage
 import com.example.bugetapp_grouptwo.RegularCashFlow
 import java.time.LocalDate
-import kotlin.math.exp
 
 class CashFlow () {
     var regularCashFlow = RegularCashFlow;

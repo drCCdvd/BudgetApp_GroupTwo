@@ -1,11 +1,12 @@
 package com.example.budgetapp_grouptwo.model
 
+import java.time.LocalDate
+
 data class Goal(
-    val id: String,
+    val id: Int=0,
     val name: String,
     val targetAmount: Double,
     val savedAmount: Double = 0.0,
-    val day: Int = 0,
-    val month: Int = 0,
-    val year: Int = 0
+    val createdDate: LocalDate,
+    val endDate: LocalDate,
 )
