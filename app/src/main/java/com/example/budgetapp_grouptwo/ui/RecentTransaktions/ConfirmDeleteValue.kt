@@ -9,6 +9,8 @@ fun ConfirmDeleteDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
+    val safeName = itemName.ifBlank { "denne post" }     //sikre at item name ikke er tomt
+
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text("Fjern post") },

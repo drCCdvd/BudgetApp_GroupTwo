@@ -14,6 +14,8 @@ fun AmountWithButtonRow(
     isIncome: Boolean,
     onRemoveClick: () -> Unit
 ) {
+    // ERROR PREVENTION: Sikrer at amount altid er et gyldigt tal
+    val safeAmount = amount.takeIf { it.isFinite() } ?: 0.0
     val color = if (isIncome) Color(0xFF4CAF50) else Color(0xFFF44336)
     val prefix = if (isIncome) "+" else "-"
 
@@ -25,7 +27,7 @@ fun AmountWithButtonRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "$prefix${amount},-",
+            text = "$prefix${safeAmount},-",   // <-- EP: bruger safeAmount
             style = MaterialTheme.typography.bodyLarge,
             color = color
         )

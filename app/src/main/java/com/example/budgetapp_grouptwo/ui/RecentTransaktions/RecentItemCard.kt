@@ -37,14 +37,21 @@ fun RecentItemCard(
     item: Cash,
     onRemoveClick: () -> Unit
 ) {
-    val isIncome = item is Income
+    // ERROR PREVENTION: Sikrer at item altid har gyldige værdier
+    val safeName = item.name.ifBlank { "Ukendt post" }                     // <-- EP
+    val safeAmount = item.amount.takeIf { it.isFinite() } ?: 0.0           // <-- EP
+    val safeDate = item.dateAdded?.toString() ?: "Dato mangler"            // <-- EP
+
+    // ERROR PREVENTION: Undgå fejl hvis Cash får nye subtyper
+    val isIncome = item is Income                                          // <-- EP
+
     var showConfirm by remember { mutableStateOf(false) }
 
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .wrapContentHeight(),
         elevation = CardDefaults.cardElevation(4.dp)
-
     ) {
 
         Row(
@@ -57,38 +64,40 @@ fun RecentItemCard(
             // LEFT SIDE
             Column {
                 Text(
-                    text = item.dateAdded.toString(),
+                    text = safeDate,                                       // <-- EP
                     style = MaterialTheme.typography.bodySmall,
                     fontSize = 12.sp
                 )
                 Text(
-                    text = item.name,
+                    text = safeName,                                       // <-- EP
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 25.sp
                 )
             }
+
             // RIGHT SIDE
             AmountWithButtonRow(
-                amount = item.amount,
+                amount = safeAmount,                                       // <-- EP
                 isIncome = isIncome,
-                onRemoveClick = { showConfirm = true } // <-- ÅBN DIALOG
+                onRemoveClick = { showConfirm = true }
             )
         }
-
     }
 
+    // ERROR PREVENTION: Dialogen vises kun én gang
     if (showConfirm) {
         ConfirmDeleteDialog(
-            itemName = item.name,
+            itemName = safeName,                                           // <-- EP
             onConfirm = {
                 showConfirm = false
-                onRemoveClick()
+                onRemoveClick()                                            // <-- EP: kun kaldt efter confirm
             },
             onDismiss = { showConfirm = false }
         )
     }
 }
+
 
 
 
