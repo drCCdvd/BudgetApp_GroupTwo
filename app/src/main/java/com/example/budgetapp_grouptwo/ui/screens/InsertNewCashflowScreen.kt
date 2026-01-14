@@ -46,6 +46,7 @@ import androidx.compose.ui.window.Popup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.budgetapp_grouptwo.R
+import com.example.budgetapp_grouptwo.ViewModel.CashFlowViewModel
 import com.example.budgetapp_grouptwo.ViewModel.NewCashflowViewModel
 import com.example.budgetapp_grouptwo.model.Cash
 import com.example.budgetapp_grouptwo.model.CashFlow
@@ -92,14 +93,18 @@ fun contentPreview(){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InsertNewCashFlowContent(onBack: () -> Unit, newCashFlowViewModel: NewCashflowViewModel){
-    var newCashflowViewModel = newCashFlowViewModel
+fun InsertNewCashFlowContent(
+    onBack: () -> Unit,
+    cashFlowViewModel: CashFlowViewModel,
+    onSubmit: () -> Unit,
+){
+    //var newCashflowViewModel = newCashFlowViewModel
 
-    if(newCashFlowViewModel==null){
-        throw error("No viewmodel")
-    }
+    //if(newCashFlowViewModel==null){
+    //    throw error("No viewmodel")
+    //}
 
-    var _cashFlow = newCashflowViewModel.cashFlow;
+    //var _cashFlow = newCashflowViewModel.cashFlow;
     var expandedCategoryMenu by remember { mutableStateOf(false) }
 
     var expandedDatePicker by remember{mutableStateOf(false)}
@@ -210,50 +215,14 @@ fun InsertNewCashFlowContent(onBack: () -> Unit, newCashFlowViewModel: NewCashfl
 
             //Add cashflow to Cashflow instance based on type of cashflow
             if(newType=="expense"){
-                newCashFlowViewModel.addExpense(newName, newAmountInDouble, dateFormatted, ExpenseType.RegularExpense);
+                cashFlowViewModel.addExpense(Expense(name=newName, amount = newAmountInDouble, date = dateFormatted, type = ExpenseType.RegularExpense))
             }else {
-                newCashFlowViewModel.addIncome(newName, newAmountInDouble, dateFormatted)
+                cashFlowViewModel.addIncome(Income(name=newName, amount = newAmountInDouble, date = dateFormatted))
             }
+            onSubmit();
 
         }) {
             Text(text = "Gem")
-        }
-
-
-        var listLength = _cashFlow.cashFlows.size;
-
-        LazyColumn(modifier= Modifier.padding(10.dp)) {
-            items(listLength){i ->
-
-                var list = newCashFlowViewModel.cashFlow.cashFlows
-
-                var prefix = "";
-                if(newCashFlowViewModel.cashFlow.cashFlows.get(i) is Income){
-                    prefix = "+";
-                }else{
-                    prefix = "-";
-                }
-                Text(text = "${list.get(i).name}: ${prefix}${list.get(i).amount}, ${list.get(i).dateAdded}");
-            }
-        }
-
-    }
-}
-
-@Composable
-fun ListOfDetails(cashFlowList: List<Cash>, modifier: Modifier){
-
-    var listLength = cashFlowList.size;
-
-    LazyColumn(modifier=modifier) {
-        items(listLength){i ->
-            var prefix = "";
-            if(cashFlowList.get(i) is Income){
-                prefix = "+";
-            }else{
-                prefix = "-";
-            }
-            Text(text = "${cashFlowList.get(i).name}: ${prefix}${cashFlowList.get(i).amount}, ");
         }
     }
 }

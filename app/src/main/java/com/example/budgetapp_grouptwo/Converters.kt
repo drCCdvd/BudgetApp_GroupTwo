@@ -1,10 +1,9 @@
 package com.example.budgetapp_grouptwo
 
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import java.time.LocalDate
 
-class Converts {
+class Converters {
     @TypeConverter
     fun fromString(value: String?): LocalDate?{
         return value?.let{ LocalDate.parse(it) }

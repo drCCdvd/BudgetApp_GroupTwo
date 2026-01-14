@@ -2,7 +2,9 @@ package com.example.budgetapp_grouptwo.repository
 
 import android.content.Context
 import com.example.budgetapp_grouptwo.model.Goal
+import com.example.budgetapp_grouptwo.repository.dataaccess.CashFlowDao
 import com.example.budgetapp_grouptwo.repository.dataaccess.GoalDao
+import com.example.budgetapp_grouptwo.repository.model.Cashflow
 
 class GoalRepository(goalDao: GoalDao) {
     private val goalDao = goalDao;
@@ -28,8 +30,9 @@ class GoalRepository(goalDao: GoalDao) {
         )
     }
 
-    fun getAllGoals(): List<Goal>{
+    suspend fun getAllGoals(): List<Goal>{
         var goalsFromDAO = goalDao.getAll();
+
         var goals = goalsFromDAO.map { dbGoal ->
             Goal(
                 id = dbGoal.uid,
@@ -43,9 +46,33 @@ class GoalRepository(goalDao: GoalDao) {
         return goals;
     }
 
-    fun insertNewGoal(goal: Goal): Goal{
+    suspend fun addMoneyToGoal(goalId: Int, amount: Double){
+        var goal = goalDao.selectById(goalId)
+        var newAmount = goal.savedAmount+amount
+        goalDao.insertAmount(goalId,newAmount);
+
+
+        /*
+        var newGoal = Goal(
+            id = goalId,
+            name = goal.name,
+            targetAmount = goal.targetAmount,
+            savedAmount = goal.savedAmount + amount,
+            createdDate = goal.createdDate,
+            endDate = goal.endDate
+        )
+        goalDao.updateGoal(newGoal.toEntity());*/
+    }
+
+    suspend fun insertNewGoal(goal: Goal): Goal{
         var dbGoal = goal.toEntity();
         goalDao.insertGoal(dbGoal);
         return dbGoal.toApp();
     }
+
+    suspend fun deleteGoal(id: Int){
+        goalDao.deleteGoal(id);
+    }
+
+
 }

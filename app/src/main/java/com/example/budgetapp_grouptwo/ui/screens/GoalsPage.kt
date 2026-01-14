@@ -16,16 +16,15 @@ fun GoalsPage(
     goals: List<Goal>,
     onCreateGoalClick: () -> Unit,
     navController: NavController,
-    onAddMoney: (String, Double) -> Unit,
-    onRemoveGoal: (String) -> Unit
-
+    onAddMoney: (Goal, Double) -> Unit,
+    onRemoveGoal: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(24.dp)
     ) {
-        // Navigation menu øverst
+        //Navigation menu øverst
         NavigationMenu(navController)
 
         Text(

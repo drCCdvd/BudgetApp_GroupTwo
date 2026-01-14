@@ -18,15 +18,18 @@ import com.example.budgetapp_grouptwo.ViewModel.NewCashflowViewModel
 import com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme
 import com.example.budgetapp_grouptwo.ViewModel.GoalViewModel
 import androidx.navigation.compose.composable
+import com.example.budgetapp_grouptwo.ViewModel.CashFlowViewModel
+import com.example.budgetapp_grouptwo.ViewModel.CashFlowViewModelFactory
 import com.example.budgetapp_grouptwo.ViewModel.GoalViewModelFactory
 import com.example.budgetapp_grouptwo.model.CashFlow
-import com.example.budgetapp_grouptwo.model.datastorage.CashflowDataController
-import com.example.budgetapp_grouptwo.model.datastorage.CashflowDataSettings
-import com.example.budgetapp_grouptwo.model.datastorage.CashflowDataSettingsSerializer
+import com.example.budgetapp_grouptwo.model.Expense
+import com.example.budgetapp_grouptwo.model.ExpenseType
 import com.example.budgetapp_grouptwo.repository.AppDatabase
+import com.example.budgetapp_grouptwo.repository.CashFlowRepository
 import com.example.budgetapp_grouptwo.repository.DatabaseProvider
 import com.example.budgetapp_grouptwo.repository.GoalRepository
 import com.example.budgetapp_grouptwo.ui.screens.CreateGoalScreen
+import com.example.budgetapp_grouptwo.ui.screens.DetailsContent
 import com.example.budgetapp_grouptwo.ui.screens.FixedEntryScreen
 import com.example.budgetapp_grouptwo.ui.screens.GoalsPage
 import com.example.budgetapp_grouptwo.ui.screens.HomePage
@@ -37,18 +40,24 @@ import java.time.LocalDate
 class MainActivity : ComponentActivity() {
 
 
-    /*private val db by lazy { DatabaseProvider.getDatabase(this) }
-    val repository by lazy { GoalRepository(db.goalDao()) }
+    private val db by lazy { DatabaseProvider.getDatabase(this) }
+    val goalRepository by lazy { GoalRepository(db.goalDao()) }
+    val cashFlowRepository by lazy { CashFlowRepository(db.cashFlowDao()) }
 
     private val goalViewModel: GoalViewModel by viewModels{
-        GoalViewModelFactory(repository)
-    }*/
+        GoalViewModelFactory(goalRepository)
+    }
+
+    private val cashFlowViewModel: CashFlowViewModel by viewModels {
+        CashFlowViewModelFactory(cashFlowRepository)
+    }
+
+    var cashFlow: CashFlow = CashFlow();
+    var newCashflowViewModel = NewCashflowViewModel(cashFlow);
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var cashFlow: CashFlow = CashFlow();
-        var newCashflowViewModel = NewCashflowViewModel(cashFlow);
 
         enableEdgeToEdge()
 
@@ -67,18 +76,28 @@ class MainActivity : ComponentActivity() {
                     }
                     // RECENT PAGE
                     composable("recent") {
-                        RecentPage(navController = navController)
+                        DetailsContent(
+                            cashFlow = cashFlowViewModel.cashFlows,
+                            navController=navController,
+                            onRemoveIncome = { id ->
+                                cashFlowViewModel.removeIncome(id)
+                            },
+                            onRemoveExpense = { id ->
+                                cashFlowViewModel.removeExpense(id)
+                            }
+                        )
                     }
                     // Goal page
-                    /*composable("goals") {
+                    composable("goals") {
                         GoalsPage(
                             goals = goalViewModel.goals,
                             navController = navController,
                             onCreateGoalClick = {
                                 navController.navigate("createGoal")
                             },
-                            onAddMoney = { id, amount ->
-                                goalViewModel.addMoney(id, amount)
+                            onAddMoney = { goal, amount ->
+                                goalViewModel.addMoney(goal, amount)
+                                cashFlowViewModel.addExpense(Expense(name = "Overført til mål: " + goal.name, amount = amount, date = LocalDate.now(), type = ExpenseType.DepositToGoal))
                             },
                             onRemoveGoal = { id ->
                                 goalViewModel.removeGoal(id)
@@ -98,13 +117,14 @@ class MainActivity : ComponentActivity() {
                                 navController.popBackStack()
                             }
                         )
-                    }*/
+                    }
 
                     // insert new cashflow
                     composable("insertNewCashflow") {
                         InsertNewCashFlowContent(
                             onBack = {navController.popBackStack()},
-                            newCashflowViewModel
+                            cashFlowViewModel = cashFlowViewModel,
+                            onSubmit = {navController.navigate("home")}
                         )
                     }
 

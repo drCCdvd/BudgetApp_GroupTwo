@@ -11,6 +11,6 @@ data class Goal(
     val name: String,
     val targetAmount: Double,
     val savedAmount: Double,
-    val createdDate: String,
-    val endDate: String,
+    val createdDate: LocalDate,
+    val endDate: LocalDate,
 )

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.time.LocalDate
 
 class Expense (
-    id: Int,
+    id: Int=0,
     name: String,
     amount: Double,
     date: LocalDate,

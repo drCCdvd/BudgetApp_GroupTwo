@@ -9,6 +9,7 @@ abstract class Cash (
         amount: Double,
         dateAdded: LocalDate
     ) {
+    var id = id;
     var name = name;
     var amount = amount;
     var dateAdded = dateAdded;
