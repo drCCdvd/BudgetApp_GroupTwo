@@ -45,29 +45,6 @@ fun NavigationMenu(navController: NavController) {
             ) { navController.navigate("recent") }
         }
 
-        //Temporary navigation
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 12.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            simpleNavItem(
-                label = "Opret mål",
-                selected = currentRoute == "createGoal"
-            ) { navController.navigate("createGoal") }
-
-            simpleNavItem(
-                label = "Ny indtægt/udgift",
-                selected = currentRoute == "insertNewCashflow"
-            ) { navController.navigate("insertNewCashflow") }
-
-            simpleNavItem(
-                label = "Rediger faste",
-                selected = currentRoute == "editRegularCashflow"
-            ) { navController.navigate("editRegularCashflow") }
-        }
-
     }
 }
 

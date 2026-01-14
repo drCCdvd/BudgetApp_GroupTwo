@@ -19,12 +19,12 @@ import androidx.navigation.compose.rememberNavController
 import com.example.budgetapp_grouptwo.ViewModel.NewCashflowViewModel
 import com.example.budgetapp_grouptwo.ui.components.BackTopBar
 import com.example.budgetapp_grouptwo.ui.screens.CreateGoalScreen
-import com.example.budgetapp_grouptwo.ui.screens.GoalScreen
 import com.example.budgetapp_grouptwo.ui.screens.OverviewScreenWithQMenu
 import com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme
 import com.example.budgetapp_grouptwo.ViewModel.GoalViewModel
 import androidx.navigation.compose.composable
 import com.example.budgetapp_grouptwo.model.CashFlow
+import com.example.budgetapp_grouptwo.ui.components.PageLayout
 import com.example.budgetapp_grouptwo.ui.screens.CreateGoalScreen
 import com.example.budgetapp_grouptwo.ui.screens.FixedEntryScreen
 import com.example.budgetapp_grouptwo.ui.screens.GoalsPage
@@ -55,27 +55,51 @@ class MainActivity : ComponentActivity() {
 
                     // HOME PAGE
                     composable("home") {
-                        HomePage(navController = navController)
+                        PageLayout(
+                            navController = navController,
+                            title = "Hjem",
+                            subtitle = "Overblik",
+                            showEditRecurring = true,
+                            onEditRecurringClick = {
+                                navController.navigate("editRegularCashFlow")
+                            }
+
+                        ) {
+                            HomePage(navController = navController)
+                        }
                     }
                     // RECENT PAGE
                     composable("recent") {
-                        RecentPage(navController = navController)
+                        PageLayout(
+                            navController = navController,
+                            title = "Seneste",
+                            subtitle = "Overblik"
+                        ) {
+                            RecentPage(navController = navController)
+                        }
                     }
                     // Goal page
                     composable("goals") {
-                        GoalsPage(
-                            goals = goalViewModel.goals,
+                        PageLayout(
                             navController = navController,
-                            onCreateGoalClick = {
-                                navController.navigate("createGoal")
-                            },
-                            onAddMoney = { id, amount ->
-                                goalViewModel.addMoney(id, amount)
-                            },
-                            onRemoveGoal = { id ->
-                                goalViewModel.removeGoal(id)
-                            }
-                        )
+                            title = "Mål",
+                            subtitle = "Overblik"
+
+                        ) {
+                            GoalsPage(
+                                goals = goalViewModel.goals,
+                                navController = navController,
+                                onCreateGoalClick = {
+                                    navController.navigate("createGoal")
+                                },
+                                onAddMoney = { id, amount ->
+                                    goalViewModel.addMoney(id, amount)
+                                },
+                                onRemoveGoal = { id ->
+                                    goalViewModel.removeGoal(id)
+                                }
+                            )
+                        }
                     }
 
                     // CREATE GOAL Page
