@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+//import androidx.glance.appwidget.compose
 import androidx.navigation.NavController
 
 
@@ -19,7 +20,16 @@ fun HomePage(
             .fillMaxSize()
             .padding(24.dp)
     ) {
-    NavigationMenu(navController)
+    NavigationMenu(navController) //
     Text("homPage")
+        //add more a buttom for my fage
+        androidx.compose.material3.Button(
+            onClick = { navController.navigate("editRegularCashflow") },
+            modifier = Modifier.padding(top = 16.dp)
+        ) {
+            Text("Gå til Fast (Fixed Expenses)")
+        }
 }
 }
+// tao nut ket noi cac trang
+

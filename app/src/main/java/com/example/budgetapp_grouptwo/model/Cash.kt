@@ -9,7 +9,8 @@ abstract class Cash (
         amount: Double,
         dateAdded: LocalDate
     ) {
-    var name = name;
+    var id = id;
+    val name = name;
     var amount = amount;
     var dateAdded = dateAdded;
 
