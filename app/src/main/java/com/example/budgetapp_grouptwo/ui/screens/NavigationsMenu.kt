@@ -22,7 +22,9 @@ fun NavigationMenu(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    Column {
+    Column ( modifier = Modifier
+        .fillMaxWidth()
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -46,6 +48,7 @@ fun NavigationMenu(navController: NavController) {
         }
 
         //Temporary navigation
+        /*
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -66,7 +69,7 @@ fun NavigationMenu(navController: NavController) {
                 label = "Rediger faste",
                 selected = currentRoute == "editRegularCashflow"
             ) { navController.navigate("editRegularCashflow") }
-        }
+        }*/
 
     }
 }

@@ -76,15 +76,9 @@ class MainActivity : ComponentActivity() {
                     }
                     // RECENT PAGE
                     composable("recent") {
-                        DetailsContent(
-                            cashFlow = cashFlowViewModel.cashFlows,
-                            navController=navController,
-                            onRemoveIncome = { id ->
-                                cashFlowViewModel.removeIncome(id)
-                            },
-                            onRemoveExpense = { id ->
-                                cashFlowViewModel.removeExpense(id)
-                            }
+                        RecentPage(
+                            navController = navController,
+                            cashFlowViewModel = cashFlowViewModel
                         )
                     }
                     // Goal page
