@@ -140,6 +140,29 @@ fun FixedEntryScreen(onBack: () -> Unit) {
         ) {
             Text("Gem", color = Color(0xFF4B4B4B))
         }
+
+        Spacer(Modifier.height(12.dp))
+// slet buttoem
+
+        Spacer(Modifier.height(12.dp))
+
+        Button(
+            onClick = {
+                CashFlowStorage.clearAllPrefs(context)
+                incomeText = ""
+                expenseText = ""
+                Toast.makeText(context, "Alt slettet!", Toast.LENGTH_SHORT).show()
+            },
+            modifier = Modifier
+                .width(260.dp)
+                .height(54.dp),
+            shape = RoundedCornerShape(18.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFE6A7))
+        ) {
+            Text("Slet alt (test)", color = Color(0xFF4B4B4B))
+        }
+
+
     }
 }
 
