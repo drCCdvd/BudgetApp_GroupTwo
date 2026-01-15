@@ -37,8 +37,6 @@ fun HomePage(
             .fillMaxSize()
             .padding(24.dp)
     ) {
-        NavigationMenu(navController)
-
         // Overskrift
         Text(
             text = "HomePage",
@@ -47,6 +45,8 @@ fun HomePage(
                 fontWeight = FontWeight.SemiBold
             )
         )
+        NavigationMenu(navController)
+
 
         Spacer(modifier = Modifier.height(16.dp))
 
