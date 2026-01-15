@@ -2,14 +2,16 @@ package com.example.budgetapp_grouptwo.model
 
 import android.content.Context
 import androidx.compose.runtime.mutableStateListOf
-import com.example.bugetapp_grouptwo.CashFlowStorage
-import com.example.bugetapp_grouptwo.RegularCashFlow
+import com.example.budgetapp_grouptwo.CashFlowStorage
+import com.example.budgetapp_grouptwo.RegularCashFlow
+
+
 import java.time.LocalDate
 
 class CashFlow () {
-    var regularCashFlow = RegularCashFlow;
-    var cashFlows = mutableStateListOf<Cash>();
-    var cashFlowStorage: CashFlowStorage = CashFlowStorage;
+    val regularCashFlow = RegularCashFlow
+    val cashFlows = mutableStateListOf<Cash>()
+    val cashFlowStorage: CashFlowStorage = CashFlowStorage
 
     fun loadRegularCashFlow(context: Context) {
         regularCashFlow.setRegularEarnings(cashFlowStorage.loadRegularEarnings(context))

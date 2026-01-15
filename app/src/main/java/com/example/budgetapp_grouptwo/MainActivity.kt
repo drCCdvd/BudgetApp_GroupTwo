@@ -67,7 +67,8 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navController,
-                    startDestination = "home"
+                    "editRegularCashflow"
+                    //startDestination = "home"
                 ) {
 
                     // HOME PAGE
