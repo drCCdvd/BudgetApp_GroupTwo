@@ -89,7 +89,7 @@ fun DetailsContent(
 
         LazyColumn(modifier = Modifier.padding(10.dp)) {
             items(
-                items=cashFlow
+                cashFlow.reversed()
             ) { cash ->
 
                 CashItem(

@@ -26,9 +26,12 @@ fun HomePage(
         Text("HomePage")
 
         // Vis de seneste poster uden sletteknap
-        recentCashFlow.forEach { cash ->
-            CashItem(cash = cash)   // ← ingen onRemove → ingen knap
-        }
+        recentCashFlow
+            .sortedByDescending { it.dateAdded }
+            .forEach { cash ->
+                CashItem(cash = cash)
+            }
+
     }
 }
 
