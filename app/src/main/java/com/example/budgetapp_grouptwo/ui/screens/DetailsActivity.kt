@@ -89,21 +89,22 @@ fun DetailsContent(
 
         LazyColumn(modifier = Modifier.padding(10.dp)) {
             items(
-                cashFlow.reversed()
+                cashFlow.sortedByDescending { it.dateAdded }   // ← den rigtige løsning
             ) { cash ->
 
                 CashItem(
                     cash = cash,
                     onRemove = { id ->
-                        if(cash is Expense){
-                            onRemoveExpense(id);
-                        }else{
-                            onRemoveIncome(id);
+                        if (cash is Expense) {
+                            onRemoveExpense(id)
+                        } else {
+                            onRemoveIncome(id)
                         }
                     }
                 )
             }
         }
+
     }
 }
 

@@ -28,22 +28,22 @@ import com.example.budgetapp_grouptwo.model.Goal
 import androidx.compose.material3.OutlinedTextField
 
 @Composable
-
 fun GoalItem(
     goal: Goal,
-    onAddMoney: (Goal, Double) -> Unit,
-    onRemove: (Int) -> Unit
+    onAddMoney: ((Goal, Double) -> Unit)? = null,
+    onRemove: ((Int) -> Unit)? = null
 ) {
     var showConfirm by remember { mutableStateOf(false) }
     var showAddDialog by remember { mutableStateOf(false) }
     var inputAmount by remember { mutableStateOf("") }
-    val progress =
-        (goal.savedAmount / goal.targetAmount)
-            .toFloat()
-            .coerceIn(0f, 1f)
+
+    val progress = (goal.savedAmount / goal.targetAmount)
+        .toFloat()
+        .coerceIn(0f, 1f)
 
     val percent = (progress * 100).toInt()
     val isCompleted = progress >= 1f
+
     Card(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
@@ -52,10 +52,11 @@ fun GoalItem(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column(modifier = Modifier.weight(1f)) {
+
                 Text(goal.name, style = MaterialTheme.typography.titleMedium)
 
                 Spacer(Modifier.height(4.dp))
-                Text("${percent}% i mål")
+                Text("$percent% i mål")
 
                 Spacer(Modifier.height(6.dp))
                 LinearProgressIndicator(
@@ -69,31 +70,33 @@ fun GoalItem(
                 Text("${goal.savedAmount.toInt()} / ${goal.targetAmount.toInt()} kr.")
 
                 Spacer(Modifier.height(8.dp))
+
                 if (isCompleted) {
                     Text(
                         text = "100% i mål!",
                         style = MaterialTheme.typography.bodyMedium
                     )
-                } else {
-                    TextButton(
-                        onClick = {
-                            showAddDialog = true
-                        }
-                    ) {
-                        Text("Tilføj beløb")
-                    }
                 }
             }
 
-            IconButton(onClick = { showConfirm = true}) {
-                Icon(
-                    Icons.Default.Delete,
-                    contentDescription = "Fjern mål"
-                )
+            // Tilføj beløb (kun hvis callback findes)
+            if (!isCompleted && onAddMoney != null) {
+                TextButton(onClick = { showAddDialog = true }) {
+                    Text("Tilføj beløb")
+                }
+            }
+
+            // Slet-knap (kun hvis callback findes)
+            if (onRemove != null) {
+                IconButton(onClick = { showConfirm = true }) {
+                    Icon(Icons.Default.Delete, contentDescription = "Fjern mål")
+                }
             }
         }
     }
-    if (showAddDialog) {
+
+    // Dialog: Tilføj beløb
+    if (showAddDialog && onAddMoney != null) {
         AlertDialog(
             onDismissRequest = {
                 showAddDialog = false
@@ -113,7 +116,7 @@ fun GoalItem(
                     onClick = {
                         val amount = inputAmount.toDoubleOrNull()
                         if (amount != null && amount > 0) {
-                            onAddMoney(goal, amount)
+                            onAddMoney.invoke(goal, amount)
                         }
                         showAddDialog = false
                         inputAmount = ""
@@ -135,24 +138,25 @@ fun GoalItem(
         )
     }
 
-    if (showConfirm) {
+    // Dialog: Bekræft sletning
+    if (showConfirm && onRemove != null) {
         AlertDialog(
             onDismissRequest = { showConfirm = false },
-            title = { Text("Fjern mål" ) },
+            title = { Text("Fjern mål") },
             text = { Text("Vil du slette \"${goal.name}\"?") },
             confirmButton = {
-                TextButton(onClick =  {
-                showConfirm = false
-                onRemove(goal.id)
-            }) {
-                Text("Fjern")
+                TextButton(onClick = {
+                    showConfirm = false
+                    onRemove.invoke(goal.id)
+                }) {
+                    Text("Fjern")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showConfirm = false }) {
+                    Text("Annuller")
+                }
             }
-        },
-        dismissButton = {
-            TextButton(onClick = { showConfirm = false }) {
-                Text("Annuller")
-            }
-        }
-      )
+        )
     }
 }

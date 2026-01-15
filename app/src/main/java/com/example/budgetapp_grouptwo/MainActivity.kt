@@ -6,12 +6,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.budgetapp_grouptwo.ViewModel.NewCashflowViewModel
@@ -33,6 +35,7 @@ import com.example.budgetapp_grouptwo.ui.screens.DetailsContent
 import com.example.budgetapp_grouptwo.ui.screens.FixedEntryScreen
 import com.example.budgetapp_grouptwo.ui.screens.GoalsPage
 import com.example.budgetapp_grouptwo.ui.screens.HomePage
+
 import com.example.budgetapp_grouptwo.ui.screens.InsertNewCashFlowContent
 import com.example.budgetapp_grouptwo.ui.screens.RecentPage
 import java.time.LocalDate
@@ -69,12 +72,19 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     // HOME PAGE
+                    // HOME PAGE
                     composable("home") {
+
+                        val goals = goalViewModel.goals              // ← helt almindelig List<Goal>
+                        val cashFlow = cashFlowViewModel.cashFlows   // ← helt almindelig List<Cash>
+
                         HomePage(
                             navController = navController,
-                            recentCashFlow = cashFlowViewModel.cashFlows.takeLast(5)   // ← NYT
+                            recentCashFlow = cashFlow.takeLast(5),
+                            goals = goals
                         )
                     }
+
 
 
                     // RECENT PAGE (Details)
@@ -148,3 +158,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
