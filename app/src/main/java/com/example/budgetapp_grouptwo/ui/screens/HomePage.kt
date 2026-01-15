@@ -22,6 +22,7 @@ import com.example.budgetapp_grouptwo.ViewModel.CashFlowViewModel
 import com.example.budgetapp_grouptwo.ViewModel.GoalViewModel
 import com.example.budgetapp_grouptwo.ui.theme.Typography
 import java.time.LocalDate
+import kotlin.math.roundToInt
 
 
 @Composable
@@ -31,7 +32,8 @@ fun HomePage(
     goalViewModel: GoalViewModel,
 ) {
     val context = LocalContext.current
-    var montlyDisposable by remember { mutableStateOf(0.0) }
+    var montlyDisposable = cashFlowViewModel.monthlyDisposable;
+    var todaysDisposable = cashFlowViewModel.disposableToday;
 
     LaunchedEffect(Unit) {
         cashFlowViewModel
@@ -40,6 +42,7 @@ fun HomePage(
                 LocalDate.now(),
                 context
             )
+        cashFlowViewModel.getDisposableToday(context);
         montlyDisposable = cashFlowViewModel.monthlyDisposable;
     }
 
@@ -49,19 +52,14 @@ fun HomePage(
             .padding(24.dp)
     ) {
         Text(
-            text ="Til rådighed: " + montlyDisposable.toString(),
-            style = MaterialTheme.typography.headlineMedium
+            text ="Til rådighed i dag " + todaysDisposable.value.roundToInt().toString()+",-",
+            style = MaterialTheme.typography.headlineSmall,
         )
-    NavigationMenu(navController) //
-    Text("homPage")
-        //add more a buttom for my fage
-        androidx.compose.material3.Button(
-            onClick = { navController.navigate("editRegularCashflow") },
-            modifier = Modifier.padding(top = 16.dp)
-        ) {
-            Text("Gå til Fast (Fixed Expenses)")
-        }
-}
-}
-// tao nut ket noi cac trang
+        Text(
+            text ="Disponible for ${LocalDate.now().month.name} " + montlyDisposable.value.roundToInt().toString()+",-",
+            style = MaterialTheme.typography.bodyMedium
+        )
+        NavigationMenu(navController)
 
+    }
+}

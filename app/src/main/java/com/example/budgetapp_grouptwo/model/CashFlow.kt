@@ -34,17 +34,10 @@ class CashFlow () {
 
     fun getDisposable(startDate: LocalDate, endDate: LocalDate, context: Context): Double{
         var disposable = 0.0;
+        //Faste
+        disposable += getRegularDisposable(startDate,endDate,context);
 
-        var intervalInMonths = ChronoUnit.MONTHS.between(startDate,endDate)+1;
-        println(intervalInMonths);
-
-        loadRegularCashFlow(context)
-
-        println("${regularCashFlow.getRegularExpenses()}, ${regularCashFlow.getRegularEarnings()}")
-        //Faste:
-        disposable += intervalInMonths*regularCashFlow.getRegularEarnings()-intervalInMonths*regularCashFlow.getRegularExpenses()
-
-        //Variable
+        //Variabel
         for(cash in cashFlows){
             if(cash.dateAdded.isAfter(startDate) && cash.dateAdded.isBefore(endDate)){
                 if(cash is Expense){
@@ -55,8 +48,14 @@ class CashFlow () {
             }
         }
 
-        print(disposable)
+        return disposable;
+    }
 
+    fun getRegularDisposable(startDate: LocalDate, endDate: LocalDate, context: Context): Double{
+        var disposable = 0.0;
+        var intervalInMonths = ChronoUnit.MONTHS.between(startDate,endDate)+1;
+        loadRegularCashFlow(context)
+        disposable += intervalInMonths*regularCashFlow.getRegularEarnings()-intervalInMonths*regularCashFlow.getRegularExpenses()
         return disposable;
     }
 

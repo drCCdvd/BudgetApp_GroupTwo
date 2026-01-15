@@ -12,6 +12,7 @@ import com.example.budgetapp_grouptwo.model.CashFlow
 import com.example.budgetapp_grouptwo.model.Expense
 import com.example.budgetapp_grouptwo.model.Income
 import com.example.budgetapp_grouptwo.repository.CashFlowRepository
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -23,7 +24,9 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
     //var dailyDisposable = mutableStateOf<Double>(0.0);
     var cashFlows = cashFlow.cashFlows
 
-    var monthlyDisposable = 0.0;
+    var monthlyDisposable = mutableStateOf(0.0);
+    var dailyDisposable = mutableStateOf(0.0);
+    var disposableToday = mutableStateOf(0.0);
 
     //Load cashflow initially
     init {
@@ -42,7 +45,7 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
         cashFlows.add(new_income);
     }
 
-    fun fetchAllCashFlows() = viewModelScope.launch {
+    suspend fun fetchAllCashFlows() {
         var cashFlowData  = repository.getAllCashFlows();
         cashFlows.clear()
         cashFlows.addAll(cashFlowData);
@@ -70,9 +73,34 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
 
     fun getDisposable(startDate: LocalDate, endDate: LocalDate, context: Context) = viewModelScope.launch{
         fetchAllCashFlows()
-        monthlyDisposable = cashFlow.getDisposable(startDate, endDate, context);
+        monthlyDisposable.value = cashFlow.getDisposable(startDate, endDate, context);
     }
 
+    fun getDisposableToday(context: Context) = viewModelScope.launch {
+        fetchAllCashFlows()
+
+        dailyDisposable.value = cashFlow.getRegularDisposable(
+            LocalDate.now(),
+            LocalDate.now(),
+            context
+        )/ LocalDate.now().lengthOfMonth()
+
+        println(dailyDisposable.value)
+
+        var todaysAccounting = 0.0;
+        for(cash in cashFlow.cashFlows){
+            if(cash.dateAdded!= LocalDate.now()){
+                continue;
+            }
+
+            if(cash is Expense){
+                todaysAccounting-=cash.amount;
+            }else{
+                todaysAccounting+=cash.amount;
+            }
+        }
+        disposableToday.value = dailyDisposable.value+todaysAccounting;
+    }
 }
 
 class CashFlowViewModelFactory(private val repository: CashFlowRepository): ViewModelProvider.Factory{
