@@ -22,7 +22,9 @@ import com.example.budgetapp_grouptwo.RegularCashFlow
 
 
 @Composable
-fun FixedEntryScreen(onBack: () -> Unit) {
+fun FixedEntryScreen(
+    onBack: () -> Unit
+) {
     val context = LocalContext.current
 
     // ---- State ----

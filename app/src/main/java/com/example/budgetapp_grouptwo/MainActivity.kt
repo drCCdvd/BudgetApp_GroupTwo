@@ -58,7 +58,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         enableEdgeToEdge()
 
         setContent {
@@ -67,13 +66,17 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navController,
-                    "editRegularCashflow"
+                    "home"
                     //startDestination = "home"
                 ) {
 
                     // HOME PAGE
                     composable("home") {
-                        HomePage(navController = navController)
+                        HomePage(
+                            navController = navController,
+                            cashFlowViewModel = cashFlowViewModel,
+                            goalViewModel = goalViewModel,
+                        )
                     }
                     // RECENT PAGE
                     composable("recent") {
@@ -131,7 +134,9 @@ class MainActivity : ComponentActivity() {
 
                     // EDIT REGULAR CASHFLOW
                     composable("editRegularCashflow") {
-                        FixedEntryScreen (onBack = {navController.popBackStack()})
+                        FixedEntryScreen (
+                            onBack = {navController.popBackStack()}
+                        )
                     }
                 }
             }

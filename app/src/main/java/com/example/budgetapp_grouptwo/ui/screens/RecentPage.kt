@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.budgetapp_grouptwo.model.CashFlow
 
 @Composable
 fun RecentPage(

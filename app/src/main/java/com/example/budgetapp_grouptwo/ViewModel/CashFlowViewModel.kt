@@ -1,7 +1,9 @@
 package com.example.budgetapp_grouptwo.ViewModel
 
+import android.content.Context
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -11,11 +13,17 @@ import com.example.budgetapp_grouptwo.model.Expense
 import com.example.budgetapp_grouptwo.model.Income
 import com.example.budgetapp_grouptwo.repository.CashFlowRepository
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
 
     var repository = cashFlowRepository;
-    var cashFlows = mutableStateListOf<Cash>()
+    var cashFlow = CashFlow();
+    //var monthlyDisposable = mutableStateOf<Double>(0.0)
+    //var dailyDisposable = mutableStateOf<Double>(0.0);
+    var cashFlows = cashFlow.cashFlows
+
+    var monthlyDisposable = 0.0;
 
     //Load cashflow initially
     init {
@@ -52,12 +60,17 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
         fetchAllCashFlows();
     }
 
-    fun fetchRegularCashFlow() = viewModelScope.launch {
+    /*fun fetchRegularCashFlow() = viewModelScope.launch {
         //Todo add
     }
 
     fun editRegularCashFlow() = viewModelScope.launch {
         //Todo add
+    }*/
+
+    fun getDisposable(startDate: LocalDate, endDate: LocalDate, context: Context) = viewModelScope.launch{
+        fetchAllCashFlows()
+        monthlyDisposable = cashFlow.getDisposable(startDate, endDate, context);
     }
 
 }
