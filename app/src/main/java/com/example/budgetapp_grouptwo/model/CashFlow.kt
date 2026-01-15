@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateListOf
 import com.example.bugetapp_grouptwo.CashFlowStorage
 import com.example.bugetapp_grouptwo.RegularCashFlow
 import java.time.LocalDate
+import kotlin.math.exp
 
 class CashFlow () {
     var regularCashFlow = RegularCashFlow;
@@ -16,6 +17,11 @@ class CashFlow () {
         regularCashFlow.setRegularExpense(cashFlowStorage.loadRegularExpenses(context))
         //Implementer cashFlowStorage.loadCashflow();
     }
+class CashFlow (
+    //Todo RegularCashFlow object here
+    ) {
+    //regularCashFlow: RegularCashFlow = regularCashFlow
+    val cashFlows = mutableStateListOf<Cash>()
 
     fun addNewExpense(name: String, amount: Double, type: ExpenseType, date: LocalDate){
         var nextId = cashFlows.size;
@@ -25,7 +31,7 @@ class CashFlow () {
 
     fun addNewIncome(name: String, amount: Double, date: LocalDate){
         val nextId = cashFlows.size;
-        var newIncome = Income(nextId,name,amount, date)
+        var newIncome = Income(nextId,name,amount,date)
         cashFlows.add(newIncome)
     }
 
@@ -34,5 +40,9 @@ class CashFlow () {
         disposable += regularCashFlow.getRegularEarnings()-regularCashFlow.getRegularExpenses()
         return disposable;
     }
+    fun removeItem(id: Int) {
+        cashFlows.removeAll { it.id == id }
+    }
+
 
 }

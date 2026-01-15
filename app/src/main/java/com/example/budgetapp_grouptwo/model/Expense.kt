@@ -2,6 +2,7 @@ package com.example.budgetapp_grouptwo.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.bugetapp_grouptwo.RegularCashFlow
 import java.time.LocalDate
 
 class Expense (
@@ -10,8 +11,10 @@ class Expense (
     amount: Double,
     date: LocalDate,
     type: ExpenseType,
-    ): Cash(id,name, amount, date){
+    ): Cash(id,name, amount, date)
 
+/*
+{
 
     var type = type;
 
@@ -20,3 +23,4 @@ class Expense (
     }
 
 }
+ */

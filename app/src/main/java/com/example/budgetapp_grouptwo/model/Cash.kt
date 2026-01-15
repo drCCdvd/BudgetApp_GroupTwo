@@ -13,6 +13,7 @@ abstract class Cash (
     var name = name;
     var amount = amount;
     var dateAdded = dateAdded;
+    val regularCashFlow: Boolean = false
 
     open fun readOutLoud(): String {
         return ("amount ${amount} added at ${dateAdded}");
