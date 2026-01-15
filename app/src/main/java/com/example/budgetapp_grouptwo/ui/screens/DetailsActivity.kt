@@ -45,6 +45,8 @@ import com.example.budgetapp_grouptwo.model.Expense
 import com.example.budgetapp_grouptwo.model.ExpenseType
 import com.example.budgetapp_grouptwo.model.Income
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -115,6 +117,11 @@ fun CashItem(
     val isIncome = cash is Income
     val color = if (isIncome) Color(0xFF4CAF50) else Color(0xFFF44336)
     val prefix = if (isIncome) "+" else "-"
+    val formattedDate = cash.dateAdded.format(
+        DateTimeFormatter.ofPattern("d MMMM", Locale("da"))
+    )
+
+
 
     Row(
         modifier = Modifier
@@ -125,7 +132,8 @@ fun CashItem(
     ) {
         Column {
             Text(
-                text = cash.dateAdded.toString(),
+                //text = cash.dateAdded.toString(),
+                text = formattedDate,
                 fontSize = 12.sp
             )
 
