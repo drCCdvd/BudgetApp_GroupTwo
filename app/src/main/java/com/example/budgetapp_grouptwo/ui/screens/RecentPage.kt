@@ -26,7 +26,7 @@ fun RecentPage(
             .fillMaxSize()
             .statusBarsPadding()
             .padding(horizontal = 16.dp) // or whatever your shell expects
-           
+
     ) {
         Text(modifier = Modifier.padding(horizontal = 10.dp), text = "Recent Page", fontSize = 26.sp, fontWeight = FontWeight.Bold)
 
