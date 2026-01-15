@@ -39,12 +39,11 @@ import java.time.LocalDate
 
 class MainActivity : ComponentActivity() {
 
-
     private val db by lazy { DatabaseProvider.getDatabase(this) }
     val goalRepository by lazy { GoalRepository(db.goalDao()) }
     val cashFlowRepository by lazy { CashFlowRepository(db.cashFlowDao()) }
 
-    private val goalViewModel: GoalViewModel by viewModels{
+    private val goalViewModel: GoalViewModel by viewModels {
         GoalViewModelFactory(goalRepository)
     }
 
@@ -52,12 +51,11 @@ class MainActivity : ComponentActivity() {
         CashFlowViewModelFactory(cashFlowRepository)
     }
 
-    var cashFlow: CashFlow = CashFlow();
-    var newCashflowViewModel = NewCashflowViewModel(cashFlow);
+    var cashFlow: CashFlow = CashFlow()
+    var newCashflowViewModel = NewCashflowViewModel(cashFlow)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         enableEdgeToEdge()
 
@@ -72,13 +70,18 @@ class MainActivity : ComponentActivity() {
 
                     // HOME PAGE
                     composable("home") {
-                        HomePage(navController = navController)
+                        HomePage(
+                            navController = navController,
+                            recentCashFlow = cashFlowViewModel.cashFlows.takeLast(5)   // ← NYT
+                        )
                     }
-                    // RECENT PAGE
+
+
+                    // RECENT PAGE (Details)
                     composable("recent") {
                         DetailsContent(
                             cashFlow = cashFlowViewModel.cashFlows,
-                            navController=navController,
+                            navController = navController,
                             onRemoveIncome = { id ->
                                 cashFlowViewModel.removeIncome(id)
                             },
@@ -87,7 +90,8 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
-                    // Goal page
+
+                    // GOALS PAGE
                     composable("goals") {
                         GoalsPage(
                             goals = goalViewModel.goals,
@@ -97,7 +101,14 @@ class MainActivity : ComponentActivity() {
                             },
                             onAddMoney = { goal, amount ->
                                 goalViewModel.addMoney(goal, amount)
-                                cashFlowViewModel.addExpense(Expense(name = "Overført til mål: " + goal.name, amount = amount, date = LocalDate.now(), type = ExpenseType.DepositToGoal))
+                                cashFlowViewModel.addExpense(
+                                    Expense(
+                                        name = "Overført til mål: " + goal.name,
+                                        amount = amount,
+                                        date = LocalDate.now(),
+                                        type = ExpenseType.DepositToGoal
+                                    )
+                                )
                             },
                             onRemoveGoal = { id ->
                                 goalViewModel.removeGoal(id)
@@ -105,7 +116,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    // CREATE GOAL Page
+                    // CREATE GOAL PAGE
                     composable("createGoal") {
                         CreateGoalScreen(
                             navController = navController,
@@ -119,18 +130,18 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    // insert new cashflow
+                    // INSERT NEW CASHFLOW
                     composable("insertNewCashflow") {
                         InsertNewCashFlowContent(
-                            onBack = {navController.popBackStack()},
+                            onBack = { navController.popBackStack() },
                             cashFlowViewModel = cashFlowViewModel,
-                            onSubmit = {navController.navigate("home")}
+                            onSubmit = { navController.navigate("home") }
                         )
                     }
 
                     // EDIT REGULAR CASHFLOW
                     composable("editRegularCashflow") {
-                        FixedEntryScreen (onBack = {navController.popBackStack()})
+                        FixedEntryScreen(onBack = { navController.popBackStack() })
                     }
                 }
             }
