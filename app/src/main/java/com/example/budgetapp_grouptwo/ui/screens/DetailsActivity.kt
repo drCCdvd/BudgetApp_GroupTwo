@@ -132,7 +132,7 @@ fun CashItem(
             Text(
                 text = cash.name,
                 style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold, fontSize = 20.sp
             )
         }
 
