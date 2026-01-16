@@ -28,11 +28,10 @@ import com.example.budgetapp_grouptwo.model.Goal
 import androidx.compose.material3.OutlinedTextField
 
 @Composable
-
 fun GoalItem(
     goal: Goal,
-    onAddMoney: (Goal, Double) -> Unit,
-    onRemove: (Int) -> Unit
+    onAddMoney: ((Goal, Double) -> Unit)? = null,
+    onRemove: ((Int) -> Unit)? = null
 ) {
     var showConfirm by remember { mutableStateOf(false) }
     var showAddDialog by remember { mutableStateOf(false) }
@@ -113,7 +112,7 @@ fun GoalItem(
                     onClick = {
                         val amount = inputAmount.toDoubleOrNull()
                         if (amount != null && amount > 0) {
-                            onAddMoney(goal, amount)
+                            onAddMoney?.invoke(goal, amount)
                         }
                         showAddDialog = false
                         inputAmount = ""
@@ -143,7 +142,7 @@ fun GoalItem(
             confirmButton = {
                 TextButton(onClick =  {
                 showConfirm = false
-                onRemove(goal.id)
+                onRemove?.invoke(goal.id)
             }) {
                 Text("Fjern")
             }

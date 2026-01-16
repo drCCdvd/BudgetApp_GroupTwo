@@ -10,6 +10,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.budgetapp_grouptwo.model.Goal
 import com.example.budgetapp_grouptwo.ui.goal.GoalItem
+import androidx.compose.runtime.*
+import com.example.budgetapp_grouptwo.ui.components.MainHeader
+import com.example.budgetapp_grouptwo.ui.components.QuickActionFab
+import com.example.budgetapp_grouptwo.ui.components.QuickActionFabContainer
 
 @Composable
 fun GoalsPage(
@@ -24,42 +28,26 @@ fun GoalsPage(
             .fillMaxSize()
             .padding(24.dp)
     ) {
-        //Navigation menu øverst
-        NavigationMenu(navController)
-
-        Text(
-            text = "Mine mål",
-            style = MaterialTheme.typography.headlineMedium
-        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        if (goals.isEmpty()) {
-            Text("Ingen mål endnu")
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-
-            ) {
-                items(items = goals, key = { it.id }) { goal ->
-                    GoalItem(
-                        goal = goal,
-                        onAddMoney = onAddMoney,
-                        onRemove = onRemoveGoal
-                    )
+            if (goals.isEmpty()) {
+                Text("Ingen mål endnu")
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(items = goals, key = { it.id }) { goal ->
+                        GoalItem(
+                            goal = goal,
+                            onAddMoney = onAddMoney,
+                            onRemove = onRemoveGoal
+                        )
+                    }
                 }
             }
         }
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        Button(
-            onClick = onCreateGoalClick,
-        ) {
-            Text("Opret nyt mål")
-        }
     }
-}

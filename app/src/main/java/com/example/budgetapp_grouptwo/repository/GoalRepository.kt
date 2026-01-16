@@ -50,18 +50,6 @@ class GoalRepository(goalDao: GoalDao) {
         var goal = goalDao.selectById(goalId)
         var newAmount = goal.savedAmount+amount
         goalDao.insertAmount(goalId,newAmount);
-
-
-        /*
-        var newGoal = Goal(
-            id = goalId,
-            name = goal.name,
-            targetAmount = goal.targetAmount,
-            savedAmount = goal.savedAmount + amount,
-            createdDate = goal.createdDate,
-            endDate = goal.endDate
-        )
-        goalDao.updateGoal(newGoal.toEntity());*/
     }
 
     suspend fun insertNewGoal(goal: Goal): Goal{

@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.budgetapp_grouptwo.model.CashFlow
+import com.example.budgetapp_grouptwo.ui.components.QuickActionFabContainer
 
 @Composable
 fun RecentPage(
@@ -20,9 +21,14 @@ fun RecentPage(
             .fillMaxSize()
             .padding(24.dp)
     ) {
-        NavigationMenu(navController)
         Text ("Recent Page")
     }
+    QuickActionFabContainer(
+        navController = navController,
+        onCreateGoal = {
+            navController.navigate("createGoal")
+        }
+    )
 }
 
 

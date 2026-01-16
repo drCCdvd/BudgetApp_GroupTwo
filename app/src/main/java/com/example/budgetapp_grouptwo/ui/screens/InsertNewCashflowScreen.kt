@@ -100,11 +100,7 @@ fun InsertNewCashFlowContent(
 ){
     //var newCashflowViewModel = newCashFlowViewModel
 
-    //if(newCashFlowViewModel==null){
-    //    throw error("No viewmodel")
-    //}
 
-    //var _cashFlow = newCashflowViewModel.cashFlow;
     var expandedCategoryMenu by remember { mutableStateOf(false) }
 
     var expandedDatePicker by remember{mutableStateOf(false)}

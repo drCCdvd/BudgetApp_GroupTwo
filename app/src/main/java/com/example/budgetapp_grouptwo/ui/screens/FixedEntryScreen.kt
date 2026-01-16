@@ -109,7 +109,6 @@ fun FixedEntryScreen(
         Spacer(Modifier.height(26.dp))
 
         // ---- Line 6: Gem ----
-
         Button(
             onClick = {
                 val income = incomeText.replace(",", ".").trim().toDoubleOrNull()

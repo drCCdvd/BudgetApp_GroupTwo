@@ -60,6 +60,8 @@ dependencies {
 
     val nav_version = "2.9.6"
 
+    implementation("androidx.compose.material:material-icons-extended:1.7.8");
+
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 
     // Preferences DataStore (SharedPreferences like APIs)

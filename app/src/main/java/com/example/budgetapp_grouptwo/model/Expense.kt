@@ -1,8 +1,7 @@
 package com.example.budgetapp_grouptwo.model
-
+import java.time.LocalDate
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDate
 
 class Expense (
     id: Int=0,

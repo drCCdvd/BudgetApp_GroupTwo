@@ -50,12 +50,17 @@ class GoalViewModel(goalRepository: GoalRepository) : ViewModel() {
         fetchGoals();
     }
     fun addMoney(goal: Goal, amount: Double) = viewModelScope.launch{
+        println("goal id: " + goal.id);
         repository.addMoneyToGoal(goal.id, amount);
         fetchGoals();
     }
 
     fun fetchGoals() = viewModelScope.launch{
         val initialized_goals: List<Goal> = repository.getAllGoals();
+        println("initialized: ")
+        for(goal in initialized_goals){
+            println(goal.id);
+        }
         _goals.clear()
         _goals.addAll(initialized_goals)
     }

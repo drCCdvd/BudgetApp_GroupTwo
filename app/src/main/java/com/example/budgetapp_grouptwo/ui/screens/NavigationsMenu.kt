@@ -41,33 +41,9 @@ fun NavigationMenu(navController: NavController) {
 
             NavItem(
                 label = "Seneste",
-                selected = currentRoute == "recent"
-            ) { navController.navigate("recent") }
+                selected = currentRoute == "recentDetails"
+            ) { navController.navigate("recentDetails") }
         }
-
-        //Temporary navigation
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 12.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            simpleNavItem(
-                label = "Opret mål",
-                selected = currentRoute == "createGoal"
-            ) { navController.navigate("createGoal") }
-
-            simpleNavItem(
-                label = "Ny indtægt/udgift",
-                selected = currentRoute == "insertNewCashflow"
-            ) { navController.navigate("insertNewCashflow") }
-
-            simpleNavItem(
-                label = "Rediger faste",
-                selected = currentRoute == "editRegularCashflow"
-            ) { navController.navigate("editRegularCashflow") }
-        }
-
     }
 }
 
@@ -93,30 +69,6 @@ fun NavItem(
         )
     }
 }
-
-@Composable
-fun simpleNavItem(
-    label: String,
-    selected: Boolean,
-    onClick: () -> Unit
-) {
-    val backgroundColor = if (selected) Color.DarkGray else Color.LightGray
-    val alpha = if (selected) 1f else 0.5f
-
-    Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(12.dp))
-            .background(backgroundColor.copy(alpha = alpha))
-            .clickable { onClick() }
-            .padding(horizontal = 2.dp, vertical = 2.dp)
-    ) {
-        Text(
-            text = label,
-            color = if (selected) Color.White else Color.Black.copy(alpha = 0.7f)
-        )
-    }
-}
-
 
 
 
