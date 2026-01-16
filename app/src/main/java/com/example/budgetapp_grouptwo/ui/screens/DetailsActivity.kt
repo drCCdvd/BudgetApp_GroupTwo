@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -78,15 +79,12 @@ fun DetailsContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp)
+            .padding(5.dp)
     ) {
-        var listLength = cashFlow.size;
-        println(cashFlow);
-
 
         LazyColumn(modifier = Modifier.padding(10.dp)) {
             items(
-                cashFlow.sortedByDescending { it.dateAdded }   // ← den rigtige løsning
+                cashFlow.sortedByDescending { it.dateAdded }   // den rigtige løsning
             ) { cash ->
 
                 CashItem(
@@ -108,7 +106,7 @@ fun DetailsContent(
 @Composable
 fun CashItem(
     cash: Cash,
-    onRemove: ((Int) -> Unit)? = null   // ← valgfri callback
+    onRemove: ((Int) -> Unit)? = null   // valgfri callback
 ) {
     var showConfirm by remember { mutableStateOf(false) }
 
@@ -124,7 +122,7 @@ fun CashItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .padding(vertical = 2.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -132,13 +130,16 @@ fun CashItem(
             Text(
                 //text = cash.dateAdded.toString(),
                 text = formattedDate,
-                fontSize = 12.sp
+                fontSize = 12.sp,
             )
 
             Text(
                 text = cash.name,
                 style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold, fontSize = 20.sp
+                fontWeight = FontWeight.Normal, fontSize = 20.sp,
+                modifier = Modifier.width(180.dp),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
             )
         }
 

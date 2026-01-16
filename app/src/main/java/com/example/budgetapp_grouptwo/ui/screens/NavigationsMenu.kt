@@ -29,15 +29,15 @@ fun NavigationMenu(navController: NavController) {
                 .padding(vertical = 12.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            NavItem(
-                label = "Hjem",
-                selected = currentRoute == "home"
-            ) { navController.navigate("home") }
 
             NavItem(
                 label = "Mål",
                 selected = currentRoute == "goals"
             ) { navController.navigate("goals") }
+            NavItem(
+                label = "Hjem",
+                selected = currentRoute == "home"
+            ) { navController.navigate("home") }
 
             NavItem(
                 label = "Seneste",

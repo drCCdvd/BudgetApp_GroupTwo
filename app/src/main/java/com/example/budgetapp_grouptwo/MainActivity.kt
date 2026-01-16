@@ -95,10 +95,21 @@ class MainActivity : ComponentActivity() {
 
                     // HOME PAGE
                     composable("home") {
+                        //preprocess disposable in cashflowviewmodel
+                        //to get disposable for title and subtitle
+                        cashFlowViewModel
+                            .getDisposable(
+                                LocalDate.of(LocalDate.now().year, LocalDate.now().month, 1),
+                                LocalDate.now(),
+                                LocalContext.current
+                            )
+                        cashFlowViewModel.getDisposableToday(LocalContext.current);
+
+
                         PageLayout(
                             navController = navController,
-                            title = "Hjem",
-                            subtitle = "Overblik",
+                            title = "Tilbage i dag " + cashFlowViewModel.disposableToday.value.toInt().toString()+",-",
+                            subtitle = "Disponible for ${LocalDate.now().month.name} " + cashFlowViewModel.monthlyDisposable.value.toInt().toString()+",-",
                             showEditRecurring = true,
                             onEditRecurringClick = {
                                 navController.navigate("editRegularCashFlow")
