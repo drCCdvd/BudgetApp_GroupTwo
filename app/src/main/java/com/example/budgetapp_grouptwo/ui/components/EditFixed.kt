@@ -6,7 +6,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.budgetapp_grouptwo.ui.screens.simpleNavItem
 
 @Composable
 fun EditRecurringNavItem(navController: NavController) {
@@ -20,11 +19,5 @@ fun EditRecurringNavItem(navController: NavController) {
             .padding(vertical = 12.dp),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        simpleNavItem(
-            label = "Rediger faste",
-            selected = currentRoute == "editRegularCashflow"
-        ) {
-            navController.navigate("editRegularCashflow")
-        }
     }
 }

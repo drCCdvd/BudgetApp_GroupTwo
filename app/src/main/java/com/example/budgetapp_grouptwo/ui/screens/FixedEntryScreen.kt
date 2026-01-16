@@ -126,7 +126,7 @@ fun FixedEntryScreen(onBack: () -> Unit) {
                 RegularCashFlow.setRegularExpense(expenseFinal)
                 CashFlowStorage.saveRegularExpenses(context, expenseFinal)
 
-                Toast.makeText(context, "Đã lưu!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Gemt!", Toast.LENGTH_SHORT).show()
             },
             modifier = Modifier
                 .width(260.dp)

@@ -20,19 +20,16 @@ fun GoalsPage(
     goals: List<Goal>,
     onCreateGoalClick: () -> Unit,
     navController: NavController,
-    onAddMoney: (String, Double) -> Unit,
-    onRemoveGoal: (String) -> Unit
+    onAddMoney: (Goal, Double) -> Unit,
+    onRemoveGoal: (Int) -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp)
+    ) {
 
-        Column(modifier = Modifier.fillMaxSize()) {
-
-            Text(
-                text = "Mine mål",
-                style = MaterialTheme.typography.headlineMedium
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
             if (goals.isEmpty()) {
                 Text("Ingen mål endnu")
@@ -53,10 +50,4 @@ fun GoalsPage(
                 }
             }
         }
-
-        QuickActionFabContainer(
-            navController = navController,
-            onCreateGoal = onCreateGoalClick
-        )
     }
-}
