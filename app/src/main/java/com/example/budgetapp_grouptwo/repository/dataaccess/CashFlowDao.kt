@@ -10,7 +10,7 @@ import com.example.budgetapp_grouptwo.repository.model.CashflowType
 
 @Dao
 interface CashFlowDao {
-    @Query("SELECT * FROM Cashflow")
+    @Query("SELECT * FROM Cashflow ORDER BY createdDate DESC")
     suspend fun getAll(): List<Cashflow>
 
 /*    @Query("SELECT * FROM Cashflow WHERE type =:_type")

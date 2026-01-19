@@ -123,9 +123,6 @@ class MainActivity : ComponentActivity() {
                             )
                             QuickActionFabContainer(
                                 navController = navController,
-                                onCreateGoal = {
-                                    navController.navigate("createGoal")
-                                }
                             )
                         }
                     }
@@ -148,9 +145,6 @@ class MainActivity : ComponentActivity() {
                             )
                             QuickActionFabContainer(
                                 navController = navController,
-                                onCreateGoal = {
-                                    navController.navigate("createGoal")
-                                }
                             )
                         }
                     }
@@ -177,9 +171,6 @@ class MainActivity : ComponentActivity() {
                             )
                             QuickActionFabContainer(
                                 navController = navController,
-                                onCreateGoal = {
-                                    navController.navigate("createGoal")
-                                }
                             )
                         }
                     }
@@ -190,8 +181,8 @@ class MainActivity : ComponentActivity() {
                     composable("createGoal") {
                         CreateGoalScreen(
                             navController = navController,
-                            onSaveGoal = { name, amount ->
-                                goalViewModel.addGoal(name, amount, LocalDate.now())
+                            onSaveGoal = { name, amount, endDate ->
+                                goalViewModel.addGoal(name, amount, endDate)
                                 navController.popBackStack()
                             },
                             onBack = {
