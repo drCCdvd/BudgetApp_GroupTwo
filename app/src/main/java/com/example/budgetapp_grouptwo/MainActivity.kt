@@ -18,11 +18,13 @@ import com.example.budgetapp_grouptwo.ui.screens.GoalsPage
 import com.example.budgetapp_grouptwo.ui.screens.HomePage
 import com.example.budgetapp_grouptwo.ui.screens.InsertNewCashFlowContent
 import com.example.budgetapp_grouptwo.ui.screens.RecentPage
-
+import androidx.compose.runtime.remember
+import com.example.budgetapp_grouptwo.viewmodel.NewCashflowViewModelFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         var cashFlow: CashFlow = CashFlow();
         var newCashflowViewModel = NewCashflowViewModel(cashFlow);
@@ -33,10 +35,16 @@ class MainActivity : ComponentActivity() {
             BudgetApp_GroupTwoTheme {
                 val navController = rememberNavController()
                 val goalViewModel: GoalViewModel = viewModel()
+                //  giữ CashFlow qua recomposition
+                val cashFlow = remember { CashFlow() }
+
+                //  ViewModel chuẩn, không bị tạo lại khi xoay màn hình
+                val newCashflowViewModel: NewCashflowViewModel =
+                    viewModel(factory = NewCashflowViewModelFactory(cashFlow))
 
                 NavHost(
                     navController = navController,
-                    "editRegularCashflow"
+                    "insertNewCashflow"
                     //startDestination = "home"
                 ) {
 
@@ -80,12 +88,17 @@ class MainActivity : ComponentActivity() {
                     }
 
                     // insert new cashflow
-                    composable("insertNewCashflow") {
-                        InsertNewCashFlowContent(
-                            onBack = {navController.popBackStack()},
-                            newCashflowViewModel
-                        )
-                    }
+//                    composable("insertNewCashflow") {
+//                        InsertNewCashFlowContent(
+//                            onBack = {navController.popBackStack()},
+//                            newCashflowViewModel
+//                        )
+                        composable("insertNewCashflow") {
+                            InsertNewCashFlowContent(
+                                onBack = { navController.popBackStack() },
+                                newCashFlowViewModel = newCashflowViewModel
+                            )
+                        }
 
                     // EDIT REGULAR CASHFLOW
                     composable("editRegularCashflow") {
