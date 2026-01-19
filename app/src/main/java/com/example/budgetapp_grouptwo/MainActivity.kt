@@ -50,15 +50,13 @@ import com.example.budgetapp_grouptwo.ui.screens.CreateGoalScreen
 import com.example.budgetapp_grouptwo.ui.screens.FixedEntryScreen
 import com.example.budgetapp_grouptwo.ui.screens.GoalsPage
 import com.example.budgetapp_grouptwo.ui.screens.HomePage
-import com.example.budgetapp_grouptwo.ui.screens.InsertNewCashFlowContent
 import com.example.budgetapp_grouptwo.ui.screens.RecentPage
 
 import com.example.budgetapp_grouptwo.ui.screens.DetailsContent
 import com.example.budgetapp_grouptwo.ui.screens.FixedEntryScreen
 import com.example.budgetapp_grouptwo.ui.screens.GoalsPage
 import com.example.budgetapp_grouptwo.ui.screens.HomePage
-
-import com.example.budgetapp_grouptwo.ui.screens.InsertNewCashFlowContent
+import com.example.budgetapp_grouptwo.ui.screens.InsertNewCashflowScreen
 import com.example.budgetapp_grouptwo.ui.screens.RecentPage
 import java.time.LocalDate
 
@@ -202,7 +200,7 @@ class MainActivity : ComponentActivity() {
 
                     // INSERT NEW CASHFLOW
                     composable("insertNewCashflow") {
-                        InsertNewCashFlowContent(
+                        InsertNewCashflowScreen(
                             onBack = { navController.popBackStack() },
                             cashFlowViewModel = cashFlowViewModel,
                             onSubmit = { navController.navigate("home") }
