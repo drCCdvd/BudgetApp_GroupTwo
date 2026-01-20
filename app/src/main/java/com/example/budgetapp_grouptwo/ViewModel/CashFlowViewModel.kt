@@ -42,7 +42,7 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
 
     fun addIncome(income: Income) = viewModelScope.launch {
         var new_income = repository.addNewIncome(income);
-        cashFlows.add(new_income);
+        fetchAllCashFlows();
     }
 
     suspend fun fetchAllCashFlows() {

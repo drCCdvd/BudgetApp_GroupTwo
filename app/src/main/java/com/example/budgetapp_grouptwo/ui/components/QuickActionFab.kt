@@ -72,6 +72,7 @@ fun QuickActionFab(
                     .pointerInput(Unit) {
                         detectTapGestures(onTap = { onDismiss() })
                     }
+                    .matchParentSize()
             )
         }
         Box(

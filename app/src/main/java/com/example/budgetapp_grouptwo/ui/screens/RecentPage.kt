@@ -25,9 +25,6 @@ fun RecentPage(
     }
     QuickActionFabContainer(
         navController = navController,
-        onCreateGoal = {
-            navController.navigate("createGoal")
-        }
     )
 }
 

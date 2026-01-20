@@ -71,6 +71,7 @@ fun GoalItem(
 
                 Spacer(Modifier.height(6.dp))
                 Text("${goal.savedAmount.toInt()} / ${goal.targetAmount.toInt()} kr.")
+                Text("${goal.endDate}")
 
                 Spacer(Modifier.height(8.dp))
                 if (isCompleted) {

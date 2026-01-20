@@ -52,10 +52,9 @@ class GoalRepository(goalDao: GoalDao) {
         goalDao.insertAmount(goalId,newAmount);
     }
 
-    suspend fun insertNewGoal(goal: Goal): Goal{
+    suspend fun insertNewGoal(goal: Goal){
         var dbGoal = goal.toEntity();
         goalDao.insertGoal(dbGoal);
-        return dbGoal.toApp();
     }
 
     suspend fun deleteGoal(id: Int){

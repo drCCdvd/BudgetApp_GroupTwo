@@ -41,9 +41,8 @@ class GoalViewModel(goalRepository: GoalRepository) : ViewModel() {
             createdDate = LocalDate.now(),
             endDate = endDate,
         )
-        var insertedGoal = repository.insertNewGoal(newGoal);
-        _goals.add(insertedGoal);
-
+        repository.insertNewGoal(newGoal);
+        fetchGoals();
     }
     fun removeGoal(goalId: Int) = viewModelScope.launch{
         repository.deleteGoal(goalId)
@@ -61,6 +60,7 @@ class GoalViewModel(goalRepository: GoalRepository) : ViewModel() {
         for(goal in initialized_goals){
             println(goal.id);
         }
+        println(_goals)
         _goals.clear()
         _goals.addAll(initialized_goals)
     }

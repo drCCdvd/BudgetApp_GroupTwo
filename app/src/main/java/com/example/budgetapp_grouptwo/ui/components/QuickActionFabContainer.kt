@@ -10,8 +10,7 @@ import androidx.navigation.NavController
 @Composable
 fun QuickActionFabContainer(
     navController: NavController,
-    onCreateGoal: () -> Unit
-) {
+    ) {
     var fabOpen by remember { mutableStateOf(false) }
 
     QuickActionFab(
@@ -21,7 +20,7 @@ fun QuickActionFabContainer(
 
         onCreateGoal = {
             fabOpen = false
-            onCreateGoal()
+            navController.navigate("createGoal")
         },
 
         onAddTransaction = {

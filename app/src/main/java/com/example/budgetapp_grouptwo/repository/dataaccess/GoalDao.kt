@@ -9,7 +9,7 @@ import com.example.budgetapp_grouptwo.repository.model.Goal
 
 @Dao
 interface GoalDao {
-    @Query("SELECT * FROM goal")
+    @Query("SELECT * FROM goal ORDER BY endDate DESC")
     suspend fun getAll(): List<Goal>
 
     @Query("SELECT * FROM goal WHERE uid = :id")

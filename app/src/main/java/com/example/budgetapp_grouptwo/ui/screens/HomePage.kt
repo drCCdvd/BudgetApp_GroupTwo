@@ -44,7 +44,7 @@ fun HomePage(
     var montlyDisposable = cashFlowViewModel.monthlyDisposable;
     var todaysDisposable = cashFlowViewModel.disposableToday;
     var recentCashFlow = cashFlowViewModel.cashFlows.takeLast(5)
-    var goals = goalViewModel.goals;
+    var recentGoals = goalViewModel.goals.takeLast(3);
 
     LazyColumn(
         modifier = Modifier
@@ -62,8 +62,9 @@ fun HomePage(
         }
         // hvis der mangler spacer så skal den nok være her
 
-        items(goals, key = {it.id}) {goal ->
-            GoalItem(goal = goal)
+        recentGoals.forEach { goal ->
+            GoalItem(goal = goal)// ingen callbacks → ingen knapper
+            Spacer(modifier = Modifier.height(12.dp))
         }
 
         item {
