@@ -20,10 +20,20 @@ class GoalViewModel : ViewModel() {
             )
         )
     }
+//    fun removeGoal(goalId: String) {
+//        //for at state ændres korrekt
+//        _goals.removeAll {it.id == goalId}
+        // new changes for goal can just remove only when it reach correct goal
+
+    private fun Goal.isCompleted(): Boolean =
+        savedAmount >= targetAmount
+
     fun removeGoal(goalId: String) {
-        //for at state ændres korrekt
-        _goals.removeAll {it.id == goalId}
+        val goal = _goals.find { it.id == goalId } ?: return
+        if (!goal.isCompleted()) return   // Goal chưa đạt -> không xoá
+        _goals.remove(goal)
     }
+
     fun addMoney(goalId: String, amount: Double) {
         val index = _goals.indexOfFirst { it.id == goalId }
         if (index != -1) {
