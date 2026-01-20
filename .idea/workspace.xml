@@ -22,7 +22,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9af12b35-349a-4fe4-ac53-39727323ff00" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/budgetapp_grouptwo/ui/screens/HomePage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/budgetapp_grouptwo/ui/screens/HomePage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
