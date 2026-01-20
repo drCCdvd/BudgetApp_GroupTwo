@@ -36,6 +36,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.zIndex
+
+
+
+private val LightBlue = Color(0xFFBFD6FF)
+
 
 @Composable
 fun QuickActionFab(
@@ -72,38 +83,37 @@ fun QuickActionFab(
                     .pointerInput(Unit) {
                         detectTapGestures(onTap = { onDismiss() })
                     }
-                    .matchParentSize()
             )
         }
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .zIndex(2f)
-                .padding(bottom = 120.dp),
+                .padding(160.dp),
             contentAlignment = Alignment.BottomCenter
         ) {
             RadialAction(
                 progress = progress,
                 offsetX = 0.dp,
-                offsetY = (-160).dp,
+                offsetY = (-220).dp,
                 icon = Icons.Filled.Flag,
-                containerColor = MaterialTheme.colorScheme.primary,
-                iconTint = MaterialTheme.colorScheme.onPrimary,
+                containerColor = Color.White,
+                iconTint = Color.Black,
                 labelText = "Mål",
                 onClick = { onDismiss(); onCreateGoal() }
             )
             RadialAction(
                 progress = progress,
                 offsetX = 0.dp,
-                offsetY = (-40).dp,
+                offsetY = (-90).dp,
                 icon = Icons.Filled.SwapHoriz,
-                containerColor = MaterialTheme.colorScheme.secondary,
-                iconTint = MaterialTheme.colorScheme.onSecondary,
+                containerColor = Color.White,
+                iconTint = Color.Black,
                 labelText = "Transaktion",
                 onClick = { onDismiss(); onAddTransaction() }
             )
-        }
 
+        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -126,6 +136,8 @@ fun QuickActionFab(
         }
     }
 }
+
+
 @Composable
 private fun RadialAction(
     progress: Float,

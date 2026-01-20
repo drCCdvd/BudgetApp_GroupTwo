@@ -14,10 +14,10 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,6 +30,8 @@ import com.example.budgetapp_grouptwo.ui.Header
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+
+private val LightBlue = Color(0xFFBFD6FF)
 
 class InsertNewCashflowActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +64,7 @@ fun InsertNewCashflowScreen(
     fun sanitizeAmount(input: String): String =
         input.filter { it.isDigit() || it == '.' || it == ',' }
 
-    val canSave = newAmount.isNotBlank() && newName.isNotBlank()
+    val canSave = newAmount.trim().isNotBlank() && newName.trim().isNotBlank()
 
     Column(
         modifier = Modifier
@@ -86,7 +88,7 @@ fun InsertNewCashflowScreen(
         )
         Spacer(Modifier.height(18.dp))
 
-        FieldLabel("Beskrivelse")
+        FieldLabel("Post")
         PillTextField(
             value = newName,
             placeholder = "Beskrivelse",
@@ -183,9 +185,17 @@ fun InsertNewCashflowScreen(
             modifier = Modifier
                 .width(280.dp)
                 .height(54.dp),
-            shape = RoundedCornerShape(28.dp)
+            shape = RoundedCornerShape(28.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = LightBlue,
+                disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant
+
+            )
         ) {
-            Text("Gem post")
+            Text(
+                text = if (newType == "expense") "Gem udgift" else "Gem indtægt",
+                color = if (canSave) Color.White else MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }
@@ -270,11 +280,11 @@ private fun TypePill(
     modifier: Modifier = Modifier
 ) {
     val background =
-        if (selected) MaterialTheme.colorScheme.primary
+        if (selected) LightBlue
         else MaterialTheme.colorScheme.surfaceVariant
 
     val contentColor =
-        if (selected) MaterialTheme.colorScheme.onPrimary
+        if (selected) Color.White
         else MaterialTheme.colorScheme.onSurface
 
     Surface(

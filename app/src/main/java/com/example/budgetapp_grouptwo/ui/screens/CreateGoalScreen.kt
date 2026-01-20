@@ -26,6 +26,8 @@ import com.example.budgetapp_grouptwo.ui.utils.DateMillisToLocaleDate
 import org.intellij.lang.annotations.JdkConstants
 import java.time.LocalDate
 
+private val LightBlue = Color(0xFFBFD6FF)
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

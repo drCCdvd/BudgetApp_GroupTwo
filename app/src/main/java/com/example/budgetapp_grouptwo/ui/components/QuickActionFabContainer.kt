@@ -6,6 +6,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
+
 
 @Composable
 fun QuickActionFabContainer(
@@ -13,23 +17,25 @@ fun QuickActionFabContainer(
     ) {
     var fabOpen by remember { mutableStateOf(false) }
 
-    QuickActionFab(
-        isOpen = fabOpen,
-        onToggle = { fabOpen = !fabOpen },
-        onDismiss = { fabOpen = false },
+    Box(modifier = Modifier.fillMaxSize()) {
+        QuickActionFab(
+            isOpen = fabOpen,
+            onToggle = { fabOpen = !fabOpen },
+            onDismiss = { fabOpen = false },
 
-        onCreateGoal = {
-            fabOpen = false
-            navController.navigate("createGoal")
-        },
+            onCreateGoal = {
+                fabOpen = false
+                navController.navigate("createGoal")
+            },
 
-        onAddTransaction = {
-            fabOpen = false
-            navController.navigate("insertNewCashflow")
-        },
+            onAddTransaction = {
+                fabOpen = false
+                navController.navigate("insertNewCashflow")
+            },
 
-        onDepositToGoal = {
-            fabOpen = false
-        }
-    )
+            onDepositToGoal = {
+                fabOpen = false
+            }
+        )
+    }
 }
