@@ -3,69 +3,93 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.rounded.Flag
+import androidx.compose.material.icons.rounded.History
+import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.budgetapp_grouptwo.R
+
+
+
 
 
 @Composable
 fun NavigationMenu(navController: NavController) {
-
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    Column {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 12.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
 
-            NavItem(
-                label = "Mål",
-                selected = currentRoute == "goals"
-            ) { navController.navigate("goals") }
-            NavItem(
-                label = "Hjem",
-                selected = currentRoute == "home"
-            ) { navController.navigate("home") }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 12.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        NavItem(
+            label = "Mål",
+            icon = Icons.Rounded.Flag,
+                    // Brug dit eget ikon her
+            selected = currentRoute == "goals"
+        ) { navController.navigate("goals") }
 
-            NavItem(
-                label = "Seneste",
-                selected = currentRoute == "recentDetails"
-            ) { navController.navigate("recentDetails") }
-        }
+        NavItem(
+            label = "Hjem",
+            icon = Icons.Rounded.Home,
+            selected = currentRoute == "home"
+        ) { navController.navigate("home") }
+
+        NavItem(
+            label = "Seneste",
+            icon = Icons.Rounded.History, // Brug evt. et ikon med dollar hvis du har
+            selected = currentRoute == "recentDetails"
+        ) { navController.navigate("recentDetails") }
     }
 }
 
 @Composable
 fun NavItem(
     label: String,
+    icon: ImageVector,
     selected: Boolean,
     onClick: () -> Unit
 ) {
-    val backgroundColor = if (selected) Color.DarkGray else Color.LightGray
-    val alpha = if (selected) 1f else 0.5f
+    val backgroundColor = if (selected) Color(0xFFE0E0E0) else Color.Transparent
+    val contentColor = if (selected) Color.Black else Color.Gray
 
-    Box(
+    Row(
         modifier = Modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(backgroundColor.copy(alpha = alpha))
+            .background(backgroundColor)
             .clickable { onClick() }
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(horizontal = 30.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = label,
+            tint = contentColor,
+            modifier = Modifier.size(20.dp)
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
         Text(
             text = label,
-            color = if (selected) Color.White else Color.Black.copy(alpha = 0.7f)
+            color = contentColor,
+            style = MaterialTheme.typography.labelSmall
         )
     }
 }
