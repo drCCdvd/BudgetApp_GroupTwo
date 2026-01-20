@@ -1,5 +1,6 @@
 package com.example.budgetapp_grouptwo.ui.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +28,8 @@ import kotlin.math.roundToInt
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import com.example.budgetapp_grouptwo.ui.goal.GoalItem
 
 @Composable
@@ -43,42 +46,48 @@ fun HomePage(
     var recentCashFlow = cashFlowViewModel.cashFlows.takeLast(5)
     var goals = goalViewModel.goals;
 
-    Column(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp)
+            .padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp) // holder afstand mellem alle emnerne
     ) {
 
-        Spacer(modifier = Modifier.height(0.dp))
-
         // Sektion: Mål
-        Text(
-            text = "Mine mål",
-            style = MaterialTheme.typography.titleSmall
-        )
+        item{ // måden at pakke ind på i LazyColumn
+            Text(
+                text = "Mine mål",
+                style = MaterialTheme.typography.titleSmall
+            )
+        }
+        // hvis der mangler spacer så skal den nok være her
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        goals.forEach { goal ->
-            GoalItem(goal = goal)// ingen callbacks → ingen knapper
-            Spacer(modifier = Modifier.height(12.dp))
+        items(goals, key = {it.id}) {goal ->
+            GoalItem(goal = goal)
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        item {
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+
 
         // Sektion: Seneste transaktioner
-        Text(
-            text = "Seneste transaktioner",
-            style = MaterialTheme.typography.titleSmall
-        )
+        item {
+            Text(
+                text = "Seneste transaktioner",
+                style = MaterialTheme.typography.titleSmall
+            )
+        }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        item {
+            Spacer(modifier = Modifier.height(8.dp))
+        }
 
-        recentCashFlow
-            .sortedByDescending { it.dateAdded }
-            .forEach { cash ->
-                CashItem(cash = cash)   // ingen onRemove → ingen knap
-                Spacer(modifier = Modifier.height(12.dp))
+        items(
+            recentCashFlow
+                .sortedByDescending { it.dateAdded }
+        ) { cash ->
+            CashItem(cash = cash)   // ingen onRemove → ingen knap
             }
     }
 }

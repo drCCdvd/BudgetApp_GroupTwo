@@ -1,4 +1,4 @@
-package com.example.budgetapp_grouptwo.ui.components
+    package com.example.budgetapp_grouptwo.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

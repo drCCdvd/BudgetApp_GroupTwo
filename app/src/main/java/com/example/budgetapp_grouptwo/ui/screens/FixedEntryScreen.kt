@@ -1,5 +1,6 @@
 package com.example.budgetapp_grouptwo.ui.screens
 
+import android.hardware.camera2.params.BlackLevelPattern
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,6 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -73,6 +76,7 @@ fun FixedEntryScreen(
                 .width(260.dp)
                 .height(54.dp),
             shape = RoundedCornerShape(12.dp),
+            textStyle = LocalTextStyle.current.copy(color = DarkGray), // nemmere at se teksten i feltet
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = fieldBg,
                 unfocusedContainerColor = fieldBg,
@@ -83,11 +87,11 @@ fun FixedEntryScreen(
 
         Spacer(Modifier.height(18.dp))
 
-        // ---- Line 4: Udgift ----
+        // ---- linje 4: Udgift ----
         Text("Udgift", color = textGrey, modifier = Modifier.width(260.dp))
         Spacer(Modifier.height(8.dp))
 
-        // ---- Line 5: field Udgift ----
+        // ---- linje 5: field Udgift ----
         OutlinedTextField(
             value = expenseText,
             onValueChange = { expenseText = it },
@@ -98,6 +102,7 @@ fun FixedEntryScreen(
                 .width(260.dp)
                 .height(54.dp),
             shape = RoundedCornerShape(12.dp),
+            textStyle = LocalTextStyle.current.copy(color = DarkGray), // mørk farve i stedet for meget lys tekst
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = fieldBg,
                 unfocusedContainerColor = fieldBg,
@@ -114,12 +119,12 @@ fun FixedEntryScreen(
                 val income = incomeText.replace(",", ".").trim().toDoubleOrNull()
                 val expense = expenseText.replace(",", ".").trim().toDoubleOrNull()
 
-                // cho phép để trống (coi như 0)
+                // kan stå tomt (behandles som 0)
                 val incomeFinal = income ?: if (incomeText.trim().isEmpty()) 0.0 else return@Button Toast
-                    .makeText(context, "Indtægt không hợp lệ", Toast.LENGTH_SHORT).show()
+                    .makeText(context, "Indtægt", Toast.LENGTH_SHORT).show()
 
                 val expenseFinal = expense ?: if (expenseText.trim().isEmpty()) 0.0 else return@Button Toast
-                    .makeText(context, "Udgift không hợp lệ", Toast.LENGTH_SHORT).show()
+                    .makeText(context, "Udgift", Toast.LENGTH_SHORT).show()
 
                 // Save to in-memory + SharedPreferences
                 RegularCashFlow.setRegularEarnings(incomeFinal)
@@ -130,7 +135,7 @@ fun FixedEntryScreen(
 
                 Toast.makeText(context, "Gemt!", Toast.LENGTH_SHORT).show()
 
-                // sau khi hien chu Gemt! nen cho quay lai trang truoc
+                // teksten "gemt" vil komme frem og der efter vil appen vise forrige skærmbillede
                 //onBack()
             },
             modifier = Modifier

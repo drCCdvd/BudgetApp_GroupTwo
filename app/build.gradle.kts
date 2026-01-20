@@ -46,6 +46,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.androidx.ui.graphics)
     //Room database dependencies
     val room_version = "2.8.4"
     implementation("androidx.room:room-runtime:$room_version")
