@@ -3,6 +3,7 @@ package com.example.budgetapp_grouptwo.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,7 +41,10 @@ fun GoalsPage(
                         .weight(1f),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    items(items = goals, key = { it.id }) { goal ->
+                    items(
+                        items = goals,
+                        key = { it.id }
+                    ) { goal ->
                         GoalItem(
                             goal = goal,
                             onAddMoney = onAddMoney,
