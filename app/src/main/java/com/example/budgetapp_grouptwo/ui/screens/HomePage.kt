@@ -27,6 +27,7 @@ import java.time.LocalDate
 import kotlin.math.roundToInt
 
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -48,8 +49,8 @@ fun HomePage(
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
+            .fillMaxWidth()
+            .padding(vertical = 2.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp) // holder afstand mellem alle emnerne
     ) {
 

@@ -26,8 +26,8 @@ fun GoalsPage(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp)
+            .fillMaxWidth()
+            .padding(vertical = 2.dp),
     ) {
 
         Spacer(modifier = Modifier.height(16.dp))
