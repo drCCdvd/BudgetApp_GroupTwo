@@ -24,9 +24,9 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = defaultGrey,
+    secondary = defaultBlue,
+    tertiary = Pink40,
 )
 
 @Composable
@@ -35,12 +35,13 @@ fun BudgetApp_GroupTwoTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
+    val colorScheme =
+        when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-        darkTheme -> DarkColorScheme
+        darkTheme -> LightColorScheme //DarkColorScheme
         else -> LightColorScheme
     }
 

@@ -27,6 +27,9 @@ import com.example.budgetapp_grouptwo.model.Expense
 import com.example.budgetapp_grouptwo.model.ExpenseType
 import com.example.budgetapp_grouptwo.model.Income
 import com.example.budgetapp_grouptwo.ui.Header
+import com.example.budgetapp_grouptwo.ui.components.FieldLabel
+import com.example.budgetapp_grouptwo.ui.components.PillPicker
+import com.example.budgetapp_grouptwo.ui.components.PillTextField
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -64,15 +67,17 @@ fun InsertNewCashflowScreen(
 
     val canSave = newAmount.isNotBlank() && newName.isNotBlank()
 
+    Header("Ny post", onBack = onBack)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
         Spacer(Modifier.height(12.dp))
 
-        Header("Ny post", onBack = onBack)
 
         Spacer(Modifier.height(36.dp))
 
@@ -117,7 +122,7 @@ fun InsertNewCashflowScreen(
         Spacer(Modifier.height(18.dp))
 
         FieldLabel("Dato")
-        PillPicker(
+        PillPicker (
             text = dateLabel,
             onClick = { expandedDatePicker = true }
         )
@@ -186,79 +191,6 @@ fun InsertNewCashflowScreen(
             shape = RoundedCornerShape(28.dp)
         ) {
             Text("Gem post")
-        }
-    }
-}
-@Composable
-private fun FieldLabel(text: String) {
-    Text(
-        text = text,
-        fontSize = 13.sp,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.padding(bottom = 6.dp)
-    )
-}
-@Composable
-private fun PillTextField(
-    value: String,
-    placeholder: String,
-    onValueChange: (String) -> Unit,
-    keyboardOptions: KeyboardOptions,
-    textAlignCenter: Boolean
-) {
-    Surface(
-        modifier = Modifier.width(220.dp),
-        shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant
-    ) {
-        BasicTextField(
-            value = value,
-            onValueChange = onValueChange,
-            singleLine = true,
-            keyboardOptions = keyboardOptions,
-            textStyle = TextStyle(
-                fontSize = 14.sp,
-                textAlign = if (textAlignCenter) TextAlign.Center else TextAlign.Start,
-                color = MaterialTheme.colorScheme.onSurface
-            ),
-            modifier = Modifier
-                .height(46.dp)
-                .fillMaxWidth()
-                .padding(horizontal = 14.dp, vertical = 12.dp),
-            decorationBox = { inner ->
-                if (value.isBlank()) {
-                    Text(
-                        text = placeholder,
-                        fontSize = 14.sp,
-                        textAlign = if (textAlignCenter) TextAlign.Center else TextAlign.Start,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-                inner()
-            }
-        )
-    }
-}
-@Composable
-private fun PillPicker(
-    text: String,
-    onClick : () -> Unit,
-) {
-    Surface(
-        modifier = Modifier
-            .width(220.dp)
-            .height(46.dp)
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant
-    ) {
-        Box(contentAlignment = Alignment.Center) {
-            Text(
-                text = text,
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurface
-            )
         }
     }
 }

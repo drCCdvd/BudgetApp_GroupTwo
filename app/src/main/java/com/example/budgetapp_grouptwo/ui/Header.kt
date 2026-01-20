@@ -1,5 +1,6 @@
 package com.example.budgetapp_grouptwo.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,8 +26,9 @@ fun Header(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 6.dp, bottom = 18.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(top = 36.dp, bottom = 24.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
     ) {
         IconButton(onClick = onBack) {
             Icon(
@@ -40,7 +42,7 @@ fun Header(
 
         Text(
             text = title,
-            style = MaterialTheme.typography.headlineMedium
+            style = MaterialTheme.typography.headlineMedium,
         )
 
         Spacer(Modifier.weight(1f))
