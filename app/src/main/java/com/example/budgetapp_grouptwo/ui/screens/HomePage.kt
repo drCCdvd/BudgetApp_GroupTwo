@@ -62,7 +62,7 @@ fun HomePage(
         }
         // hvis der mangler spacer så skal den nok være her
 
-        recentGoals.forEach { goal ->
+        items(recentGoals) { goal ->
             GoalItem(goal = goal)// ingen callbacks → ingen knapper
             Spacer(modifier = Modifier.height(12.dp))
         }
