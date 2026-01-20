@@ -91,7 +91,6 @@ fun CreateGoalScreen(
                         contentDescription = "Date picker icon",
                         modifier = Modifier.size(24.dp),
                         tint = Color.Black,
-
                         )
                 }
             }

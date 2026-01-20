@@ -41,7 +41,7 @@ fun HomePage(
     var montlyDisposable = cashFlowViewModel.monthlyDisposable;
     var todaysDisposable = cashFlowViewModel.disposableToday;
     var recentCashFlow = cashFlowViewModel.cashFlows.takeLast(5)
-    var goals = goalViewModel.goals;
+    var recentGoals = goalViewModel.goals.takeLast(3);
 
     Column(
         modifier = Modifier
@@ -59,7 +59,7 @@ fun HomePage(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        goals.forEach { goal ->
+        recentGoals.forEach { goal ->
             GoalItem(goal = goal)// ingen callbacks → ingen knapper
             Spacer(modifier = Modifier.height(12.dp))
         }
