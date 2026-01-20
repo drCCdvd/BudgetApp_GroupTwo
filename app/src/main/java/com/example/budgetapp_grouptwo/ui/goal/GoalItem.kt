@@ -1,5 +1,7 @@
 package com.example.budgetapp_grouptwo.ui.goal
 
+import android.R
+import android.R.attr.fontWeight
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,7 +35,7 @@ import com.example.budgetapp_grouptwo.model.Goal
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
-
+import androidx.compose.ui.text.font.FontWeight
 
 
 @Composable
@@ -119,16 +121,28 @@ fun GoalItem(
 
 
             if (onRemove != null){
-                IconButton(
-                    onClick = { /*if (!isCompleted) Så vi kan slette mål, selvom 100%, ændres tilbage senere*/ showConfirm = true },
-                ) {
+
                     if (isCompleted) {
-                        Icon(
-                            imageVector = Icons.Default.Check,
-                            contentDescription = "Mål fuldført",
-                            tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
-                        )
+                        Row (modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                            horizontalArrangement = Arrangement.Center
+                        ){
+
+                            Text(text = "Målet er fuldført ",
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Normal
+                                )
+
+                            Icon(
+                                imageVector = Icons.Default.Check,
+                                contentDescription = "Mål fuldført",
+                                tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+                            )
+                        }
+
                     } else {
+                        IconButton(
+                            onClick = { /*if (!isCompleted) Så vi kan slette mål, selvom 100%, ændres tilbage senere*/ showConfirm = true },
+                        ) {
                         Icon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = "Fjern mål"
