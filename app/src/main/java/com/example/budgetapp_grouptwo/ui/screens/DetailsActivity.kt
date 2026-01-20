@@ -45,6 +45,7 @@ import com.example.budgetapp_grouptwo.model.CashFlow
 import com.example.budgetapp_grouptwo.model.Expense
 import com.example.budgetapp_grouptwo.model.ExpenseType
 import com.example.budgetapp_grouptwo.model.Income
+import com.example.budgetapp_grouptwo.ui.components.LabelTitle
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -79,8 +80,9 @@ fun DetailsContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(5.dp)
+            .padding(vertical = 2.dp)
     ) {
+        LabelTitle("Seneste transaktioner")
 
         LazyColumn(modifier = Modifier.padding(10.dp)) {
             items(
@@ -116,8 +118,6 @@ fun CashItem(
     val formattedDate = cash.dateAdded.format(
         DateTimeFormatter.ofPattern("d MMMM", Locale("da"))
     )
-
-
 
     Row(
         modifier = Modifier

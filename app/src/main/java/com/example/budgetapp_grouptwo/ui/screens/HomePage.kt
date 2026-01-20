@@ -1,5 +1,6 @@
 package com.example.budgetapp_grouptwo.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,6 +32,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.rounded.MoreHoriz
+import androidx.compose.material3.Button
+import com.example.budgetapp_grouptwo.ui.components.LabelTitle
 import com.example.budgetapp_grouptwo.ui.goal.GoalItem
 
 @Composable
@@ -55,15 +62,16 @@ fun HomePage(
     ) {
 
         // Sektion: Mål
-        item{ // måden at pakke ind på i LazyColumn
-            Text(
-                text = "Mine mål",
-                style = MaterialTheme.typography.titleSmall
-            )
+        item{
+            Box(
+                modifier = Modifier
+                    .clickable{navController.navigate("goals")}
+            ) {
+                LabelTitle(title = "Mine mål", imageVector = Icons.Filled.Edit);
+            }
         }
-        // hvis der mangler spacer så skal den nok være her
 
-        items(recentGoals) { goal ->
+        items(recentGoals.sortedBy { it.endDate }) { goal ->
             GoalItem(goal = goal)// ingen callbacks → ingen knapper
             Spacer(modifier = Modifier.height(12.dp))
         }
@@ -74,11 +82,14 @@ fun HomePage(
 
 
         // Sektion: Seneste transaktioner
+
         item {
-            Text(
-                text = "Seneste transaktioner",
-                style = MaterialTheme.typography.titleSmall
-            )
+            Box(
+                modifier = Modifier
+                    .clickable{navController.navigate("recentDetails")}
+            ) {
+            LabelTitle(title = "Seneste transaktioner", imageVector = Icons.Rounded.MoreHoriz);
+                }
         }
 
         item {

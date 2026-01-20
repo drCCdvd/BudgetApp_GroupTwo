@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import com.example.budgetapp_grouptwo.model.Goal
 import com.example.budgetapp_grouptwo.ui.goal.GoalItem
 import androidx.compose.runtime.*
+import com.example.budgetapp_grouptwo.ui.components.LabelTitle
 import com.example.budgetapp_grouptwo.ui.components.MainHeader
 import com.example.budgetapp_grouptwo.ui.components.QuickActionFab
 import com.example.budgetapp_grouptwo.ui.components.QuickActionFabContainer
@@ -30,7 +31,10 @@ fun GoalsPage(
             .padding(vertical = 2.dp),
     ) {
 
-        Spacer(modifier = Modifier.height(16.dp))
+
+        LabelTitle("Dine mål")
+
+        Spacer(modifier = Modifier.height(8.dp))
 
             if (goals.isEmpty()) {
                 Text("Ingen mål endnu")
