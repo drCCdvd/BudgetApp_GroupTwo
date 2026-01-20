@@ -1,0 +1,230 @@
+Index: app/src/main/java/com/example/budgetapp_grouptwo/ui/screens/RecentPage.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.budgetapp_grouptwo.ui.screens\n\nimport androidx.compose.foundation.layout.Arrangement\nimport androidx.compose.foundation.layout.Column\nimport androidx.compose.foundation.layout.Spacer\nimport androidx.compose.foundation.layout.fillMaxSize\nimport androidx.compose.foundation.layout.height\nimport androidx.compose.foundation.layout.padding\nimport androidx.compose.foundation.lazy.LazyColumn\nimport androidx.compose.foundation.lazy.items\nimport androidx.compose.material3.MaterialTheme\nimport androidx.compose.material3.Text\nimport androidx.compose.runtime.Composable\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.unit.dp\nimport androidx.lifecycle.viewmodel.compose.viewModel\nimport androidx.navigation.NavController\nimport com.example.budgetapp_grouptwo.ui.RecentTransaktions.RecentItemCard\nimport androidx.lifecycle.viewmodel.compose.viewModel as composeViewModel\nimport com.example.budgetapp_grouptwo.viewmodel.RecentViewModel\n\n\n@Composable\nfun RecentPage(\n    navController: NavController,\n    viewModel: RecentViewModel = viewModel()\n\n) {\n    val items = viewModel.recentItems\n    Column(\n        modifier = Modifier\n            .fillMaxSize()\n            .padding(16.dp)\n    ) {\n        NavigationMenu(navController)\n        Text(\n            text = \"Recent Activity\",\n            style = MaterialTheme.typography.headlineMedium\n        )\n        Spacer(modifier = Modifier.height(16.dp))\n        LazyColumn (\n            verticalArrangement = Arrangement.spacedBy(20.dp)\n        ) {\n            items(items) { item ->\n                RecentItemCard(\n                    item = item,\n                    onRemoveClick = { viewModel.removeItem(item.id) }\n                )\n            }\n        }\n    }\n}\n\n\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/budgetapp_grouptwo/ui/screens/RecentPage.kt b/app/src/main/java/com/example/budgetapp_grouptwo/ui/screens/RecentPage.kt
+--- a/app/src/main/java/com/example/budgetapp_grouptwo/ui/screens/RecentPage.kt	(revision 8927ab6a45e0e2cfaa8ddd119e67ffd5b8e4861f)
++++ b/app/src/main/java/com/example/budgetapp_grouptwo/ui/screens/RecentPage.kt	(date 1768430368359)
+@@ -15,6 +15,7 @@
+ import androidx.compose.ui.unit.dp
+ import androidx.lifecycle.viewmodel.compose.viewModel
+ import androidx.navigation.NavController
++import androidx.navigation.compose.composable
+ import com.example.budgetapp_grouptwo.ui.RecentTransaktions.RecentItemCard
+ import androidx.lifecycle.viewmodel.compose.viewModel as composeViewModel
+ import com.example.budgetapp_grouptwo.viewmodel.RecentViewModel
+@@ -48,6 +49,15 @@
+                 )
+             }
+         }
++        // insert new cashflow
++        composable("insertNewCashflow") {
++            InsertNewCashFlowContent(
++                onBack = {navController.popBackStack()},
++                cashFlowViewModel = cashFlowViewModel,
++                onSubmit = {navController.navigate("home")}
++            )
++        }
++
+     }
+ }
+ 
+Index: app/src/main/java/com/example/budgetapp_grouptwo/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.budgetapp_grouptwo\n\nimport android.os.Build\nimport android.os.Bundle\nimport androidx.activity.ComponentActivity\nimport androidx.activity.enableEdgeToEdge\nimport androidx.compose.foundation.layout.Box\nimport androidx.annotation.RequiresApi\nimport androidx.compose.foundation.layout.Column\nimport androidx.compose.foundation.layout.fillMaxSize\nimport androidx.compose.foundation.layout.padding\nimport androidx.compose.foundation.lazy.LazyColumn\nimport androidx.compose.material3.Scaffold\nimport androidx.activity.compose.setContent\nimport androidx.lifecycle.viewmodel.compose.viewModel\nimport androidx.compose.material3.Text\nimport androidx.compose.runtime.Composable\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.tooling.preview.Preview\nimport com.example.budgetapp_grouptwo.ui.screens.FixedEntryScreen\nimport androidx.compose.ui.unit.dp\nimport androidx.navigation.NavHost\nimport androidx.navigation.compose.NavHost\nimport androidx.navigation.compose.rememberNavController\nimport com.example.budgetapp_grouptwo.ViewModel.NewCashflowViewModel\nimport com.example.budgetapp_grouptwo.model.Cash\nimport com.example.budgetapp_grouptwo.model.CashFlow\nimport com.example.budgetapp_grouptwo.model.Expense\nimport com.example.budgetapp_grouptwo.model.ExpenseType\nimport com.example.budgetapp_grouptwo.model.Income\nimport com.example.budgetapp_grouptwo.ui.screens.InsertNewCashFlowContent\nimport com.example.budgetapp_grouptwo.ui.screens.InsertNewCashflowScreen\nimport com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme\nimport java.time.LocalDate\nimport androidx.navigation.compose.rememberNavController\nimport com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme\nimport com.example.budgetapp_grouptwo.viewmodel.GoalViewModel\n\nimport androidx.navigation.compose.NavHost\nimport androidx.navigation.compose.composable\n\nimport com.example.budgetapp_grouptwo.model.Goal\nimport com.example.budgetapp_grouptwo.ui.screens.CreateGoalScreen\nimport com.example.budgetapp_grouptwo.ui.screens.GoalsPage\nimport com.example.budgetapp_grouptwo.ui.screens.HomePage\nimport com.example.budgetapp_grouptwo.ui.screens.RecentPage\n\n\nclass MainActivity : ComponentActivity() {\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n\n        var newCashflowViewModel = NewCashflowViewModel();\n\n        enableEdgeToEdge()\n\n        setContent {\n            BudgetApp_GroupTwoTheme {\n\n\n                val navController = rememberNavController()\n                val goalViewModel: GoalViewModel = viewModel()\n\n                NavHost(\n                    navController = navController,\n                    startDestination = \"home\"\n                ) {\n\n                    //Home Page\n                    composable(\"home\") {\n                        HomePage(navController = navController)\n                    }\n                    // RECENT PAGE\n                    composable(\"recent\") {\n                        RecentPage(navController = navController)\n                    }\n                    // Goal page\n                    composable(\"goals\") {\n                        GoalsPage(\n                            goals = goalViewModel.goals,\n                            navController = navController,\n                            onCreateGoalClick = {\n                                navController.navigate(\"createGoal\")\n                            },\n                            onAddMoney = { id, amount ->\n                                goalViewModel.addMoney(id, amount)\n                            },\n                            onRemoveGoal = { id ->\n                                goalViewModel.removeGoal(id)\n                            }\n                        )\n                    }\n\n                    // CREATE GOAL Page\n                    composable(\"createGoal\") {\n                        CreateGoalScreen(\n                            navController = navController,\n                            onSaveGoal = { name, amount ->\n                                goalViewModel.addGoal(name, amount)\n                                navController.popBackStack()\n                            },\n                            onBackClick = {\n                                navController.popBackStack()\n                            }\n                        )\n                    }\n\n\n                }\n            }\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/budgetapp_grouptwo/MainActivity.kt b/app/src/main/java/com/example/budgetapp_grouptwo/MainActivity.kt
+--- a/app/src/main/java/com/example/budgetapp_grouptwo/MainActivity.kt	(revision 8927ab6a45e0e2cfaa8ddd119e67ffd5b8e4861f)
++++ b/app/src/main/java/com/example/budgetapp_grouptwo/MainActivity.kt	(date 1768430339985)
+@@ -1,78 +1,91 @@
+ package com.example.budgetapp_grouptwo
+ 
+-import android.os.Build
++import android.content.Context
+ import android.os.Bundle
+ import androidx.activity.ComponentActivity
+ import androidx.activity.enableEdgeToEdge
+-import androidx.compose.foundation.layout.Box
+-import androidx.annotation.RequiresApi
+-import androidx.compose.foundation.layout.Column
+-import androidx.compose.foundation.layout.fillMaxSize
+-import androidx.compose.foundation.layout.padding
+-import androidx.compose.foundation.lazy.LazyColumn
+-import androidx.compose.material3.Scaffold
+ import androidx.activity.compose.setContent
++import androidx.activity.viewModels
++import androidx.compose.ui.platform.LocalContext
++import androidx.datastore.core.DataStore
++import androidx.datastore.dataStore
++import androidx.lifecycle.ViewModelProvider
+ import androidx.lifecycle.viewmodel.compose.viewModel
+-import androidx.compose.material3.Text
+-import androidx.compose.runtime.Composable
+-import androidx.compose.ui.Modifier
+-import androidx.compose.ui.tooling.preview.Preview
+-import com.example.budgetapp_grouptwo.ui.screens.FixedEntryScreen
+-import androidx.compose.ui.unit.dp
+-import androidx.navigation.NavHost
++import androidx.lifecycle.viewmodel.viewModelFactory
+ import androidx.navigation.compose.NavHost
+ import androidx.navigation.compose.rememberNavController
+ import com.example.budgetapp_grouptwo.ViewModel.NewCashflowViewModel
+-import com.example.budgetapp_grouptwo.model.Cash
++import com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme
++import com.example.budgetapp_grouptwo.ViewModel.GoalViewModel
++import androidx.navigation.compose.composable
++import com.example.budgetapp_grouptwo.ViewModel.CashFlowViewModel
++import com.example.budgetapp_grouptwo.ViewModel.CashFlowViewModelFactory
++import com.example.budgetapp_grouptwo.ViewModel.GoalViewModelFactory
+ import com.example.budgetapp_grouptwo.model.CashFlow
+ import com.example.budgetapp_grouptwo.model.Expense
+ import com.example.budgetapp_grouptwo.model.ExpenseType
+-import com.example.budgetapp_grouptwo.model.Income
+-import com.example.budgetapp_grouptwo.ui.screens.InsertNewCashFlowContent
+-import com.example.budgetapp_grouptwo.ui.screens.InsertNewCashflowScreen
+-import com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme
+-import java.time.LocalDate
+-import androidx.navigation.compose.rememberNavController
+-import com.example.budgetapp_grouptwo.ui.theme.BudgetApp_GroupTwoTheme
+-import com.example.budgetapp_grouptwo.viewmodel.GoalViewModel
+-
+-import androidx.navigation.compose.NavHost
+-import androidx.navigation.compose.composable
+-
+-import com.example.budgetapp_grouptwo.model.Goal
++import com.example.budgetapp_grouptwo.repository.AppDatabase
++import com.example.budgetapp_grouptwo.repository.CashFlowRepository
++import com.example.budgetapp_grouptwo.repository.DatabaseProvider
++import com.example.budgetapp_grouptwo.repository.GoalRepository
+ import com.example.budgetapp_grouptwo.ui.screens.CreateGoalScreen
++import com.example.budgetapp_grouptwo.ui.screens.DetailsContent
++import com.example.budgetapp_grouptwo.ui.screens.FixedEntryScreen
+ import com.example.budgetapp_grouptwo.ui.screens.GoalsPage
+ import com.example.budgetapp_grouptwo.ui.screens.HomePage
++import com.example.budgetapp_grouptwo.ui.screens.InsertNewCashFlowContent
+ import com.example.budgetapp_grouptwo.ui.screens.RecentPage
+-
++import java.time.LocalDate
+ 
+ class MainActivity : ComponentActivity() {
++
++
++    private val db by lazy { DatabaseProvider.getDatabase(this) }
++    val goalRepository by lazy { GoalRepository(db.goalDao()) }
++    val cashFlowRepository by lazy { CashFlowRepository(db.cashFlowDao()) }
++
++    private val goalViewModel: GoalViewModel by viewModels{
++        GoalViewModelFactory(goalRepository)
++    }
++
++    private val cashFlowViewModel: CashFlowViewModel by viewModels {
++        CashFlowViewModelFactory(cashFlowRepository)
++    }
++
++    var cashFlow: CashFlow = CashFlow();
++    var newCashflowViewModel = NewCashflowViewModel(cashFlow);
++
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+ 
+-        var newCashflowViewModel = NewCashflowViewModel();
+ 
+         enableEdgeToEdge()
+ 
+         setContent {
+             BudgetApp_GroupTwoTheme {
+-
+-
+                 val navController = rememberNavController()
+-                val goalViewModel: GoalViewModel = viewModel()
+ 
+                 NavHost(
+                     navController = navController,
+                     startDestination = "home"
+                 ) {
+ 
+-                    //Home Page
++                    // HOME PAGE
+                     composable("home") {
+                         HomePage(navController = navController)
+                     }
+                     // RECENT PAGE
+                     composable("recent") {
+-                        RecentPage(navController = navController)
++                        DetailsContent(
++                            cashFlow = cashFlowViewModel.cashFlows,
++                            navController=navController,
++                            onRemoveIncome = { id ->
++                                cashFlowViewModel.removeIncome(id)
++                            },
++                            onRemoveExpense = { id ->
++                                cashFlowViewModel.removeExpense(id)
++                            }
++                        )
+                     }
+                     // Goal page
+                     composable("goals") {
+@@ -82,8 +95,9 @@
+                             onCreateGoalClick = {
+                                 navController.navigate("createGoal")
+                             },
+-                            onAddMoney = { id, amount ->
+-                                goalViewModel.addMoney(id, amount)
++                            onAddMoney = { goal, amount ->
++                                goalViewModel.addMoney(goal, amount)
++                                cashFlowViewModel.addExpense(Expense(name = "Overført til mål: " + goal.name, amount = amount, date = LocalDate.now(), type = ExpenseType.DepositToGoal))
+                             },
+                             onRemoveGoal = { id ->
+                                 goalViewModel.removeGoal(id)
+@@ -96,16 +110,28 @@
+                         CreateGoalScreen(
+                             navController = navController,
+                             onSaveGoal = { name, amount ->
+-                                goalViewModel.addGoal(name, amount)
++                                goalViewModel.addGoal(name, amount, LocalDate.now())
+                                 navController.popBackStack()
+                             },
+-                            onBackClick = {
++                            onBack = {
+                                 navController.popBackStack()
+                             }
+                         )
+                     }
+ 
++                    // insert new cashflow
++                    composable("insertNewCashflow") {
++                        InsertNewCashFlowContent(
++                            onBack = {navController.popBackStack()},
++                            cashFlowViewModel = cashFlowViewModel,
++                            onSubmit = {navController.navigate("home")}
++                        )
++                    }
+ 
++                    // EDIT REGULAR CASHFLOW
++                    composable("editRegularCashflow") {
++                        FixedEntryScreen (onBack = {navController.popBackStack()})
++                    }
+                 }
+             }
+         }
+Index: .gradle/buildOutputCleanup/cache.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Thu Jan 08 12:36:56 CET 2026\ngradle.version=8.13\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/.gradle/buildOutputCleanup/cache.properties b/.gradle/buildOutputCleanup/cache.properties
+--- a/.gradle/buildOutputCleanup/cache.properties	(revision 8927ab6a45e0e2cfaa8ddd119e67ffd5b8e4861f)
++++ b/.gradle/buildOutputCleanup/cache.properties	(date 1768430368466)
+@@ -1,2 +1,2 @@
+-#Thu Jan 08 12:36:56 CET 2026
+-gradle.version=8.13
++#Wed Jan 14 23:39:28 CET 2026
++gradle.version=9.2.1

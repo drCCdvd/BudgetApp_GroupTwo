@@ -1,0 +1,18 @@
+Index: .gradle/config.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Tue Jan 13 13:55:56 CET 2026\n=\\=\\=\\=\\=\\=\\=\n<<<<<<<=HEAD\n>>>>>>>=origin/PiyaM\\u00E5l\njava.home=C\\:\\\\Program Files\\\\Android\\\\Android Studio\\\\jbr\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/.gradle/config.properties b/.gradle/config.properties
+--- a/.gradle/config.properties	(revision 3d6ba33a4e2652a2075a84e20871487bc10cd5fa)
++++ b/.gradle/config.properties	(date 1768428080598)
+@@ -1,5 +1,5 @@
+-#Tue Jan 13 13:55:56 CET 2026
++#Wed Jan 14 23:01:20 CET 2026
+ =\=\=\=\=\=\=
+ <<<<<<<=HEAD
+ >>>>>>>=origin/PiyaM\u00E5l
+-java.home=C\:\\Program Files\\Android\\Android Studio\\jbr
++java.home=/Applications/Android Studio.app/Contents/jbr/Contents/Home
