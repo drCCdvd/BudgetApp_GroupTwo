@@ -165,6 +165,7 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onAddMoney = { id, amount ->
                                     goalViewModel.addMoney(id, amount)
+                                    cashFlowViewModel.addExpense(Expense(name="Opsparet til: ${id.name}", amount = amount, date = LocalDate.now(), type = ExpenseType.DepositToGoal))
                                 },
                                 onRemoveGoal = { id ->
                                     goalViewModel.removeGoal(id)
