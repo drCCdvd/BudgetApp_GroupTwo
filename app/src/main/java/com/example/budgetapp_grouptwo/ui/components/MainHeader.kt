@@ -2,6 +2,9 @@ package com.example.budgetapp_grouptwo.ui.components
 
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -56,10 +59,13 @@ fun MainHeader(
                 TextButton(
                     onClick = onEditRecurringClick
                 ) {
-                    Text(
-                        text = "Rediger faste",
-                        style = MaterialTheme.typography.labelLarge
+                    Icon(
+                        imageVector = Icons.Filled.Edit,
+                        contentDescription = "",
+                        modifier = Modifier.size(28.dp)
+
                     )
+//
                 }
             }
         }

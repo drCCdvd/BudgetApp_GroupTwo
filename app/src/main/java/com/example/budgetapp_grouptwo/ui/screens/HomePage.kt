@@ -20,6 +20,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.rounded.MoreHoriz
+import androidx.compose.material3.Divider
+import androidx.compose.ui.graphics.Color
 import com.example.budgetapp_grouptwo.ui.components.LabelTitle
 import com.example.budgetapp_grouptwo.ui.goal.GoalItem
 
@@ -40,8 +42,8 @@ fun HomePage(
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 2.dp), // Vertical er afstand til maal-hjem-senste menu
-        verticalArrangement = Arrangement.spacedBy(12.dp) // holder afstand mellem alle emnerne
+            .padding(vertical = 2.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp) // holder afstand mellem alle emnerne
     ) {
 
         // Sektion: Mål
@@ -83,7 +85,16 @@ fun HomePage(
             recentCashFlow
                 .sortedByDescending { it.dateAdded }
         ) { cash ->
-            CashItem(cash = cash)   // ingen onRemove → ingen knap
+            CashItem(cash = cash)
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 0.dp),
+                color = Color.LightGray.copy(alpha = 0.4f),
+                thickness = 1.dp
+            )
+
         }
+
     }
 }

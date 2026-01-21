@@ -37,8 +37,10 @@ fun NavigationMenu(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .navigationBarsPadding()
             .padding(vertical = 20.dp), // afstand til det oven over (underoverskriften)
-        horizontalArrangement = Arrangement.Center // ingen space mellem "Maal-Hjem-Seneste"
+        horizontalArrangement = Arrangement.Center, // ingen space mellem "Maal-Hjem-Seneste"
+
     ) {
         NavItem(
             label = "Mål",
@@ -70,13 +72,15 @@ fun NavItem(
     val backgroundColor = if (selected) Color(0xFFE0E0E0) else Color.Transparent
     val contentColor = if (selected) Color.Black else Color.Gray
 
-    Row(
+    Column(
         modifier = Modifier
             .clip(RoundedCornerShape(12.dp)) // rund-heden af hjørnerne
+            .widthIn(min = 100.dp, max = 150.dp)
+            .clip(RoundedCornerShape(12.dp))
             .background(backgroundColor)
             .clickable { onClick() }
-            .padding(horizontal = 18.dp, vertical = 8.dp), // vertical er højden på knapperne
-        verticalAlignment = Alignment.CenterVertically
+            .padding(vertical = 8.dp), // vertical er højden på knapperne
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
             imageVector = icon,
@@ -90,7 +94,8 @@ fun NavItem(
         Text(
             text = label,
             color = contentColor,
-            style = MaterialTheme.typography.labelSmall.copy(fontSize = 14.sp)
+            style = MaterialTheme.typography.labelSmall,
+            maxLines = 1
         )
     }
 }
