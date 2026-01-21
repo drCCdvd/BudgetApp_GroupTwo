@@ -13,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -37,7 +38,7 @@ fun PillTextField(
     Surface(
         modifier = Modifier.width(220.dp),
         shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant
+        color  = Color.hsv(0f,0f,.95f) //MaterialTheme.colorScheme.surfaceVariant
     ) {
         var textField = BasicTextField(
             value = value,

@@ -73,7 +73,7 @@ fun HomePage(
                 modifier = Modifier
                     .clickable{navController.navigate("recentDetails")}
             ) {
-            LabelTitle(title = "Seneste transaktioner", imageVector = Icons.Rounded.MoreHoriz);
+            LabelTitle(title = "Seneste", imageVector = Icons.Rounded.MoreHoriz);
                 }
         }
 

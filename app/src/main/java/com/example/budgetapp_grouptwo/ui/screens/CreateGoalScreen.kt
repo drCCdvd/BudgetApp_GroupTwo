@@ -59,6 +59,8 @@ fun CreateGoalScreen(
     var datePickerState = rememberDatePickerState();
     var dateText by remember { mutableStateOf("") };
 
+    val canSave = amount.trim().isNotBlank() && name.trim().isNotBlank() && selectedDate!=null
+
 
     Header("Opret nyt mål", onBack=onBack)
     Column(
@@ -174,17 +176,20 @@ fun CreateGoalScreen(
                         onSaveGoal(name, parsedAmount, selectedDate?: LocalDate.now());
                     }
                 },
+                enabled = canSave,
                 modifier = Modifier
                     .width(280.dp)
                     .height(54.dp),
-                shape = RoundedCornerShape(28.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFC7DAFF),
-                    contentColor = Color.Black,
-                )
+                    shape = RoundedCornerShape(28.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFC7DAFF),
+                        contentColor = Color.Black,
+                        disabledContainerColor = Color.hsv(0f,0f,.85f)
+                    )
 
             ) {
-                Text("Tilføj")
+                Text(text = "Opret mål",
+                    color = if (canSave) Color.White else MaterialTheme.colorScheme.onSurfaceVariant)
             }
     }
 }

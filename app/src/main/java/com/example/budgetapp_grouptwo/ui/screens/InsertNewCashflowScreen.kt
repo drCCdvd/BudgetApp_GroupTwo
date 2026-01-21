@@ -83,6 +83,15 @@ fun InsertNewCashflowScreen(
 
         Spacer(Modifier.height(36.dp))
 
+        FieldLabel("Post")
+        PillTextField(
+            value = newName,
+            placeholder = "Beskrivelse",
+            onValueChange = { newName = it },
+            keyboardOptions = KeyboardOptions.Default,
+            textAlignCenter = true
+        )
+        Spacer(Modifier.height(18.dp))
         FieldLabel("Beløb")
         PillTextField(
             value = newAmount,
@@ -93,15 +102,6 @@ fun InsertNewCashflowScreen(
         )
         Spacer(Modifier.height(18.dp))
 
-        FieldLabel("Post")
-        PillTextField(
-            value = newName,
-            placeholder = "Beskrivelse",
-            onValueChange = { newName = it },
-            keyboardOptions = KeyboardOptions.Default,
-            textAlignCenter = true
-        )
-        Spacer(Modifier.height(18.dp))
 
         FieldLabel("Type")
         Row(
@@ -193,7 +193,7 @@ fun InsertNewCashflowScreen(
             shape = RoundedCornerShape(28.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = LightBlue,
-                disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant
+                disabledContainerColor = Color.hsv(0f,0f,.85f)
 
             )
         ) {
@@ -213,7 +213,7 @@ private fun TypePill(
 ) {
     val background =
         if (selected) LightBlue
-        else MaterialTheme.colorScheme.surfaceVariant
+        else Color.hsv(0f,0f,.95f)
 
     val contentColor =
         if (selected) Color.White

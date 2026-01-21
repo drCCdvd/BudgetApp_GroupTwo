@@ -47,6 +47,7 @@ fun PageLayout(
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(12.dp)
 
         ) {
             content()

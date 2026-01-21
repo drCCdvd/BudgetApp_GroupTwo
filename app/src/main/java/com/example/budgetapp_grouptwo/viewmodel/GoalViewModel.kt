@@ -33,12 +33,12 @@ class GoalViewModel(goalRepository: GoalRepository) : ViewModel() {
         }
     }
 
-    fun addGoal(name: String, amount: Double, endDate: LocalDate) = viewModelScope.launch {
+    fun addGoal(name: String, amount: Double, endDate: LocalDate, currentDate: LocalDate) = viewModelScope.launch {
         var newGoal = Goal(
             name = name,
             targetAmount = amount,
             savedAmount = 0.0,
-            createdDate = LocalDate.now(),
+            createdDate = currentDate,
             endDate = endDate,
         )
         repository.insertNewGoal(newGoal);

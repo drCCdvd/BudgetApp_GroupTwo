@@ -93,7 +93,7 @@ fun QuickActionFab(
                 offsetX = 0.dp,
                 offsetY = (-220).dp,
                 icon = Icons.Filled.Flag,
-                containerColor = Color.White,
+                containerColor = Color.hsv(0f,0f,.95f),
                 iconTint = Color.Black,
                 labelText = "Mål",
                 onClick = { onDismiss(); onCreateGoal() }
@@ -103,7 +103,7 @@ fun QuickActionFab(
                 offsetX = 0.dp,
                 offsetY = (-90).dp,
                 icon = Icons.Filled.SwapHoriz,
-                containerColor = Color.White,
+                containerColor = Color.hsv(0f,0f,.95f),
                 iconTint = Color.Black,
                 labelText = "Transaktion",
                 onClick = { onDismiss(); onAddTransaction() }
@@ -162,9 +162,9 @@ private fun RadialAction(
             onClick = onClick,
             shape = CircleShape,
             color = containerColor,
-            tonalElevation = 6.dp,
+            tonalElevation = 0.dp,
             shadowElevation = 2.dp,
-            modifier = Modifier.size(80.dp)
+            modifier = Modifier.size(72.dp)
         ) {
             Box(contentAlignment = Alignment.Center) {
                 Icon(
@@ -181,7 +181,8 @@ private fun RadialAction(
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .padding(top = 8.dp)
-                .widthIn(min = 72.dp)
+                .widthIn(min = 72.dp),
+            color = Color.White
         )
     }
 }

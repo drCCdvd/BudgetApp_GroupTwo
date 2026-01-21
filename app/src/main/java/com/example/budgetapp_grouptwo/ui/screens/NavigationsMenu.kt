@@ -38,7 +38,7 @@ fun NavigationMenu(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .navigationBarsPadding()
-            .padding(top=32.dp),
+            .padding(top=10.dp),
 
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
@@ -69,7 +69,7 @@ fun NavItem(
     selected: Boolean,
     onClick: () -> Unit
 ) {
-    val backgroundColor = if (selected) Color(0xFFE0E0E0) else Color.Transparent
+    val backgroundColor = if (selected) Color.hsv(0f,0f,.95f) else Color.Transparent
     val contentColor = if (selected) Color.Black else Color.Gray
 
     Column(
