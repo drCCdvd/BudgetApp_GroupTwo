@@ -76,6 +76,7 @@ class MainActivity : ComponentActivity() {
 
     var cashFlow: CashFlow = CashFlow();
     var newCashflowViewModel = NewCashflowViewModel(cashFlow);
+    var currentDate = LocalDate.now().plusDays(2);
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,17 +98,17 @@ class MainActivity : ComponentActivity() {
                         //to get disposable for title and subtitle
                         cashFlowViewModel
                             .getDisposable(
-                                LocalDate.of(LocalDate.now().year, LocalDate.now().month, 1),
-                                LocalDate.now(),
+                                LocalDate.of(currentDate.year, currentDate.month, 1),
+                                currentDate,
                                 LocalContext.current
                             )
-                        cashFlowViewModel.getDisposableToday(LocalContext.current);
+                        cashFlowViewModel.getDisposableToday(currentDate,LocalContext.current);
 
 
                         PageLayout(
                             navController = navController,
                             title = "Dagsrest: " + cashFlowViewModel.disposableToday.value.toInt().toString()+",-",
-                            subtitle = "Disponible for ${LocalDate.now().month.getDisplayName(
+                            subtitle = "Disponible for ${currentDate.month.getDisplayName(
                                 java.time.format.TextStyle.FULL,
                                 java.util.Locale("da", "DK")
                             )}: " + cashFlowViewModel.monthlyDisposable.value.toInt().toString()+",-",

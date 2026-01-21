@@ -76,20 +76,20 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
         monthlyDisposable.value = cashFlow.getDisposable(startDate, endDate, context);
     }
 
-    fun getDisposableToday(context: Context) = viewModelScope.launch {
+    fun getDisposableToday(currentDate: LocalDate, context: Context) = viewModelScope.launch {
         fetchAllCashFlows()
 
         dailyDisposable.value = cashFlow.getRegularDisposable(
-            LocalDate.now(),
-            LocalDate.now(),
+            currentDate,
+            currentDate,
             context
-        )/ LocalDate.now().lengthOfMonth()
+        )/ currentDate.lengthOfMonth()
 
         println(dailyDisposable.value)
 
         var todaysAccounting = 0.0;
         for(cash in cashFlow.cashFlows){
-            if(cash.dateAdded!= LocalDate.now()){
+            if(cash.dateAdded!= currentDate){
                 continue;
             }
 
