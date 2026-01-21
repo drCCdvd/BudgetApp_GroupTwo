@@ -106,11 +106,11 @@ class MainActivity : ComponentActivity() {
 
                         PageLayout(
                             navController = navController,
-                            title = "Tilbage i dag " + cashFlowViewModel.disposableToday.value.toInt().toString()+",-",
+                            title = "Tilbage i dag: " + cashFlowViewModel.disposableToday.value.toInt().toString()+",-",
                             subtitle = "Disponible for ${LocalDate.now().month.getDisplayName(
                                 java.time.format.TextStyle.FULL,
                                 java.util.Locale("da", "DK")
-                            )} " + cashFlowViewModel.monthlyDisposable.value.toInt().toString()+",-",
+                            )}: " + cashFlowViewModel.monthlyDisposable.value.toInt().toString()+",-",
                             showEditRecurring = true,
                             onEditRecurringClick = {
                                 navController.navigate("editRegularCashFlow")
@@ -163,6 +163,7 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onAddMoney = { id, amount ->
                                     goalViewModel.addMoney(id, amount)
+                                    cashFlowViewModel.addExpense(Expense(name="Opsparet til: ${id.name}", amount = amount, date = LocalDate.now(), type = ExpenseType.DepositToGoal))
                                 },
                                 onRemoveGoal = { id ->
                                     goalViewModel.removeGoal(id)
