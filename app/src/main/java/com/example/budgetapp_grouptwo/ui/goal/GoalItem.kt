@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.foundation.text.input.InputTransformation.Companion.keyboardOptions
@@ -41,6 +42,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
+import com.example.budgetapp_grouptwo.ui.utils.CurrencyVisualTransformation
 
 @Composable
 fun GoalItem(
@@ -193,7 +195,9 @@ fun GoalItem(
                         value = inputAmount,
                         onValueChange = { inputAmount = it.filter { c -> c.isDigit() } },
                         label = { Text("Beløb (kr.)") },
-                        singleLine = true
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        visualTransformation = CurrencyVisualTransformation()
                     )
                 },
                 confirmButton = {

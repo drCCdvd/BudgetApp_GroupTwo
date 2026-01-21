@@ -156,7 +156,6 @@ class MainActivity : ComponentActivity() {
                             navController = navController,
                             title = "Mål",
                             subtitle = "Overblik"
-
                         ) {
                             GoalsPage(
                                 goals = goalViewModel.goals,
