@@ -150,7 +150,7 @@ fun FixedEntryScreen(
         Spacer(Modifier.height(12.dp))
 // slet buttoem
 
-        Spacer(Modifier.height(12.dp))
+        /*Spacer(Modifier.height(12.dp))
 
         Button(
             onClick = {
@@ -166,7 +166,7 @@ fun FixedEntryScreen(
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFE6A7))
         ) {
             Text("Slet alt (test)", color = Color(0xFF4B4B4B))
-        }
+        }*/
 
 
     }
