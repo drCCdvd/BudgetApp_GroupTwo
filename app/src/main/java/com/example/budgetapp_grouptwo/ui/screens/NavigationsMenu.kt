@@ -2,6 +2,7 @@ package com.example.budgetapp_grouptwo.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -36,25 +37,24 @@ fun NavigationMenu(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 20.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly
+            .padding(vertical = 20.dp), // afstand til det oven over (underoverskriften)
+        horizontalArrangement = Arrangement.Center // ingen space mellem "Maal-Hjem-Seneste"
     ) {
         NavItem(
             label = "Mål",
-            icon = Icons.Rounded.Flag,
-                    // Brug dit eget ikon her
+            icon = Icons.Rounded.Flag, // Icon med flag
             selected = currentRoute == "goals"
         ) { navController.navigate("goals") }
 
         NavItem(
             label = "Hjem",
-            icon = Icons.Rounded.Home,
+            icon = Icons.Rounded.Home, // icon med hus
             selected = currentRoute == "home"
         ) { navController.navigate("home") }
 
         NavItem(
             label = "Seneste",
-            icon = Icons.Rounded.History, // Brug evt. et ikon med dollar hvis du har
+            icon = Icons.Rounded.History, // icon med ur og pil rundt om
             selected = currentRoute == "recentDetails"
         ) { navController.navigate("recentDetails") }
     }
@@ -72,17 +72,17 @@ fun NavItem(
 
     Row(
         modifier = Modifier
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(12.dp)) // rund-heden af hjørnerne
             .background(backgroundColor)
             .clickable { onClick() }
-            .padding(horizontal = 30.dp, vertical = 10.dp),
+            .padding(horizontal = 18.dp, vertical = 8.dp), // vertical er højden på knapperne
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = icon,
             contentDescription = label,
             tint = contentColor,
-            modifier = Modifier.size(32.dp)
+            modifier = Modifier.size(26.dp) // lidt mindre iconer
         )
 
         Spacer(modifier = Modifier.width(5.dp))

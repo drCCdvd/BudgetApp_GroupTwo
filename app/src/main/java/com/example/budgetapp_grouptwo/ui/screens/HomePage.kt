@@ -40,7 +40,7 @@ fun HomePage(
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 2.dp),
+            .padding(vertical = 2.dp), // Vertical er afstand til maal-hjem-senste menu
         verticalArrangement = Arrangement.spacedBy(12.dp) // holder afstand mellem alle emnerne
     ) {
 
@@ -72,7 +72,7 @@ fun HomePage(
                     .clickable{navController.navigate("recentDetails")}
             ) {
             LabelTitle(title = "Seneste transaktioner", imageVector = Icons.Rounded.MoreHoriz);
-                }
+            }
         }
 
         item {
@@ -84,6 +84,6 @@ fun HomePage(
                 .sortedByDescending { it.dateAdded }
         ) { cash ->
             CashItem(cash = cash)   // ingen onRemove → ingen knap
-            }
+        }
     }
 }
