@@ -12,6 +12,8 @@ import com.example.budgetapp_grouptwo.model.CashFlow
 import com.example.budgetapp_grouptwo.model.Expense
 import com.example.budgetapp_grouptwo.model.Income
 import com.example.budgetapp_grouptwo.repository.CashFlowRepository
+import com.example.budgetapp_grouptwo.repository.GoalSavedRepository
+import com.example.budgetapp_grouptwo.repository.model.Cashflow
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -40,6 +42,10 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
         cashFlows.add(new_expense);
     }
 
+    fun insertCashFlowAndLinkToGoal(expense: Expense, goalId: Int) = viewModelScope.launch{
+        repository.insertCashFlowAndLinkToGoal(expense,goalId);
+    }
+
     fun addIncome(income: Income) = viewModelScope.launch {
         var new_income = repository.addNewIncome(income);
         fetchAllCashFlows();
@@ -58,18 +64,14 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
     }
 
     fun removeExpense(id: Int) = viewModelScope.launch{
-        println("slet" + id)
         repository.removeExpense(id);
         fetchAllCashFlows();
     }
 
-    /*fun fetchRegularCashFlow() = viewModelScope.launch {
-        //Todo add
+    fun removeAllSavedAmount(goalId: Int) = viewModelScope.launch {
+        repository.removeAllSavedExpenses(goalId);
+        fetchAllCashFlows();
     }
-
-    fun editRegularCashFlow() = viewModelScope.launch {
-        //Todo add
-    }*/
 
     fun getDisposable(startDate: LocalDate, endDate: LocalDate, context: Context) = viewModelScope.launch{
         fetchAllCashFlows()

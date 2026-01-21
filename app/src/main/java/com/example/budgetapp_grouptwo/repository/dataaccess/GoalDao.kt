@@ -21,6 +21,9 @@ interface GoalDao {
     @Query("DELETE FROM goal WHERE uid = :id")
     suspend fun deleteGoal(id: Int)
 
+    @Query("DELETE FROM GoalSaved WHERE goalUID = :goalId")
+    suspend fun deleteSavedAmount(goalId: Int)
+
     @Update
     suspend fun updateGoal(updatedGoal: Goal)
 

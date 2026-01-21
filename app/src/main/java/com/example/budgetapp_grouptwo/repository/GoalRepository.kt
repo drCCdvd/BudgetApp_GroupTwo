@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.budgetapp_grouptwo.model.Goal
 import com.example.budgetapp_grouptwo.repository.dataaccess.CashFlowDao
 import com.example.budgetapp_grouptwo.repository.dataaccess.GoalDao
+import com.example.budgetapp_grouptwo.repository.dataaccess.GoalSavedDao
 import com.example.budgetapp_grouptwo.repository.model.Cashflow
 
 class GoalRepository(goalDao: GoalDao) {
