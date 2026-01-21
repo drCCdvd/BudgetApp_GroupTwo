@@ -17,8 +17,11 @@ interface CashFlowDao {
     suspend fun getAllByType(_type: CashflowType)
 */
     @Insert
-    suspend fun insertNew(cashflow: Cashflow)
+    suspend fun insertNew(cashflow: Cashflow): Long
 
     @Query ("DELETE FROM cashflow where uid = :id")
     suspend fun remove(id: Int)
+
+    @Query("DELETE FROM Cashflow WHERE uid IN (SELECT cashflowUID FROM GoalSaved WHERE goalUID = :goalId)")
+    suspend fun deleteCashflowsForGoal(goalId: Int)
 }
