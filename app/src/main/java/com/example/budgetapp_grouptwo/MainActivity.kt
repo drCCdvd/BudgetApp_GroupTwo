@@ -106,7 +106,7 @@ class MainActivity : ComponentActivity() {
 
                         PageLayout(
                             navController = navController,
-                            title = "Tilbage i dag: " + cashFlowViewModel.disposableToday.value.toInt().toString()+",-",
+                            title = "Dagsrest: " + cashFlowViewModel.disposableToday.value.toInt().toString()+",-",
                             subtitle = "Disponible for ${LocalDate.now().month.getDisplayName(
                                 java.time.format.TextStyle.FULL,
                                 java.util.Locale("da", "DK")
