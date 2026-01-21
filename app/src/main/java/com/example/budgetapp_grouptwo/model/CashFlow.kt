@@ -39,7 +39,7 @@ class CashFlow () {
 
         //Variabel
         for(cash in cashFlows){
-            if(cash.dateAdded.isAfter(startDate) && cash.dateAdded.isBefore(endDate)){
+            if(cash.dateAdded.isAfter(startDate) && cash.dateAdded.isBefore(endDate.plusDays(1))){
                 if(cash is Expense){
                     disposable-=cash.amount;
                 }else{
