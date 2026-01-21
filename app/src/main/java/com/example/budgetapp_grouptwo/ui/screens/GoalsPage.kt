@@ -46,7 +46,7 @@ fun GoalsPage(
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     items(
-                        items = goals,
+                        items = goals.sortedBy { it.endDate },
                         key = { it.id }
                     ) { goal ->
                         GoalItem(

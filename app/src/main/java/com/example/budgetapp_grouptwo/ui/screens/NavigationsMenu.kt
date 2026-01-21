@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.budgetapp_grouptwo.R
@@ -35,7 +36,7 @@ fun NavigationMenu(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 12.dp),
+            .padding(vertical = 20.dp),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         NavItem(
@@ -74,22 +75,22 @@ fun NavItem(
             .clip(RoundedCornerShape(12.dp))
             .background(backgroundColor)
             .clickable { onClick() }
-            .padding(horizontal = 30.dp, vertical = 8.dp),
+            .padding(horizontal = 30.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = icon,
             contentDescription = label,
             tint = contentColor,
-            modifier = Modifier.size(20.dp)
+            modifier = Modifier.size(32.dp)
         )
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(5.dp))
 
         Text(
             text = label,
             color = contentColor,
-            style = MaterialTheme.typography.labelSmall
+            style = MaterialTheme.typography.labelSmall.copy(fontSize = 14.sp)
         )
     }
 }

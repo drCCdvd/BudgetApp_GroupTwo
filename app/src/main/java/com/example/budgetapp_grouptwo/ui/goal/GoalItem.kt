@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.foundation.text.input.InputTransformation.Companion.keyboardOptions
@@ -18,6 +20,8 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -36,7 +40,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.StrokeCap
+import com.example.budgetapp_grouptwo.ui.utils.CurrencyVisualTransformation
 
 @Composable
 fun GoalItem(
@@ -57,7 +63,14 @@ fun GoalItem(
 
     val percent = (progress * 100).toInt()
     val isCompleted = progress >= 1f
-    Card(modifier = Modifier.fillMaxWidth()) {
+    Card(modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Transparent
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 0.dp
+        )
+        ){
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,6 +95,7 @@ fun GoalItem(
                 Box(modifier = Modifier
                         .fillMaxWidth()
                         .height(22.dp)
+                        .clip(RoundedCornerShape(20.dp))
                 ) {
                     val progressColor = when (goal.colorindex % 3) {
                         0 -> Color.Yellow.copy(alpha = 0.4f)   // gul
@@ -94,7 +108,8 @@ fun GoalItem(
                             .fillMaxWidth()
                             .height(22.dp),
                         color = progressColor,
-                        trackColor = Color.LightGray
+                        trackColor = Color.Transparent,
+                        strokeCap = StrokeCap.Butt
 
                     )
                     Text(
@@ -107,8 +122,8 @@ fun GoalItem(
 
 
                 Spacer(Modifier.height(6.dp))
-                Text("${goal.savedAmount.toInt()} / ${goal.targetAmount.toInt()} kr.")
                 Text("${goal.endDate}")
+
 
             }
 
@@ -158,7 +173,15 @@ fun GoalItem(
                     Text("Tilføj beløb")
                 }
             }
+
         }
+        Divider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 12.dp),
+            color = Color.LightGray.copy(alpha = 0.4f),
+            thickness = 2.dp
+        )
         }
         if (showAddDialog) {
             AlertDialog(
@@ -172,7 +195,9 @@ fun GoalItem(
                         value = inputAmount,
                         onValueChange = { inputAmount = it.filter { c -> c.isDigit() } },
                         label = { Text("Beløb (kr.)") },
-                        singleLine = true
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        visualTransformation = CurrencyVisualTransformation()
                     )
                 },
                 confirmButton = {
@@ -227,5 +252,6 @@ fun GoalItem(
                     }
                 }
             )
+
         }
     }
