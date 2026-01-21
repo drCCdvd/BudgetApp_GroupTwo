@@ -41,4 +41,20 @@ class ExampleUnitTest {
 
         assertEquals(true, isCompleted)
     }
+    @Test
+    fun goal_is_not_completed_when_savedAmount_is_less_than_target() {
+        val goal = Goal(
+            id = 3,
+            name = "Bike",
+            targetAmount = 1000.0,
+            savedAmount = 400.0,
+            createdDate = LocalDate.now(),
+            endDate = LocalDate.now().plusDays(20)
+        )
+
+        val isCompleted = goal.savedAmount >= goal.targetAmount
+
+        assertEquals(false, isCompleted)
+    }
+
 }
