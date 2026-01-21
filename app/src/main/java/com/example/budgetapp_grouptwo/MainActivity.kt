@@ -44,6 +44,7 @@ import com.example.budgetapp_grouptwo.repository.AppDatabase
 import com.example.budgetapp_grouptwo.repository.CashFlowRepository
 import com.example.budgetapp_grouptwo.repository.DatabaseProvider
 import com.example.budgetapp_grouptwo.repository.GoalRepository
+import com.example.budgetapp_grouptwo.repository.GoalSavedRepository
 import com.example.budgetapp_grouptwo.ui.components.PageLayout
 import com.example.budgetapp_grouptwo.ui.components.QuickActionFabContainer
 import com.example.budgetapp_grouptwo.ui.screens.CreateGoalScreen
@@ -64,7 +65,8 @@ class MainActivity : ComponentActivity() {
 
     private val db by lazy { DatabaseProvider.getDatabase(this) }
     val goalRepository by lazy { GoalRepository(db.goalDao()) }
-    val cashFlowRepository by lazy { CashFlowRepository(db.cashFlowDao()) }
+    val goalSavedRepository by lazy { GoalSavedRepository(db.goalSavedDao()) }
+    val cashFlowRepository by lazy { CashFlowRepository(db.cashFlowDao(),db.goalSavedDao()) }
 
     private val goalViewModel: GoalViewModel by viewModels{
         GoalViewModelFactory(goalRepository)
@@ -74,9 +76,7 @@ class MainActivity : ComponentActivity() {
         CashFlowViewModelFactory(cashFlowRepository)
     }
 
-    var cashFlow: CashFlow = CashFlow();
-    var newCashflowViewModel = NewCashflowViewModel(cashFlow);
-    var currentDate = LocalDate.now().plusDays(2);
+    var currentDate = LocalDate.now();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -161,11 +161,16 @@ class MainActivity : ComponentActivity() {
                                 onCreateGoalClick = {
                                     navController.navigate("createGoal")
                                 },
-                                onAddMoney = { id, amount ->
-                                    goalViewModel.addMoney(id, amount)
-                                    cashFlowViewModel.addExpense(Expense(name="Opsparet til: ${id.name}", amount = amount, date = LocalDate.now(), type = ExpenseType.DepositToGoal))
+                                onAddMoney = { goal, amount ->
+                                    cashFlowViewModel.insertCashFlowAndLinkToGoal(
+                                        expense = Expense
+                                            (name="Opsparet til: ${goal.name}", amount = amount, date = LocalDate.now(), type = ExpenseType.DepositToGoal),
+                                        goalId = goal.id
+                                    )
+                                    goalViewModel.addMoney(goal, amount)
                                 },
                                 onRemoveGoal = { id ->
+                                    cashFlowViewModel.removeAllSavedAmount(id);
                                     goalViewModel.removeGoal(id)
                                 }
                             )
@@ -202,7 +207,9 @@ class MainActivity : ComponentActivity() {
 
                     // EDIT REGULAR CASHFLOW
                     composable("editRegularCashflow") {
-                        FixedEntryScreen(onBack = { navController.popBackStack() })
+                        FixedEntryScreen(
+                            onBack = { navController.popBackStack() }
+                        )
                     }
                 }
             }

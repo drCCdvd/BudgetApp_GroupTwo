@@ -6,12 +6,14 @@ import com.example.budgetapp_grouptwo.model.Expense
 import com.example.budgetapp_grouptwo.model.ExpenseType
 import com.example.budgetapp_grouptwo.model.Income
 import com.example.budgetapp_grouptwo.repository.dataaccess.CashFlowDao
+import com.example.budgetapp_grouptwo.repository.dataaccess.GoalSavedDao
 import com.example.budgetapp_grouptwo.repository.model.Cashflow
 import com.example.budgetapp_grouptwo.repository.model.CashflowType
 import kotlin.math.exp
 
-class CashFlowRepository(cashFlowDao: CashFlowDao) {
+class CashFlowRepository(cashFlowDao: CashFlowDao, goalSavedDao: GoalSavedDao) {
     private val cashFlowDao = cashFlowDao;
+    private val goalSavedDao = goalSavedDao;
 
     fun Income.toEntity(): Cashflow{
         return Cashflow(
@@ -78,6 +80,13 @@ class CashFlowRepository(cashFlowDao: CashFlowDao) {
         return newCashFlow.toApp();
     }
 
+
+    suspend fun insertCashFlowAndLinkToGoal(expense: Expense, goalId: Int){
+        var newCashFlow = expense.toEntity();
+        var newCashFlowId = cashFlowDao.insertNew(newCashFlow)
+        goalSavedDao.insertNewSavedAmount(goalId, newCashFlowId);
+    }
+
     suspend fun addNewIncome(income: Income): Cash{
         var newCashFlow = income.toEntity();
         cashFlowDao.insertNew(newCashFlow);
@@ -90,5 +99,9 @@ class CashFlowRepository(cashFlowDao: CashFlowDao) {
 
     suspend fun removeExpense(id: Int){
         cashFlowDao.remove(id);
+    }
+
+    suspend fun removeAllSavedExpenses(goalId: Int){
+        cashFlowDao.deleteCashflowsForGoal(goalId);
     }
 }
