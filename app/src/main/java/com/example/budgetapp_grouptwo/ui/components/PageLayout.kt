@@ -11,8 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.budgetapp_grouptwo.ui.screens.NavigationMenu
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
-@Composable
+    @Composable
 fun PageLayout(
     navController: NavController,
     title: String,
@@ -37,7 +38,7 @@ fun PageLayout(
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 0.dp),
+                .padding(top = 2.dp),
             color = Color.LightGray.copy(alpha = 0.4f),
             thickness = 1.dp
         )
