@@ -41,7 +41,7 @@ fun HomePage(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 2.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp) // holder afstand mellem alle emnerne
+        verticalArrangement = Arrangement.spacedBy(8.dp) // holder afstand mellem alle emnerne
     ) {
 
         // Sektion: Mål

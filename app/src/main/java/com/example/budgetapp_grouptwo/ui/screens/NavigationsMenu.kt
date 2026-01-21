@@ -27,6 +27,7 @@ import com.example.budgetapp_grouptwo.R
 
 
 
+
 @Composable
 fun NavigationMenu(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -36,13 +37,14 @@ fun NavigationMenu(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 20.dp),
+            .navigationBarsPadding()
+            .padding(top=32.dp),
+
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         NavItem(
             label = "Mål",
             icon = Icons.Rounded.Flag,
-                    // Brug dit eget ikon her
             selected = currentRoute == "goals"
         ) { navController.navigate("goals") }
 
@@ -54,7 +56,7 @@ fun NavigationMenu(navController: NavController) {
 
         NavItem(
             label = "Seneste",
-            icon = Icons.Rounded.History, // Brug evt. et ikon med dollar hvis du har
+            icon = Icons.Rounded.History,
             selected = currentRoute == "recentDetails"
         ) { navController.navigate("recentDetails") }
     }
@@ -70,27 +72,27 @@ fun NavItem(
     val backgroundColor = if (selected) Color(0xFFE0E0E0) else Color.Transparent
     val contentColor = if (selected) Color.Black else Color.Gray
 
-    Row(
+    Column(
         modifier = Modifier
+            .widthIn(min = 100.dp, max = 150.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(backgroundColor)
             .clickable { onClick() }
-            .padding(horizontal = 30.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(vertical = 10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
             imageVector = icon,
             contentDescription = label,
             tint = contentColor,
-            modifier = Modifier.size(32.dp)
+            modifier = Modifier.size(35.dp)
         )
-
-        Spacer(modifier = Modifier.width(5.dp))
 
         Text(
             text = label,
             color = contentColor,
-            style = MaterialTheme.typography.labelSmall.copy(fontSize = 14.sp)
+            style = MaterialTheme.typography.labelSmall,
+            maxLines = 1
         )
     }
 }
