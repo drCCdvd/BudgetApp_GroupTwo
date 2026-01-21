@@ -123,9 +123,7 @@ class MainActivity : ComponentActivity() {
                                 cashFlowViewModel=cashFlowViewModel,
                                 goalViewModel=goalViewModel
                             )
-                            QuickActionFabContainer(
-                                navController = navController,
-                            )
+
                         }
                     }
                     // RECENT PAGE
