@@ -144,7 +144,13 @@ fun DetailsContent(
                                 else onRemoveIncome(id)
                             }
                         )
-                        Divider(color = Color.LightGray, thickness = 0.5.dp)
+                        Divider(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 0.dp),
+                            color = Color.LightGray.copy(alpha = 0.4f),
+                            thickness = 1.dp
+                        )
                     }
                 }
             }
