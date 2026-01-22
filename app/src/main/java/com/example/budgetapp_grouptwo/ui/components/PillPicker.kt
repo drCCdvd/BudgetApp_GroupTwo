@@ -22,6 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/** UI design for a date picker button with rounded corners.
+ *
+ */
 @Composable
 fun PillPicker(
     text: String,

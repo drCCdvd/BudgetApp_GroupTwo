@@ -1,37 +1,25 @@
 package com.example.budgetapp_grouptwo.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material3.*
-import androidx.compose.material3.ExposedDropdownMenuDefaults.outlinedTextFieldColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.navigation.NavController
-import com.example.budgetapp_grouptwo.ui.Header
+import com.example.budgetapp_grouptwo.ui.components.Header
 import com.example.budgetapp_grouptwo.ui.components.FieldLabel
-import com.example.budgetapp_grouptwo.ui.components.LabelTitle
 import com.example.budgetapp_grouptwo.ui.components.PillPicker
 import com.example.budgetapp_grouptwo.ui.components.PillTextField
 import com.example.budgetapp_grouptwo.ui.utils.CurrencyVisualTransformation
 import com.example.budgetapp_grouptwo.ui.utils.DateMillisToLocaleDate
-import org.intellij.lang.annotations.JdkConstants
 import java.time.LocalDate
 
 private val LightBlue = Color(0xFFBFD6FF)
@@ -44,6 +32,9 @@ fun createGoalScreenPreview(){
     PillTextField(value = "Hello", placeholder = "Beløb", onValueChange = {value = ""}, keyboardOptions = KeyboardOptions.Default, textAlignCenter = false)
 }
 
+/** The View of the form to create a new goal
+ *
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateGoalScreen(
@@ -59,6 +50,7 @@ fun CreateGoalScreen(
     var datePickerState = rememberDatePickerState();
     var dateText by remember { mutableStateOf("") };
 
+    //Variable to keep track of fields are filled or not
     val canSave = amount.trim().isNotBlank() && name.trim().isNotBlank() && selectedDate!=null
 
 
@@ -79,27 +71,9 @@ fun CreateGoalScreen(
                 textAlignCenter = true,
             )
 
-            /*OutlinedTextField(
-                value = name,
-                onValueChange = { name = it },
-                label = { Text("Hvad sparer du op til?") },
-                modifier = Modifier.fillMaxWidth(),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = Color.Gray,
-                    unfocusedTextColor = Color.Gray,
-                    focusedLabelColor = Color.Gray,
-                    unfocusedLabelColor = Color.Gray
-                ),
-                keyboardOptions = KeyboardOptions(
-                    capitalization = KeyboardCapitalization.Words
-                )
-            )*/
-
-
             Spacer(modifier = Modifier.height(16.dp))
 
             FieldLabel("Beløb for mål")
-
             PillTextField(
                 value = amount,
                 placeholder = "0 kr.",
@@ -111,28 +85,7 @@ fun CreateGoalScreen(
                 visualTransformation = CurrencyVisualTransformation(),
             )
 
-            /*OutlinedTextField(
-                value = amount,
-                onValueChange = { newValue ->
-                    // Kun tillad tal
-                    amount = newValue.filter { it.isDigit() }
-                },
-                label = { Text("Beløb") },
-                visualTransformation = CurrencyVisualTransformation(),
-                modifier = Modifier.fillMaxWidth(),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = Color.Gray,
-                    unfocusedTextColor = Color.Gray,
-                    focusedLabelColor = Color.Gray,
-                    unfocusedLabelColor = Color.Gray
-                ),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number // Keyboard er numpad
-                )
-            )*/
-
             Spacer(modifier = Modifier.height(16.dp))
-
 
             FieldLabel("Slut dato")
             Box{
@@ -166,7 +119,6 @@ fun CreateGoalScreen(
                 }
             }
 
-
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
@@ -187,9 +139,10 @@ fun CreateGoalScreen(
                         disabledContainerColor = Color.hsv(0f,0f,.85f)
                     )
 
-            ) {
+            ){
                 Text(text = "Opret mål",
-                    color = if (canSave) Color.White else MaterialTheme.colorScheme.onSurfaceVariant)
+                    color = if (canSave) Color.White else MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
     }
 }

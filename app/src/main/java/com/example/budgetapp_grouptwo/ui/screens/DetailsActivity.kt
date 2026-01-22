@@ -45,7 +45,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import com.example.budgetapp_grouptwo.R
 import com.example.budgetapp_grouptwo.ViewModel.CashFlowViewModel
-import com.example.budgetapp_grouptwo.ViewModel.DetailsViewModel
 import com.example.budgetapp_grouptwo.model.Cash
 import com.example.budgetapp_grouptwo.model.CashFlow
 import com.example.budgetapp_grouptwo.model.Expense
@@ -60,28 +59,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 
-
-
-class DetailsActivity : AppCompatActivity() {
-
-    private val detailsViewModel: DetailsViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_details)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-        setContent {
-
-        }
-    }
-}
-
+/** Details Content is the view of "latest transactions"
+ *
+ */
 @Composable
 fun DetailsContent(
     cashFlow: List<Cash>,
@@ -159,6 +139,9 @@ fun DetailsContent(
 }
 
 
+/** Visual item containing information on the specific given Cash (Expense or Income)
+ *  Includes logic for deleting
+ */
 @Composable
 fun CashItem(
     cash: Cash,
@@ -234,24 +217,24 @@ fun CashItem(
     }
 }
 
-    @Composable
-    fun ConfirmDeleteDialog(itemName: String, onConfirm: () -> Unit, onDismiss: () -> Unit) {
-        val safeName = itemName.ifBlank { "denne post" }
+@Composable
+fun ConfirmDeleteDialog(itemName: String, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    val safeName = itemName.ifBlank { "denne post" }
 
-        AlertDialog(
-            onDismissRequest = onDismiss,
-            title = { Text("Fjern post") },
-            text = { Text("Vil du slette \"$safeName\"?") },
-            confirmButton = {
-                TextButton(onClick = onConfirm) {
-                    Text("Fjern")
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = onDismiss) {
-                    Text("Annuller")
-                }
-
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Fjern post") },
+        text = { Text("Vil du slette \"$safeName\"?") },
+        confirmButton = {
+            TextButton(onClick = onConfirm) {
+                Text("Fjern")
             }
-        )
-    }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Annuller")
+            }
+
+        }
+    )
+}

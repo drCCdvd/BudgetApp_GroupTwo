@@ -25,6 +25,10 @@ import androidx.compose.ui.graphics.Color
 import com.example.budgetapp_grouptwo.ui.components.LabelTitle
 import com.example.budgetapp_grouptwo.ui.goal.GoalItem
 
+/** The view of the home screen
+ * (Includes disposable left today, disposable left for the month,
+ * and a preview of goal screen and latest transaction screen)
+ */
 @Composable
 fun HomePage(
     navController: NavController,

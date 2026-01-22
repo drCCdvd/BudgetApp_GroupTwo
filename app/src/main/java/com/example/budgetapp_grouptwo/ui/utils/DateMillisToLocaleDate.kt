@@ -4,6 +4,8 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
+/** Helper for transforming a given Date in milliseconds to a LocaleDate instance
+ */
 class DateMillisToLocaleDate(
     dateInMillis: Long?
 ){

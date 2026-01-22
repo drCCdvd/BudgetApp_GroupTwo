@@ -8,6 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/** UI design for labels for user inputs
+ * (used in forms, with user actions)
+ */
 @Composable
 fun FieldLabel(text: String) {
     Text(

@@ -1,7 +1,5 @@
 package com.example.budgetapp_grouptwo.ui.goal
 
-import android.R
-import android.R.attr.fontWeight
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,10 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.foundation.text.input.InputTransformation.Companion.keyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
@@ -44,6 +40,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
 import com.example.budgetapp_grouptwo.ui.utils.CurrencyVisualTransformation
 
+
 @Composable
 fun GoalItem(
     goal: Goal,
@@ -53,6 +50,7 @@ fun GoalItem(
     var showConfirm by remember { mutableStateOf(false) }
     var showAddDialog by remember { mutableStateOf(false) }
     var inputAmount by remember { mutableStateOf("") }
+    //How far the user has come with their goal -> Used for the visual progress bar
     val progress = if (goal.targetAmount > 0) {
         (goal.savedAmount / goal.targetAmount)
             .toFloat()
@@ -60,9 +58,9 @@ fun GoalItem(
     } else {
         0f
     }
-
     val percent = (progress * 100).toInt()
     val isCompleted = progress >= 1f
+
     Card(modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
@@ -70,7 +68,7 @@ fun GoalItem(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp
         )
-        ){
+    ){
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -92,6 +90,8 @@ fun GoalItem(
                 }
 
                 Spacer(Modifier.height(6.dp))
+
+                //The progress bar
                 Box(modifier = Modifier
                         .fillMaxWidth()
                         .height(22.dp)
@@ -120,23 +120,17 @@ fun GoalItem(
                     )
                 }
 
-
                 Spacer(Modifier.height(6.dp))
                 Text("${goal.endDate}")
-
-
             }
-
-            }
+        }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
 
-
             if (onRemove != null){
-
                     if (isCompleted) {
                         Row (modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
                             horizontalArrangement = Arrangement.Center
@@ -182,7 +176,9 @@ fun GoalItem(
             color = Color.LightGray.copy(alpha = 0.4f),
             thickness = 2.dp
         )
-        }
+    }
+
+        //Dialog window for adding new amounts to a given goal.
         if (showAddDialog) {
             AlertDialog(
                 onDismissRequest = {
@@ -233,25 +229,27 @@ fun GoalItem(
             )
         }
 
-        if (showConfirm) {
-            AlertDialog(
-                onDismissRequest = { showConfirm = false },
-                title = { Text("Fjern mål") },
-                text = { Text("Vil du slette \"${goal.name}\"?") },
-                confirmButton = {
-                    TextButton(onClick = {
-                        showConfirm = false
-                        onRemove?.invoke(goal.id)
-                    }) {
-                        Text("Fjern")
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = { showConfirm = false }) {
-                        Text("Annuller")
-                    }
+    //Dialog window to remove goal
+    if (showConfirm) {
+        AlertDialog(
+            onDismissRequest = { showConfirm = false },
+            title = { Text("Fjern mål") },
+            text = { Text("Vil du slette \"${goal.name}\"?") },
+            confirmButton = {
+                TextButton(onClick = {
+                    showConfirm = false
+                    onRemove?.invoke(goal.id)
+                }) {
+                    Text("Fjern")
                 }
-            )
+            },
 
-        }
+            dismissButton = {
+                TextButton(onClick = { showConfirm = false }) {
+                    Text("Annuller")
+                }
+            }
+        )
+
     }
+}

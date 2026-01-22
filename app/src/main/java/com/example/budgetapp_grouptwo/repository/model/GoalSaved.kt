@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
+/** GoalSaved Entities consists of the expenses related to "saved_amount"-field in Goals.
+ *  Foreign keys from the expense and the given goal, the expense went to.
+ */
 @Entity(
     foreignKeys = [
         ForeignKey(

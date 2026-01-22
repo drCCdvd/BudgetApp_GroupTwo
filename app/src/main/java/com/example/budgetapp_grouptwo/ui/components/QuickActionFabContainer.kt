@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 
 
+/** A countainer that wraps the QuickActionFab
+ * (to ensure a consistent functionality across screens and pages)
+ */
 @Composable
 fun QuickActionFabContainer(
     navController: NavController,

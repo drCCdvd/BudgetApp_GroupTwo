@@ -6,6 +6,8 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
 
+/** Helper for transforming a given textString to currency visual (with "." seperation and "kr." at end)
+ */
 class CurrencyVisualTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
 

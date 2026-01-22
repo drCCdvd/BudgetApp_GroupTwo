@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
 
+/** Cashflow entity
+ *  CashFlowType defines whether it's an expense or earning
+ */
 @Entity
 data class Cashflow (
     @PrimaryKey(autoGenerate = true)

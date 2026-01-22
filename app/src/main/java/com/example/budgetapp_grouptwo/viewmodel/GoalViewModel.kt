@@ -18,11 +18,11 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.util.UUID
 
+/** Handling all Goal logic between UI states and the database
+ */
 class GoalViewModel(goalRepository: GoalRepository) : ViewModel() {
-
     private var _goals = mutableStateListOf<Goal>()
     var goals: List<Goal> = _goals
-
 
     private val repository: GoalRepository = goalRepository;
 
@@ -33,6 +33,8 @@ class GoalViewModel(goalRepository: GoalRepository) : ViewModel() {
         }
     }
 
+    /** Inserts a new goal on the database
+     */
     fun addGoal(name: String, amount: Double, endDate: LocalDate, currentDate: LocalDate) = viewModelScope.launch {
         var newGoal = Goal(
             name = name,
@@ -44,16 +46,24 @@ class GoalViewModel(goalRepository: GoalRepository) : ViewModel() {
         repository.insertNewGoal(newGoal);
         fetchGoals();
     }
+
+    /** Removes a goal from a given goalId
+     */
     fun removeGoal(goalId: Int) = viewModelScope.launch{
         repository.deleteGoal(goalId)
         fetchGoals();
     }
+
+    /** Adds an amount to savedAmount on a given Goal
+     */
     fun addMoney(goal: Goal, amount: Double) = viewModelScope.launch{
         println("goal id: " + goal.id);
         repository.addMoneyToGoal(goal.id, amount);
         fetchGoals();
     }
 
+    /** Fetches all goals, and populates mutable list
+     */
     fun fetchGoals() = viewModelScope.launch{
         val initialized_goals: List<Goal> = repository.getAllGoals();
         println("initialized: ")
@@ -66,6 +76,8 @@ class GoalViewModel(goalRepository: GoalRepository) : ViewModel() {
     }
 }
 
+/** Uses Factory method from viewmodelProvider to instantiate the viewModel with input for repository
+ */
 class GoalViewModelFactory(private val repository: GoalRepository): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(GoalViewModel::class.java)){

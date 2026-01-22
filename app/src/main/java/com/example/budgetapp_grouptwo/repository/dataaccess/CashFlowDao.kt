@@ -8,6 +8,9 @@ import com.example.budgetapp_grouptwo.model.CashFlow
 import com.example.budgetapp_grouptwo.repository.model.Cashflow
 import com.example.budgetapp_grouptwo.repository.model.CashflowType
 
+/** Cashflow data access object
+ * Handles data operations for cashflow entities from room DB
+ */
 @Dao
 interface CashFlowDao {
     @Query("SELECT * FROM Cashflow ORDER BY createdDate DESC")

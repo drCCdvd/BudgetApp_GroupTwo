@@ -1,22 +1,16 @@
 package com.example.budgetapp_grouptwo.ui.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,7 +20,7 @@ import com.example.budgetapp_grouptwo.ViewModel.CashFlowViewModel
 import com.example.budgetapp_grouptwo.model.Expense
 import com.example.budgetapp_grouptwo.model.ExpenseType
 import com.example.budgetapp_grouptwo.model.Income
-import com.example.budgetapp_grouptwo.ui.Header
+import com.example.budgetapp_grouptwo.ui.components.Header
 import com.example.budgetapp_grouptwo.ui.components.FieldLabel
 import com.example.budgetapp_grouptwo.ui.components.PillPicker
 import com.example.budgetapp_grouptwo.ui.components.PillTextField
@@ -36,18 +30,12 @@ import java.time.ZoneId
 
 private val LightBlue = Color(0xFFBFD6FF)
 
-class InsertNewCashflowActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-
-        }
-    }
-}
+/**The view of creating new CashFlow (either income or expense)
+ * @onBack is the function navigating back
+ * @OnSubmit is the function for submitting the new Instance (either Income or Expense)
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-
 fun InsertNewCashflowScreen(
     onBack: () -> Unit,
     cashFlowViewModel: CashFlowViewModel,
@@ -60,6 +48,7 @@ fun InsertNewCashflowScreen(
     var newAmount by rememberSaveable { mutableStateOf("") }
     var newType by rememberSaveable { mutableStateOf("expense") }
 
+    //Convert the given date in milliseconds to localeDate
     val dateLabel = datePickerState.selectedDateMillis?.let { millis ->
         Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate().toString()
     } ?: "I dag"
@@ -70,7 +59,6 @@ fun InsertNewCashflowScreen(
     val canSave = newAmount.trim().isNotBlank() && newName.trim().isNotBlank()
 
     Header("Ny post", onBack = onBack)
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -204,6 +192,10 @@ fun InsertNewCashflowScreen(
         }
     }
 }
+
+/** UI detail of choosing either expense or income
+ * (with rounded corners)
+ */
 @Composable
 private fun TypePill(
     text: String,

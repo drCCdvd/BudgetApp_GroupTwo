@@ -32,8 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 
 
-private val LightBlue = Color(0xFFBFD6FF)
-
+/** QuickActionFab is the button-menu-navigation for user actions
+ * (Actions such as inputting new expenses/income or creating new goals)
+ */
 @Composable
 fun QuickActionFab(
     isOpen: Boolean,
@@ -42,7 +43,6 @@ fun QuickActionFab(
     onAddTransaction: () -> Unit,
     onCreateGoal: () -> Unit,
     onDepositToGoal: () -> Unit
-
 ) {
     BackHandler(enabled = isOpen) {
         onDismiss()

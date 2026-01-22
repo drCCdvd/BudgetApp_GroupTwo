@@ -18,14 +18,12 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
+/** Handling all cashflow logic between UI states and the database
+ */
 class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
-
     var repository = cashFlowRepository;
     var cashFlow = CashFlow();
-    //var monthlyDisposable = mutableStateOf<Double>(0.0)
-    //var dailyDisposable = mutableStateOf<Double>(0.0);
     var cashFlows = cashFlow.cashFlows
-
     var monthlyDisposable = mutableStateOf(0.0);
     var dailyDisposable = mutableStateOf(0.0);
     var disposableToday = mutableStateOf(0.0);
@@ -42,6 +40,9 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
         cashFlows.add(new_expense);
     }
 
+    /** Inserts new Expense on database and creates relationsship to Goal
+     * (Used for adding new saved amounts on a goal)
+     */
     fun insertCashFlowAndLinkToGoal(expense: Expense, goalId: Int) = viewModelScope.launch{
         repository.insertCashFlowAndLinkToGoal(expense,goalId);
     }
@@ -68,19 +69,28 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
         fetchAllCashFlows();
     }
 
+    /** Deletes all Expenses related to a given goal (through GoalSaved table)
+     * (Used, when deleting a goal, to release the expenses back in the budget)
+     */
     fun removeAllSavedAmount(goalId: Int) = viewModelScope.launch {
         repository.removeAllSavedExpenses(goalId);
         fetchAllCashFlows();
     }
 
+    /** Calculate the disposable from a given startDate and endDate
+     */
     fun getDisposable(startDate: LocalDate, endDate: LocalDate, context: Context) = viewModelScope.launch{
         fetchAllCashFlows()
         monthlyDisposable.value = cashFlow.getDisposable(startDate, endDate, context);
     }
 
+    /** Calculates the disposable left for today,
+     * based on the monthly disposable.
+     */
     fun getDisposableToday(currentDate: LocalDate, context: Context) = viewModelScope.launch {
         fetchAllCashFlows()
 
+        //Calculate the regular cashflow spread across each day:
         dailyDisposable.value = cashFlow.getRegularDisposable(
             currentDate,
             currentDate,
@@ -89,6 +99,7 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
 
         println(dailyDisposable.value)
 
+        //Calculate variable cashflow for today:
         var todaysAccounting = 0.0;
         for(cash in cashFlow.cashFlows){
             if(cash.dateAdded!= currentDate){
@@ -101,10 +112,14 @@ class CashFlowViewModel(cashFlowRepository: CashFlowRepository): ViewModel() {
                 todaysAccounting+=cash.amount;
             }
         }
+
+        //Adjust disposable today, to include variable changes for today:
         disposableToday.value = dailyDisposable.value+todaysAccounting;
     }
 }
 
+/** Uses Factory method from viewmodelProvider to instantiate the viewModel with input for repository
+ */
 class CashFlowViewModelFactory(private val repository: CashFlowRepository): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(CashFlowViewModel::class.java)){

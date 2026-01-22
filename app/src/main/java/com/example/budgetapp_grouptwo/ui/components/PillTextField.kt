@@ -21,6 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.budgetapp_grouptwo.ui.utils.CurrencyVisualTransformation
 
+/** UI design for a text field with rounded corners
+ *
+ */
 @Composable
 fun PillTextField(
     value: String,

@@ -10,6 +10,9 @@ import com.example.budgetapp_grouptwo.repository.model.Cashflow
 class GoalRepository(goalDao: GoalDao) {
     private val goalDao = goalDao;
 
+    /** Transform a Goal instance to a Goal Database entity
+     * (Id is automatically generated on database insertion)
+     */
     fun Goal.toEntity(): com.example.budgetapp_grouptwo.repository.model.Goal{
         return com.example.budgetapp_grouptwo.repository.model.Goal(
             name = name,
@@ -20,6 +23,9 @@ class GoalRepository(goalDao: GoalDao) {
         )
     }
 
+    /** Transforms a database Goal entity to a Goal instance.
+     *
+     */
     fun com.example.budgetapp_grouptwo.repository.model.Goal.toApp(): Goal{
         return Goal(
             id = uid,
@@ -31,6 +37,7 @@ class GoalRepository(goalDao: GoalDao) {
         )
     }
 
+    //Fetches all goals
     suspend fun getAllGoals(): List<Goal>{
         var goalsFromDAO = goalDao.getAll();
 
@@ -47,6 +54,10 @@ class GoalRepository(goalDao: GoalDao) {
         return goals;
     }
 
+    /** Updates "savedAmount" for a given goal
+     * Input goalId: the Id of goal to update amount to
+     * Input amount: The amount of which to add on to a goal
+     */
     suspend fun addMoneyToGoal(goalId: Int, amount: Double){
         var goal = goalDao.selectById(goalId)
         var newAmount = goal.savedAmount+amount

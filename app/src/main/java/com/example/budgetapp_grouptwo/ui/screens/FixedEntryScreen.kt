@@ -1,29 +1,25 @@
 package com.example.budgetapp_grouptwo.ui.screens
 
-import android.hardware.camera2.params.BlackLevelPattern
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.budgetapp_grouptwo.CashFlowStorage
-import com.example.budgetapp_grouptwo.ui.Header
+import com.example.budgetapp_grouptwo.ui.components.Header
 import com.example.budgetapp_grouptwo.RegularCashFlow
 
-
+/** The view of updating regular cashflow
+ *
+ */
 @Composable
 fun FixedEntryScreen(
     onBack: () -> Unit
@@ -146,29 +142,6 @@ fun FixedEntryScreen(
         ) {
             Text("Gem", color = Color(0xFF4B4B4B))
         }
-
-        Spacer(Modifier.height(12.dp))
-// slet buttoem
-
-        /*Spacer(Modifier.height(12.dp))
-
-        Button(
-            onClick = {
-                CashFlowStorage.clearAllPrefs(context)
-                incomeText = ""
-                expenseText = ""
-                Toast.makeText(context, "Alt slettet!", Toast.LENGTH_SHORT).show()
-            },
-            modifier = Modifier
-                .width(260.dp)
-                .height(54.dp),
-            shape = RoundedCornerShape(18.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFE6A7))
-        ) {
-            Text("Slet alt (test)", color = Color(0xFF4B4B4B))
-        }*/
-
-
     }
 }
 

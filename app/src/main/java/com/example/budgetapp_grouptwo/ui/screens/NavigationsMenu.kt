@@ -24,15 +24,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.budgetapp_grouptwo.R
 
 
-
-
-
-
 @Composable
 fun NavigationMenu(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-
 
     Row(
         modifier = Modifier
@@ -62,11 +57,13 @@ fun NavigationMenu(navController: NavController) {
     }
 }
 
+/** Each navigation item in the naivgation menu
+ */
 @Composable
 fun NavItem(
-    label: String,
-    icon: ImageVector,
-    selected: Boolean,
+    label: String,          //Text field of button
+    icon: ImageVector,      //Icon of the button
+    selected: Boolean,      //Whether or not we are on the current route
     onClick: () -> Unit
 ) {
     val backgroundColor = if (selected) Color.hsv(0f,0f,.95f) else Color.Transparent

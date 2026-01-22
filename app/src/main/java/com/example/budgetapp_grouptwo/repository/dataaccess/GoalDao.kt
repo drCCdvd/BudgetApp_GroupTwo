@@ -7,6 +7,9 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.budgetapp_grouptwo.repository.model.Goal
 
+/** Goal data access object
+ * Handles data operations for Goal entities from room DB
+ */
 @Dao
 interface GoalDao {
     @Query("SELECT * FROM goal ORDER BY endDate DESC")

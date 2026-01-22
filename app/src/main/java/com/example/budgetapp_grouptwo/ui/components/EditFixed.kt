@@ -9,7 +9,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun EditRecurringNavItem(navController: NavController) {
-
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 

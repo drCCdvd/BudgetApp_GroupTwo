@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-
 fun BackTopBar(
     title: String,
     onBackClick: () -> Unit

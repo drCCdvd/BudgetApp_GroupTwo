@@ -15,6 +15,9 @@ class CashFlowRepository(cashFlowDao: CashFlowDao, goalSavedDao: GoalSavedDao) {
     private val cashFlowDao = cashFlowDao;
     private val goalSavedDao = goalSavedDao;
 
+    /** Transforms Income to database entity
+     * Maps the App's Income class to a database Cashflow class
+     */
     fun Income.toEntity(): Cashflow{
         return Cashflow(
             name = name,
@@ -23,6 +26,10 @@ class CashFlowRepository(cashFlowDao: CashFlowDao, goalSavedDao: GoalSavedDao) {
             type = CashflowType.Earning
         )
     }
+
+    /** Transforms expense to database entity
+     * Maps the App's expense class to a database Cashflow class
+     */
     fun Expense.toEntity(): Cashflow{
         return Cashflow(
             name=name,
@@ -32,6 +39,9 @@ class CashFlowRepository(cashFlowDao: CashFlowDao, goalSavedDao: GoalSavedDao) {
         )
     }
 
+    /** Transforms Cashflow to Income or Expense object
+     * Maps the Database Cashflow entity to a new Income or Expense object
+     */
     fun Cashflow.toApp(): Cash{
         when(type){
             CashflowType.Earning -> return Income(
@@ -51,6 +61,9 @@ class CashFlowRepository(cashFlowDao: CashFlowDao, goalSavedDao: GoalSavedDao) {
         }
     }
 
+    /** Fetches all cashflows from room DB
+     *
+     */
     suspend fun getAllCashFlows(): List<Cash>{
         var cashFlows = cashFlowDao.getAll()
 
@@ -74,19 +87,28 @@ class CashFlowRepository(cashFlowDao: CashFlowDao, goalSavedDao: GoalSavedDao) {
         }
     }
 
+    /** Inserts a new cashflow (type: expense) on the database
+     * The Expense input is the new instance of expense
+     */
     suspend fun addNewExpense(expense: Expense): Cash{
         var newCashFlow = expense.toEntity();
         cashFlowDao.insertNew(newCashFlow);
         return newCashFlow.toApp();
     }
 
-
+    /** Inserts new Expense on the database and links to a goal using GoalSaved table
+     * The Expense input: the instance of an expense
+     * The GoalId input: the id of the goal, which the expense is related to
+     */
     suspend fun insertCashFlowAndLinkToGoal(expense: Expense, goalId: Int){
         var newCashFlow = expense.toEntity();
         var newCashFlowId = cashFlowDao.insertNew(newCashFlow)
         goalSavedDao.insertNewSavedAmount(goalId, newCashFlowId);
     }
 
+    /** Inserts a new cashflow (type: expense) on the database
+     * The Expense input is the new instance of expense
+     */
     suspend fun addNewIncome(income: Income): Cash{
         var newCashFlow = income.toEntity();
         cashFlowDao.insertNew(newCashFlow);

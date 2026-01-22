@@ -8,31 +8,37 @@ import com.example.budgetapp_grouptwo.model.Income
 import org.json.JSONArray
 import org.json.JSONObject
 import java.time.LocalDate
-// day la data-lag
-// object dung SharedPreferences +JSON
-//da co save (gemme)
+
+/** This object is for reading and writing
+ * new regular cash flow data to the "shared
+ * preferences"
+ * (RegularCashFlow handles the actual variables and data flowing in the app)
+ */
 object CashFlowStorage {
     private const val PREF_NAME = "budget_prefs"
     private const val KEY_EARNINGS = "regular_earnings"
     private const val KEY_EXPENSES = "regular_expenses"
     private const val KEY_CASHFLOWS = "variable_cashflows"
 
-    // ---------------------------
-    // Regular earnings/expenses
-    // ---------------------------
-    // gemme  funtion til earnings and exoense
-    // voi SharedPreferencesla la "update" saveRegularEarnings /saveRegularExpenses
+    /** Writes onto shared preferences new given regular earnings
+     * (replaces any previous values if exists)
+     */
     fun saveRegularEarnings(context: Context, amount: Double) {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         prefs.edit().putString(KEY_EARNINGS, amount.toString()).apply()
     }
 
+    /** Writes onto shared preferences new given regular expense
+     * (replaces any previous values if exists)
+     */
     fun saveRegularExpenses(context: Context, amount: Double) {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         prefs.edit().putString(KEY_EXPENSES, amount.toString()).apply()
     }
-    // hente (load  it is not ask i tak but i still make more task
-    // load forRegularEarnings and loadRegularExpenses
+
+    /** Reads regular earnings from "sharedPreferences"
+     *  And returns the value.
+     */
     fun loadRegularEarnings(context: Context): Double {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         // Nếu trước đây bạn lưu Float/Double thì getString sẽ crash -> dùng all[key]
@@ -53,6 +59,9 @@ object CashFlowStorage {
         return value
     }
 
+    /** Reads regular expenses from the sharedPreferences
+     *  And returns the value.
+     */
     fun loadRegularExpenses(context: Context): Double {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val raw = prefs.all[KEY_EXPENSES] ?: return 0.0
@@ -72,17 +81,18 @@ object CashFlowStorage {
         return value
     }
 
-// slette(delete) for regularRegularEarnings and RegularExpense
+    // (Ikke i brug)
+    // slette(delete) for regularRegularEarnings and RegularExpense
     fun deleteRegularEarnings(context: Context) {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         prefs.edit().remove(KEY_EARNINGS).apply()
     }
-
+    // (Ikke i brug)
     fun deleteRegularExpenses(context: Context) {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         prefs.edit().remove(KEY_EXPENSES).apply()
     }
-
+    // (Ikke i brug)
     fun clearAllPrefs(context: Context) {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         prefs.edit().clear().apply()
@@ -91,13 +101,13 @@ object CashFlowStorage {
     // ---------------------------
     // Variable cashflows list (JSON)
     // ---------------------------
-
+    // (Ikke i brug) -> Benytter data repository istedet
     fun saveNewCashFlow(context: Context, cash: Cash) {
         val current = loadCashFlow(context).toMutableList()
         current.add(cash)
         saveCashFlowList(context, current)
     }
-// had implemented opret loadCashFlow
+    // (Ikke i brug) -> Benytter data repository istedet
     fun loadCashFlow(context: Context): List<Cash> {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val jsonString = prefs.getString(KEY_CASHFLOWS, null) ?: return emptyList()
@@ -145,7 +155,7 @@ object CashFlowStorage {
             emptyList()
         }
     }
-// nhiem vu da lam  . opret saveCashFlowList
+    // (Ikke i brug) -> Benytter data repository istedet
     private fun saveCashFlowList(context: Context, list: List<Cash>) {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val arr = JSONArray()
@@ -170,12 +180,13 @@ object CashFlowStorage {
 
         prefs.edit().putString(KEY_CASHFLOWS, arr.toString()).apply()
     }
-// variable
+    // (Ikke i brug) -> Benytter data repository istedet
     fun deleteCashFlow(context: Context, id: Int) {
         val updated = loadCashFlow(context).filterNot { it.id == id }
         saveCashFlowList(context, updated)
     }
-//variable
+
+    // (Ikke i brug) -> Benytter data repository istedet
     fun updateCashFlow(context: Context, updated: Cash) {
         val list = loadCashFlow(context).toMutableList()
         val idx = list.indexOfFirst { it.id == updated.id }
@@ -184,16 +195,20 @@ object CashFlowStorage {
             saveCashFlowList(context, list)
         }
     }
-//variable
+
+    // (Ikke i brug) -> Benytter data repository istedet
     fun clearCashFlows(context: Context) {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         prefs.edit().remove(KEY_CASHFLOWS).apply()
     }
-    //add more update
+
+    // (Ikke i brug) -> Benytter data repository istedet
     fun updateRegularCashFlow(context: Context, earnings: Double, expenses: Double) {
         saveRegularEarnings(context, earnings)
         saveRegularExpenses(context, expenses)
     }
+
+    // (Ikke i brug) -> Benytter data repository istedet
     fun nextCashFlowId(context: Context): Int {
         val list = loadCashFlow(context)
         return (list.maxOfOrNull { it.id } ?: 0) + 1

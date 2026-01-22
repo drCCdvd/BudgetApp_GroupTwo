@@ -9,5 +9,5 @@ data class Goal(
     val savedAmount: Double = 0.0,
     val createdDate: LocalDate,
     val endDate: LocalDate,
-    val colorindex: Int = id % 3
+    val colorindex: Int = id % 3 //For the color of the progress-bar
 )

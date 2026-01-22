@@ -13,6 +13,10 @@ import androidx.navigation.NavController
 import com.example.budgetapp_grouptwo.ui.screens.NavigationMenu
 import androidx.compose.ui.graphics.Color
 
+/** Responsible for the whole page layout of each side.
+ *  Inserts a Header, navigation menu, and the quick action button for each screen.
+ *  @content is the actual page content wrapped in a composable
+ */
 @Composable
 fun PageLayout(
     navController: NavController,
@@ -24,7 +28,7 @@ fun PageLayout(
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
 
-        // 🔹 HEADER
+        //HEADER
         MainHeader(
             title = title,
             subtitle = subtitle,
@@ -32,7 +36,7 @@ fun PageLayout(
             onEditRecurringClick = onEditRecurringClick
         )
 
-        // 🔹 NAVIGATION – altid samme sted
+        //NAVIGATION – altid samme sted
         NavigationMenu(navController)
 
         Divider(
@@ -43,7 +47,7 @@ fun PageLayout(
             thickness = 1.dp
         )
 
-        // 🔹 SIDEINDHOLD
+        //SIDEINDHOLD
         Box(
             modifier = Modifier
                 .fillMaxSize()

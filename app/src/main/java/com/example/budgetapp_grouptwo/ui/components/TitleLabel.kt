@@ -25,6 +25,9 @@ fun labelTitlePreview(){
     LabelTitle(title = "hello", imageVector = Icons.Filled.Edit)
 }
 
+/** UI design of new section's label
+ * Includes text and Icon (using imageVector)
+ */
 @Composable
 fun LabelTitle(
     title: String,
