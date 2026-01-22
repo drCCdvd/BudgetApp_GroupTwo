@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
         CashFlowViewModelFactory(cashFlowRepository)
     }
 
-    var currentDate = LocalDate.now().plusDays(1);
+    var currentDate = LocalDate.now();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,7 +130,7 @@ class MainActivity : ComponentActivity() {
                                 onAddMoney = { goal, amount ->
                                     cashFlowViewModel.insertCashFlowAndLinkToGoal(
                                         expense = Expense
-                                            (name="Opsparet til: ${goal.name}", amount = amount, date = currentDate, type = ExpenseType.DepositToGoal),
+                                            (name="Overført til: ${goal.name}", amount = amount, date = currentDate, type = ExpenseType.DepositToGoal),
                                         goalId = goal.id
                                     )
                                     goalViewModel.addMoney(goal, amount)

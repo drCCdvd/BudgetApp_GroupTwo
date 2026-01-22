@@ -1,5 +1,5 @@
 # BudgetApp_GroupTwo
-# ButJet
+# Budget App
 
 ButJet is a simple and modern budgeting app designed to help users gain clarity over their personal finances and build healthy money habits over time. Primarily it is possible in the app to create goals.
 When goals are created you can then see how close you are on reaching them.
