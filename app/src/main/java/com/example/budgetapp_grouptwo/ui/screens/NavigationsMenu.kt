@@ -28,6 +28,7 @@ import com.example.budgetapp_grouptwo.R
 
 
 
+
 @Composable
 fun NavigationMenu(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -69,17 +70,16 @@ fun NavItem(
     selected: Boolean,
     onClick: () -> Unit
 ) {
-    val backgroundColor = if (selected) Color(0xFFE0E0E0) else Color.Transparent
+    val backgroundColor = if (selected) Color.hsv(0f,0f,.95f) else Color.Transparent
     val contentColor = if (selected) Color.Black else Color.Gray
 
     Column(
         modifier = Modifier
-            .clip(RoundedCornerShape(12.dp)) // rund-heden af hjørnerne
             .widthIn(min = 100.dp, max = 150.dp)
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(12.dp)) // rund-heden af hjørnerne
             .background(backgroundColor)
             .clickable { onClick() }
-            .padding(vertical = 8.dp), // vertical er højden på knapperne
+            .padding(vertical = 10.dp), // den var 10 på CC mobil
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(

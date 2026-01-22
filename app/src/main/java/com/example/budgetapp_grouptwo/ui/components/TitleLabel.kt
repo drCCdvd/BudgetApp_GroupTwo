@@ -36,13 +36,14 @@ fun LabelTitle(
         Text(
             text = title,
             style = Typography.titleSmall,
+            color = Color.Gray
         )
         if(imageVector is ImageVector){
             androidx.compose.material3.Icon(
                 imageVector = imageVector,
                 "",
                 modifier = Modifier.absolutePadding(5.dp,0.dp,0.dp,0.dp).width(14.dp),
-                tint = Color.Black,
+                tint = Color.Gray,
             )
         }
     }

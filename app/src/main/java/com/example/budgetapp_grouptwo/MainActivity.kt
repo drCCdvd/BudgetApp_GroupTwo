@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
         CashFlowViewModelFactory(cashFlowRepository)
     }
 
-    var currentDate = LocalDate.now();
+    var currentDate = LocalDate.now().plusDays(1);
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,9 +143,6 @@ class MainActivity : ComponentActivity() {
                                     cashFlowViewModel.removeExpense(id)
                                 }
                             )
-                            QuickActionFabContainer(
-                                navController = navController,
-                            )
                         }
                     }
                     // Goal page
@@ -164,7 +161,7 @@ class MainActivity : ComponentActivity() {
                                 onAddMoney = { goal, amount ->
                                     cashFlowViewModel.insertCashFlowAndLinkToGoal(
                                         expense = Expense
-                                            (name="Opsparet til: ${goal.name}", amount = amount, date = LocalDate.now(), type = ExpenseType.DepositToGoal),
+                                            (name="Opsparet til: ${goal.name}", amount = amount, date = currentDate, type = ExpenseType.DepositToGoal),
                                         goalId = goal.id
                                     )
                                     goalViewModel.addMoney(goal, amount)
@@ -173,9 +170,6 @@ class MainActivity : ComponentActivity() {
                                     cashFlowViewModel.removeAllSavedAmount(id);
                                     goalViewModel.removeGoal(id)
                                 }
-                            )
-                            QuickActionFabContainer(
-                                navController = navController,
                             )
                         }
                     }
@@ -187,7 +181,7 @@ class MainActivity : ComponentActivity() {
                         CreateGoalScreen(
                             navController = navController,
                             onSaveGoal = { name, amount, endDate ->
-                                goalViewModel.addGoal(name, amount, endDate)
+                                goalViewModel.addGoal(name, amount, endDate, currentDate)
                                 navController.popBackStack()
                             },
                             onBack = {

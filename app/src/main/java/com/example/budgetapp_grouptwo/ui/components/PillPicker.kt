@@ -33,7 +33,7 @@ fun PillPicker(
             .height(46.dp)
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant
+        color = Color.hsv(0f,0f,.95f) //MaterialTheme.colorScheme.surfaceVariant
     ) {
         Box(contentAlignment = Alignment.Center) {
             /*Text(
