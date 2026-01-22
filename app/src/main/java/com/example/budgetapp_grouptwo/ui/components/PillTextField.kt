@@ -48,7 +48,7 @@ fun PillTextField(
             textStyle = TextStyle(
                 fontSize = 14.sp,
                 textAlign = if (textAlignCenter) TextAlign.Center else TextAlign.Start,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface // retter farven på teksten efter light/dark mode
             ),
             modifier = Modifier
                 .height(46.dp)

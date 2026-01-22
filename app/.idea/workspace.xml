@@ -4,39 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f62ee5c-d6f0-4538-a02c-2577a45d8e63" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gradle/9.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/9.2.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gradle/9.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/9.2.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gradle/9.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/9.2.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gradle/9.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/9.2.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gradle/9.2.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/9.2.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/deploymentTargetSelector.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_01_2026,_12_43_[Changes]1/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_01_2026,_12_43_[Changes]1/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_01_2026,_12_43_[Changes]1/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_01_2026,_12_43_[Changes]1/file-system.probe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_01_2026,_12_43_[Changes]1/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_01_2026,_12_43_[Changes]1/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_01_2026,_12_43_[Changes]1/outputFiles.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_01_2026,_12_43_[Changes]1/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_01_2026,_12_43_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_01_2026__12_43__Changes_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/components/PageLayout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/components/PageLayout.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/components/PillPicker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/components/PillPicker.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/components/PillTextField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/components/PillTextField.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/components/QuickActionFab.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/components/QuickActionFab.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/components/TitleLabel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/components/TitleLabel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/screens/CreateGoalScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/screens/CreateGoalScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/screens/InsertNewCashflowScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/screens/InsertNewCashflowScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/screens/NavigationsMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/ui/screens/NavigationsMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/viewmodel/GoalViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budgetapp_grouptwo/viewmodel/GoalViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/budgetapp_grouptwo/ExampleUnitTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/budgetapp_grouptwo/ExampleUnitTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/../build/reports/problems/problems-report.html" afterDir="false" />
-    </list>
+    <list default="true" id="5f62ee5c-d6f0-4538-a02c-2577a45d8e63" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,7 +52,7 @@
     "android.gradle.sync.needed": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "Merging JusteringUI-CC",
+    "git-widget-placeholder": "JusteringUI-CC",
     "last_opened_file_path": "/Users/simonmarsengo/Documents/GitHub/BudgetApp_GroupTwo/BudgetApp_GroupTwo/app"
   }
 }]]></component>

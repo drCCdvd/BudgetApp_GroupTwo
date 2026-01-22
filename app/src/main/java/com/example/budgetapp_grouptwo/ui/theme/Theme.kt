@@ -39,9 +39,11 @@ fun BudgetApp_GroupTwoTheme(
         when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            if  (darkTheme) dynamicDarkColorScheme(context)
+            else
+                dynamicLightColorScheme(context)
         }
-        darkTheme -> LightColorScheme //DarkColorScheme
+        darkTheme -> DarkColorScheme //DarkColorScheme
         else -> LightColorScheme
     }
 
