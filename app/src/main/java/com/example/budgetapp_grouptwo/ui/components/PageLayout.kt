@@ -57,5 +57,7 @@ fun PageLayout(
             content()
         }
     }
-    QuickActionFabContainer(navController = navController)
+    QuickActionFabContainer(
+        navController = navController
+    )
 }
