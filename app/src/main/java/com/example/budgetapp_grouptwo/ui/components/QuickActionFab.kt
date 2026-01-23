@@ -120,13 +120,16 @@ fun QuickActionFab(
             // +
             FloatingActionButton(
                 onClick = onToggle,
-                shape = CircleShape
+                shape = CircleShape,
+                modifier = Modifier.offset(-25.dp,-25.dp).size(64.dp),
+                containerColor = Color(0xFFC7DAFF),
+                contentColor = Color.White
             ) {
 
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = if (isOpen) "Luk menu" else "Åbn menu",
-                    modifier = Modifier.rotate(rotation)
+                    modifier = Modifier.rotate(rotation).size(40.dp)
                 )
             }
         }
