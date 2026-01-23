@@ -167,7 +167,7 @@ private fun RadialAction(
             color = containerColor,
             tonalElevation = 0.dp,
             shadowElevation = 2.dp,
-            modifier = Modifier.size(72.dp).aspectRatio(1f)
+            modifier = Modifier.size(96.dp).aspectRatio(1f)
         ) {
             Box(contentAlignment = Alignment.Center) {
                 Icon(
